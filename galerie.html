@@ -16,11 +16,63 @@
 </head>
 <body>
 <header>
-<nav class="container">
+  <nav class="container" style="position:relative;">
 
-<ul class="nav-links"><li><a href="index.html">Accueil</a></li><li><a href="activites.html">Activités</a></li><li><a href="tarifs.html">Tarifs &amp; Inscriptions</a></li><li><a href="evenements.html">Agenda</a></li><li><a href="galerie.html">Galerie</a></li><li><a href="association.html">L'Association</a></li><li><a href="services.html">Services</a></li><li><a href="contact.html">Contact</a></li></ul>
-</nav>
+    <!-- Bouton hamburger (masqué en desktop) -->
+    <button class="nav-toggle"
+            aria-label="Menu"
+            style="background:none;border:none;font-size:2rem;cursor:pointer;display:none;position:absolute;right:0;top:0.25rem;">
+      ☰
+    </button>
+
+    <!-- Liens de navigation -->
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="activites.html">Activités</a></li>
+      <li><a href="tarifs.html">Tarifs &amp; Inscriptions</a></li>
+      <li><a href="evenements.html">Agenda</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="association.html">L'Association</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+  </nav>
 </header>
+
+<!-- Petit JS autonome : cache/affiche les liens et le bouton selon la largeur -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const navLinks = document.querySelector('.nav-links');
+  const toggle   = document.querySelector('.nav-toggle');
+
+  // Basculer l’affichage du menu
+  toggle.addEventListener('click', () => {
+    const isHidden = navLinks.style.display === 'none';
+    navLinks.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden) {             // pile verticale pour mobile
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.gap           = '1rem';
+    }
+  });
+
+  // Adapter le header quand on change de taille d’écran
+  function adapt() {
+    if (window.innerWidth < 768) {      // mobile : montrer hamburger, cacher menu
+      toggle.style.display  = 'block';
+      navLinks.style.display = 'none';
+    } else {                            // desktop : tout afficher
+      toggle.style.display  = 'none';
+      navLinks.style.display = '';
+      navLinks.style.flexDirection = '';
+      navLinks.style.gap = '';
+    }
+  }
+
+  adapt();                   // au chargement
+  window.addEventListener('resize', adapt);
+});
+</script>
 <main class="container">
 <h1 class="section-title">Galerie</h1>
 <div class="cards-grid">
