@@ -1,5 +1,5 @@
 const activities = [
-  {
+{
     "name": "Arts plastiques",
     "public": "Adultes",
     "day": "Mardi",
@@ -116,20 +116,56 @@ const activities = [
     ]
   },
   {
-    "name": "Gym douce",
-    "public": "Adultes",
-    "day": "Vendredi",
-    "time": "10h00–11h00",
-    "price": "160 € + adhésion",
-    "referent": "Francine CROULLEBOIS",
-    "phone": "06 09 75 06 07",
-    "animator": "Colette SOLIVERES",
+    "name": "Danse africaine (Enfants)",
+    "public": "Enfants (jusqu'à 12 ans)",
+    "day": "Vendredi (1/2)",
+    "time": "17h15–18h15",
+    "price": "111 € + adhésion",
+    "referent": "Karine JACQUET",
+    "phone": "06 88 49 59 41",
+    "animator": "Salem BLE",
     "location": "Salle PC haut",
     "start": "12/09/2025",
-    "category": [
-      "adultes",
-      "sport"
-    ]
+    "category": ["enfants", "culture"]
+  },
+  {
+    "name": "Danse africaine (Adultes)",
+    "public": "Adultes",
+    "day": "Vendredi (1/2)",
+    "time": "19h30–21h00",
+    "price": "135 € + adhésion",
+    "referent": "Karine JACQUET",
+    "phone": "06 88 49 59 41",
+    "animator": "Salem BLE",
+    "location": "Salle PC haut",
+    "start": "12/09/2025",
+    "category": ["adultes", "culture"]
+  },
+  {
+    "name": "Danse latino",
+    "public": "Adultes",
+    "day": "Vendredi",
+    "time": "19h30–20h30",
+    "price": "160 € + adhésion",
+    "referent": "Alice HEITZMANN",
+    "phone": "06 73 09 12 68",
+    "animator": "Jean Philippe TRAN",
+    "location": "Salle PC haut",
+    "start": "12/09/2025",
+    "category": ["adultes", "culture"]
+  },
+  {
+    "name": "Danse traditionnelle",
+    "public": "Adultes",
+    "day": "Mardi (1/2)",
+    "time": "20h45–22h15",
+    "price": "60 € + adhésion",
+    "referent": "Magali LAGLAINE",
+    "phone": "06 82 15 59 57",
+    "animator": "Erwan LAGLAINE",
+    "location": "Salle PC bas",
+    "start": "09/09/2025",
+    "category": ["adultes", "culture"]
   },
   {
     "name": "Éveil corporel",
@@ -144,6 +180,35 @@ const activities = [
     "start": "10/09/2025",
     "category": [
       "enfants",
+      "sport"
+    ]
+  },
+  {
+    "name": "Fanfare",
+    "public": "Adultes",
+    "day": "Vendredi",
+    "time": "19h00–20h30",
+    "price": "gratuit + adhésion",
+    "referent": "Sylvain GALLIZIA",
+    "phone": "06 09 67 20 00",
+    "animator": "Sylvain GALLIZIA",
+    "location": "Salle PC bas",
+    "start": "12/09/2025",
+    "category": ["adultes", "culture"]
+  },
+  {
+    "name": "Gym douce",
+    "public": "Adultes",
+    "day": "Vendredi",
+    "time": "10h00–11h00",
+    "price": "160 € + adhésion",
+    "referent": "Francine CROULLEBOIS",
+    "phone": "06 09 75 06 07",
+    "animator": "Colette SOLIVERES",
+    "location": "Salle PC haut",
+    "start": "12/09/2025",
+    "category": [
+      "adultes",
       "sport"
     ]
   },
