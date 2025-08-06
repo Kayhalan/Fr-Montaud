@@ -463,3 +463,38 @@ footer {
 .cards-grid{
  justify-content:center;
 }
+/* À ajouter dans votre fichier css/style.css */
+.pricing-info{
+  background:#eef3ff;            /* même fond pastel que vos encarts */
+  border-radius:16px;
+  padding:2rem;
+  text-align:center;
+}
+.pricing-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:2rem;
+  justify-items:center;
+  margin:1.5rem 0;
+}
+.price-block{
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,.05);
+  padding:1.25rem 2rem;
+}
+.price-block h4{
+  margin:0 0 .5rem;
+  font-size:1.5rem;
+  color:#0c0c0c;                 /* bleu de la charte */
+}
+.price{
+  font-size:2rem;
+  font-weight:700;
+  color:#0270d6;
+}
+.pricing-note{
+  margin-top:.75rem;
+  font-size:.9rem;
+}
+
