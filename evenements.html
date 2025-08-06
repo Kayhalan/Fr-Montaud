@@ -1,31 +1,63 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AGENDA</title>
-<meta content="Foyer Rural de Montaud: activités sportives, culturelles, loisirs à Montaud, Hérault." name="description"/>
-<link href="css/style.css" rel="stylesheet"/>
-<link href="https://www.foyer-rural-montaud.com/" rel="canonical"/>
-<meta content="website" property="og:type"/>
-<meta content="Évènements" property="og:title"/>
-<meta content="Découvrez nos activités et services à Montaud." property="og:description"/>
-<meta content="https://www.foyer-rural-montaud.com/" property="og:url"/>
-<meta content="Foyer Rural de Montaud" property="og:site_name"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AGENDA</title>
+
+  <!-- SEO / réseaux sociaux -->
+  <meta name="description" content="Foyer Rural de Montaud : activités sportives, culturelles et loisirs – Saison 2025-2026"/>
+  <link rel="canonical" href="https://www.foyer-rural-montaud.com/"/>
+  <meta property="og:type"        content="website"/>
+  <meta property="og:title"       content="Évènements"/>
+  <meta property="og:description" content="Découvrez nos activités et événements à Montaud."/>
+  <meta property="og:url"         content="https://www.foyer-rural-montaud.com/"/>
+  <meta property="og:site_name"   content="Foyer Rural de Montaud"/>
+
+  <!-- Feuille de style globale + ajustements locaux -->
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* —­­ Agenda —­­ */
+    .events-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:2rem;
+      margin-top:2rem;
+    }
+    .card{
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,.05);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      transition:transform .25s ease;
+    }
+    .card:hover{transform:translateY(-4px);}
+    .card img{
+      width:100%;height:200px;object-fit:cover;
+    }
+    .card-content{padding:1.25rem;}
+    .card-content h2{
+      margin:.25rem 0 .5rem;
+      font-size:1.25rem;
+      color:#0270d6;        /* même bleu que les titres d’index */
+    }
+    .event-date{
+      font-weight:700;
+      color:#c0392b;        /* accent rouge-brique déjà présent sur index */
+      margin-bottom:.5rem;
+    }
+  </style>
 </head>
+
 <body>
 <header>
   <nav class="container" style="position:relative;">
+    <!-- Hamburger mobile -->
+    <button class="nav-toggle" aria-label="Menu" style="background:none;border:none;font-size:2rem;cursor:pointer;display:none;position:absolute;right:0;top:.25rem;">☰</button>
 
-    <!-- Bouton hamburger (masqué en desktop) -->
-    <button class="nav-toggle"
-            aria-label="Menu"
-            style="background:none;border:none;font-size:2rem;cursor:pointer;display:none;position:absolute;right:0;top:0.25rem;">
-      ☰
-    </button>
-
-    <!-- Liens de navigation -->
+    <!-- Navigation -->
     <ul class="nav-links">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="activites.html">Activités</a></li>
@@ -36,72 +68,114 @@
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-
   </nav>
 </header>
 
-<!-- Petit JS autonome : cache/affiche les liens et le bouton selon la largeur -->
+<!-- JS : menu mobile -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const navLinks = document.querySelector('.nav-links');
-  const toggle   = document.querySelector('.nav-toggle');
+document.addEventListener('DOMContentLoaded',()=>{
+  const nav=document.querySelector('.nav-links');
+  const btn=document.querySelector('.nav-toggle');
 
-  // Basculer l’affichage du menu
-  toggle.addEventListener('click', () => {
-    const isHidden = navLinks.style.display === 'none';
-    navLinks.style.display = isHidden ? 'flex' : 'none';
-    if (isHidden) {             // pile verticale pour mobile
-      navLinks.style.flexDirection = 'column';
-      navLinks.style.gap           = '1rem';
-    }
+  btn.addEventListener('click',()=>{
+    const hide=nav.style.display==='none';
+    nav.style.display=hide?'flex':'none';
+    if(hide){nav.style.flexDirection='column';nav.style.gap='1rem';}
   });
 
-  // Adapter le header quand on change de taille d’écran
-  function adapt() {
-    if (window.innerWidth < 768) {      // mobile : montrer hamburger, cacher menu
-      toggle.style.display  = 'block';
-      navLinks.style.display = 'none';
-    } else {                            // desktop : tout afficher
-      toggle.style.display  = 'none';
-      navLinks.style.display = '';
-      navLinks.style.flexDirection = '';
-      navLinks.style.gap = '';
+  function adapt(){
+    if(window.innerWidth<768){
+      btn.style.display='block';nav.style.display='none';
+    }else{
+      btn.style.display='none';nav.style.display='';nav.style.flexDirection='';nav.style.gap='';
     }
   }
-
-  adapt();                   // au chargement
-  window.addEventListener('resize', adapt);
+  adapt();window.addEventListener('resize',adapt);
 });
 </script>
-<main class="container">
-<h1 class="section-title">Agenda</h1>
 
+<main class="container">
+  <h1 class="section-title">Agenda 2025 - 2026</h1>
+
+  <!-- Grille d’évènements -->
+  <section class="events-grid">
+
+    <!-- Soirée Guinguette -->
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1629321406535-a3d20c6bffed?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Ambiance guinguette sous guirlandes lumineuses">
+      <div class="card-content">
+        <h2>Soirée Guinguette</h2>
+        <p class="event-date">27&nbsp;septembre&nbsp;2025</p>
+        <p>Bal musette et piste de danse sous les guirlandes : ambiance rétro pour bien lancer la saison&nbsp;!</p>
+      </div>
+    </article>
+
+    <!-- Soirée Spectacle & Divertissement -->
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1753030722011-c50785aa569b?q=80&w=1635&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Spectacle sur scène, jeux de lumière">
+      <div class="card-content">
+        <h2>Soirée Spectacle &amp; Divertissement</h2>
+        <p class="event-date">Novembre&nbsp;2025 –&nbsp;date à venir</p>
+        <p>Humour, musique, numéros variés : une scène ouverte où les talents du foyer se dévoilent.</p>
+      </div>
+    </article>
+
+    <!-- Soupes & Marche aux Lampions -->
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1569271532956-3fb81a207115?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Lanternes illuminant une marche nocturne">
+      <div class="card-content">
+        <h2>Soupes &amp; Marche aux Lampions</h2>
+        <p class="event-date">17&nbsp;janvier&nbsp;2026</p>
+        <p>Dégustation de soupes maison suivie d’une promenade lumineuse dans le village, lampions à la main.</p>
+      </div>
+    </article>
+
+    <!-- Après-midi Jeux de Société -->
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1660807304251-9e2012336d19?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Partie de jeu de société conviviale">
+      <div class="card-content">
+        <h2>Après-midi Jeux de Société</h2>
+        <p class="event-date">Mars&nbsp;2026 –&nbsp;jour à confirmer</p>
+        <p>Du classique au moderne : venez (re)découvrir des jeux pour tous les âges, dans une ambiance bon enfant.</p>
+      </div>
+    </article>
+
+    <!-- Représentations & Démos de fin d’année -->
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1571158874937-beaf4f24a7cc?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Démonstration sportive et artistique">
+      <div class="card-content">
+        <h2>Représentations &amp; Démos des Activités</h2>
+        <p class="event-date">Fin&nbsp;juin&nbsp;2026</p>
+        <p>Une journée festive pour applaudir le travail réalisé tout au long de l’année : sports, arts et culture au programme.</p>
+      </div>
+    </article>
+
+  </section><!-- /.events-grid -->
 </main>
+
 <footer>
-<div class="container">
-<div class="footer-content">
-<div class="footer-section" style="text-align: center">
-<h4>Foyer Rural de Montaud</h4>
-<p>Association loi 1901<br/>
-                Saison 2025-2026<br/>
-                34160 Montaud</p>
-</div>
-<div class="footer-section" style="text-align: center">
-<h4>Nos Partenaires</h4>
-<p><a href="https://www.montaud34.fr/">• Mairie de Montaud</a><br/>
-<a href="https://www.saintbauzilledemontmel.fr/associations/foyer-rural/">• Foyer Rural de St Bauzille</a><br/>
-</div>
-<div class="footer-section" style="text-align: center">
-<h4>Informations</h4>
-<p>Activités dès 3 ans<br/>
-Certificat médical requis</p>
-</div>
-</div>
-<div style="text-align: center; padding-top: 20px; border-top: 1px solid #34495e;">
-<p>© 2025 Foyer Rural de Montaud. Tous droits réservés. <a href="mentions-legales.html">Mentions légales</a></p>
-</div>
-</div>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section" style="text-align:center">
+        <h4>Foyer Rural de Montaud</h4>
+        <p>Association loi 1901<br/>Saison 2025-2026<br/>34160 Montaud</p>
+      </div>
+      <div class="footer-section" style="text-align:center">
+        <h4>Nos Partenaires</h4>
+        <p><a href="https://www.montaud34.fr/">• Mairie de Montaud</a><br/>
+           <a href="https://www.saintbauzilledemontmel.fr/associations/foyer-rural/">• Foyer Rural de Saint-Bauzille</a></p>
+      </div>
+      <div class="footer-section" style="text-align:center">
+        <h4>Informations</h4>
+        <p>Activités dès 3 ans<br/>Certificat médical requis</p>
+      </div>
+    </div>
+    <div style="text-align:center;padding-top:20px;border-top:1px solid #34495e;">
+      <p>© 2025 Foyer Rural de Montaud – Tous droits réservés. <a href="mentions-legales.html">Mentions légales</a></p>
+    </div>
+  </div>
 </footer>
+
 <script src="js/activities.js"></script>
 <script src="js/main.js"></script>
 </body>
