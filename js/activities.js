@@ -1,4 +1,4 @@
-﻿const activities = [
+const activities = [
 {
     "name": "Arts plastiques",
     "public": "Enfants (+7 ans)",
@@ -538,4 +538,3 @@
     ]
   }
 ];
-

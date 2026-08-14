@@ -14,12 +14,12 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link rel="icon" type="image/png" href="asset/logo.png"/>
-<title>Nos Activités 2025-2026</title>
-<meta content="Foyer Rural de Montaud: activités sportives, culturelles, loisirs é  Montaud, Hérault." name="description"/>
+<title>Nos Activités 2026-2027</title>
+<meta content="Foyer Rural de Montaud: activités sportives, culturelles, loisirs é  Montaud, Hérault." name="description"/>
 <link href="css/style.css" rel="stylesheet"/>
 <link href="https://www.foyer-rural-montaud.com/" rel="canonical"/>
 <meta content="website" property="og:type"/>
-<meta content="Nos Activités 2025-2026" property="og:title"/>
+<meta content="Nos Activités 2026-2027" property="og:title"/>
 <meta content="Découvrez nos activités et services é  Montaud." property="og:description"/>
 <meta content="https://www.foyer-rural-montaud.com/" property="og:url"/>
 <meta content="Foyer Rural de Montaud" property="og:site_name"/>
@@ -83,9 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <main class="container">
-<h1 class="section-title">Nos Activités 2025-2026</h1>
+<h1 class="section-title">Nos Activités 2026-2027</h1>
   <p style="text-align:center; margin-top:2rem;">
-  <a href="asset/Programme%20Fr%2025-26.pdf"
+  <a href="asset/Programme%20Fr%202026-27.pdf"
      class="btn-download"
      style="
        display:inline-block;
@@ -100,14 +100,19 @@ document.addEventListener('DOMContentLoaded', () => {
   </a>
 </p> </br>
 <div class="activity-filters">
-<button class="filter-btn active" onclick="filterActivities('all')">Toutes</button>
-<button class="filter-btn" onclick="filterActivities('enfants')">Enfants</button>
-<button class="filter-btn" onclick="filterActivities('ados')">Ados</button>
-<button class="filter-btn" onclick="filterActivities('adultes')">Adultes</button>
-<button class="filter-btn" onclick="filterActivities('sport')">Sport</button>
-<button class="filter-btn" onclick="filterActivities('culture')">Culture</button>
+<button class="filter-btn active" data-filter="all" onclick="filterActivities('all')">Toutes</button>
+<button class="filter-btn" data-filter="enfants" onclick="filterActivities('enfants')">Enfants</button>
+<button class="filter-btn" data-filter="ados" onclick="filterActivities('ados')">Ados</button>
+<button class="filter-btn" data-filter="adultes" onclick="filterActivities('adultes')">Adultes</button>
+<button class="filter-btn" data-filter="sport" onclick="filterActivities('sport')">Sport</button>
+<button class="filter-btn" data-filter="culture" onclick="filterActivities('culture')">Culture</button>
+</div>
+<div class="view-switch" aria-label="Choix de la vue des activites">
+<button class="view-btn active" data-view="cards" onclick="switchActivitiesView('cards')">Liste</button>
+<button class="view-btn" data-view="calendar" onclick="switchActivitiesView('calendar')">Calendrier hebdo</button>
 </div>
 <div class="activities-grid" id="activities-container"></div>
+<div class="activities-calendar-view is-hidden" id="activities-calendar"></div>
 </main>
 <footer>
 <div class="container">
@@ -115,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="footer-section" style="text-align: center">
 <h4>Foyer Rural de Montaud</h4>
 <p>Association loi 1901<br/>
-                Saison 2025-2026<br/>
+                Saison 2026-2027<br/>
                 34160 Montaud</p>
 </div>
 <div class="footer-section" style="text-align: center">
@@ -130,7 +135,7 @@ Certificat médical requis</p>
 </div>
 </div>
 <div style="text-align: center; padding-top: 20px; border-top: 1px solid #34495e;">
-<p>© 2025 Foyer Rural de Montaud. Tous droits réservés. <a href="mentions-legales.html">Mentions légales</a></p>
+<p>© 2026 Foyer Rural de Montaud. Tous droits réservés. <a href="mentions-legales.html">Mentions légales</a></p>
 </div>
 </div>
 </footer>

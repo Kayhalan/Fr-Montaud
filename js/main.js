@@ -12,62 +12,341 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check for filter parameter in URL
     const urlParams = new URLSearchParams(window.location.search);
     const filterParam = urlParams.get('filter');
+    const viewParam = urlParams.get('view');
     const initialFilter = filterParam || 'all';
+    const initialView = viewParam === 'calendar' ? 'calendar' : 'cards';
+
+    activityViewState.view = initialView;
+    setActiveViewButton(initialView);
     
     // Apply the filter
     if (filterParam) {
-      filterActivities(filterParam);
+      filterActivities(initialFilter);
     } else {
-      renderActivities('all');
+      renderActivities(initialFilter);
     }
   }
 });
 
+const activityViewState = {
+  filter: 'all',
+  view: 'cards'
+};
+
+const activityCalendarDays = [
+  { key: 'lundi', label: 'Lundi' },
+  { key: 'mardi', label: 'Mardi' },
+  { key: 'mercredi', label: 'Mercredi' },
+  { key: 'jeudi', label: 'Jeudi' },
+  { key: 'vendredi', label: 'Vendredi' },
+  { key: 'samedi', label: 'Samedi' },
+  { key: 'dimanche', label: 'Dimanche' },
+  { key: 'autres', label: 'Autres creneaux' }
+];
+
 // Filter & render activities (fonctions globales pour compatibilité)
 window.filterActivities = function(cat) {
+  activityViewState.filter = cat;
   document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.textContent.toLowerCase() === (cat === 'all' ? 'toutes' : cat));
+    const btnFilter = btn.getAttribute('data-filter') || btn.textContent.toLowerCase();
+    const targetFilter = cat === 'all' ? 'all' : cat;
+    btn.classList.toggle('active', btnFilter === targetFilter);
   });
-  renderActivities(cat);
+  renderActivities(activityViewState.filter);
 }
 
-window.renderActivities = function(category) {
+window.switchActivitiesView = function(view) {
+  activityViewState.view = view === 'calendar' ? 'calendar' : 'cards';
+  setActiveViewButton(activityViewState.view);
+  renderActivities(activityViewState.filter);
+}
+
+function setActiveViewButton(view) {
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-view') === view);
+  });
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function normalizeActivityName(name) {
+  return (name || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[’']/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function resolveActivityDetailUrl(act) {
+  if (act && act.detailUrl) return act.detailUrl;
+
+  const fallbackMap = {
+    'arts plastiques': 'activites/arts-plastiques.html',
+    'badminton': 'activites/badminton.html',
+    'bibliotheque': 'activites/bibliotheque.html',
+    'boxe pieds poings': 'activites/boxe-pieds-poings.html',
+    'break dance': 'activites/break-dance.html',
+    'cafe citoyen': 'activites/cafe-citoyen.html',
+    'danse africaine enfants': 'activites/danse-africaine.html',
+    'danse africaine adultes': 'activites/danse-africaine.html',
+    'danse africaine': 'activites/danse-africaine.html',
+    'danse latino': 'activites/danse-latino.html',
+    'danse traditionnelle': 'activites/danse-traditionnelle.html',
+    'danse jazz kpop': 'activites/danse-jazz-kpop.html',
+    'danse jazz k pop': 'activites/danse-jazz-kpop.html',
+    'eveil corporel': 'activites/eveil-corporel.html',
+    'fanfare': 'activites/fanfare.html',
+    'fusion jazz': 'activites/fusion-jazz.html',
+    'gym douce': 'activites/gym-douce.html',
+    'gym tonic': 'activites/gym-tonic.html',
+    'initiation danses': 'activites/initiation-danses.html',
+    'judo': 'activites/judo.html',
+    'marche': 'activites/marche-jeudi.html',
+    'percussions': 'activites/percussions.html',
+    'petanque': 'activites/petanque.html',
+    'pilates': 'activites/pilates.html',
+    'rando vtt': 'activites/rando-vtt.html',
+    'stretching': 'activites/stretching.html',
+    'streching': 'activites/stretching.html',
+    'theatre': 'activites/theatre-enfants.html',
+    'theatre adultes': 'activites/theatre-adulte.html',
+    'theatre enfants': 'activites/theatre-enfants.html',
+    'yoga': 'activites/yoga.html',
+    'zumba': 'activites/zumba.html'
+  };
+
+  const normalizedName = normalizeActivityName(act && act.name);
+  return fallbackMap[normalizedName] || '';
+}
+
+function getActivitiesData() {
+  const sourceActivities = window.activities || activities || [];
+  const normalizedNames = new Set(sourceActivities.map(act => normalizeActivityName(act && act.name)));
+
+  const requiredFallbackActivities = [
+    {
+      name: 'Bibliotheque',
+      public: 'Tout public',
+      day: 'Samedi',
+      time: '10h00-12h00',
+      price: 'gratuit + adhesion',
+      referent: 'Mairie de Montaud',
+      phone: '',
+      animator: 'Benevoles',
+      location: 'Ancienne Mairie',
+      start: 'Septembre 2026',
+      detailUrl: 'activites/bibliotheque.html',
+      category: ['enfants', 'ados', 'adultes', 'culture']
+    },
+    {
+      name: 'Cafe citoyen',
+      public: 'Tout public',
+      day: 'Samedi',
+      time: '10h00-12h30',
+      price: 'gratuit + adhesion',
+      referent: 'Marion GARGANI-FARE',
+      phone: '06 70 92 20 58',
+      animator: "Mont'o cafe",
+      location: 'Salle Mairie',
+      start: '12/09/2026',
+      detailUrl: 'activites/cafe-citoyen.html',
+      category: ['enfants', 'ados', 'adultes', 'culture']
+    }
+  ];
+
+  const missingRequired = requiredFallbackActivities.filter(act => !normalizedNames.has(normalizeActivityName(act.name)));
+  if (!missingRequired.length) {
+    return sourceActivities;
+  }
+
+  return [...sourceActivities, ...missingRequired];
+}
+
+function getFilteredActivities(category) {
+  return getActivitiesData().filter(act => category === 'all' || (act.category && act.category.includes(category)));
+}
+
+function getDayKey(dayValue) {
+  const normalizedDay = normalizeActivityName(dayValue);
+
+  if (normalizedDay.includes('lundi')) return 'lundi';
+  if (normalizedDay.includes('mardi')) return 'mardi';
+  if (normalizedDay.includes('mercredi')) return 'mercredi';
+  if (normalizedDay.includes('jeudi')) return 'jeudi';
+  if (normalizedDay.includes('vendredi')) return 'vendredi';
+  if (normalizedDay.includes('samedi')) return 'samedi';
+  if (normalizedDay.includes('dimanche')) return 'dimanche';
+
+  return 'autres';
+}
+
+function getStartMinutes(timeValue) {
+  const match = String(timeValue || '').match(/(\d{1,2})h(\d{0,2})/i);
+  if (!match) return Number.MAX_SAFE_INTEGER;
+
+  const hours = Number.parseInt(match[1], 10);
+  const minutes = match[2] ? Number.parseInt(match[2], 10) : 0;
+  return (hours * 60) + minutes;
+}
+
+function getCalendarLocationClass(locationValue) {
+  const normalized = normalizeActivityName(locationValue);
+
+  if (normalized.includes('salle pc haut')) return 'loc-salle-pc-haut';
+  if (normalized.includes('salle pc bas')) return 'loc-salle-pc-bas';
+  if (normalized.includes('grange')) return 'loc-grange';
+  if (normalized.includes('exterieur') || normalized.includes('rdv') || normalized.includes('rdv salle pc')) return 'loc-exterieur';
+
+  return 'loc-autre';
+}
+
+function renderActivitiesCards(category) {
   const container = document.getElementById('activities-container');
   if (!container) return;
   container.innerHTML = '';
   
-  // Utiliser le tableau global activities (peut venir de Firebase ou du fichier JS)
-  const activitiesData = window.activities || activities || [];
-  const filtered = activitiesData.filter(act => category === 'all' || (act.category && act.category.includes(category)));
+  const filtered = getFilteredActivities(category);
   
   filtered.forEach(act => {
-    const detailButton = act.detailUrl ? 
-      `<div class="activity-actions">
-        <a href="${act.detailUrl}" class="btn-detail">En savoir plus</a>
-      </div>` : '';
-    
-    container.insertAdjacentHTML('beforeend', `
+    const detailUrl = resolveActivityDetailUrl(act);
+    const cardInner = `
       <div class="activity-card">
         <div class="activity-header">
-          <span class="activity-title">${act.name}</span>
-          <span class="activity-price">${act.price}</span>
+          <span class="activity-title">${escapeHtml(act.name)}</span>
+          <span class="activity-price">${escapeHtml(act.price)}</span>
         </div>
         <div class="activity-details">
-          <div class="detail-item"><span class="detail-icon">👥</span>${act.public}</div>
-          <div class="detail-item"><span class="detail-icon">📅</span>${act.day}</div>
-          <div class="detail-item"><span class="detail-icon">⏰</span>${act.time}</div>
-          <div class="detail-item"><span class="detail-icon">📍</span>${act.location}</div>
-          <div class="detail-item"><span class="detail-icon">📞</span>${act.phone}</div>
+          <div class="detail-item"><span class="detail-icon">👥</span>${escapeHtml(act.public)}</div>
+          <div class="detail-item"><span class="detail-icon">📅</span>${escapeHtml(act.day)}</div>
+          <div class="detail-item"><span class="detail-icon">⏰</span>${escapeHtml(act.time)}</div>
+          <div class="detail-item"><span class="detail-icon">📍</span>${escapeHtml(act.location)}</div>
+          <div class="detail-item"><span class="detail-icon">📞</span>${escapeHtml(act.phone)}</div>
         </div>
-        ${detailButton}
       </div>
-    `);
+    `;
+
+    const cardHtml = detailUrl
+      ? `<a href="${escapeHtml(detailUrl)}" class="activity-card-link" aria-label="Voir la fiche de ${escapeHtml(act.name)}">${cardInner}</a>`
+      : cardInner;
+    
+    container.insertAdjacentHTML('beforeend', cardHtml);
   });
+}
+
+function renderCalendarActivityItem(act) {
+  const detailUrl = resolveActivityDetailUrl(act);
+  const locationClass = getCalendarLocationClass(act.location);
+  const itemInner = `
+    <article class="calendar-activity-item">
+      <div class="calendar-time">${escapeHtml(act.time || 'Horaire a confirmer')}</div>
+      <h3 class="calendar-activity-title">${escapeHtml(act.name)}</h3>
+      <p class="calendar-activity-meta">${escapeHtml(act.public || 'Public non renseigne')}</p>
+      <span class="calendar-location-badge ${locationClass}">${escapeHtml(act.location || 'Lieu non renseigne')}</span>
+    </article>
+  `;
+
+  if (detailUrl) {
+    return `<a href="${escapeHtml(detailUrl)}" class="calendar-activity-link" aria-label="Voir la fiche de ${escapeHtml(act.name)}">${itemInner}</a>`;
+  }
+
+  return itemInner;
+}
+
+function renderActivitiesCalendar(category) {
+  const container = document.getElementById('activities-calendar');
+  if (!container) return;
+
+  const filtered = getFilteredActivities(category);
+
+  if (!filtered.length) {
+    container.innerHTML = '<p class="calendar-empty-state">Aucune activite pour ce filtre.</p>';
+    return;
+  }
+
+  const groupedActivities = {};
+  activityCalendarDays.forEach(day => {
+    groupedActivities[day.key] = [];
+  });
+
+  filtered.forEach(act => {
+    const key = getDayKey(act.day);
+    groupedActivities[key].push(act);
+  });
+
+  activityCalendarDays.forEach(day => {
+    groupedActivities[day.key].sort((a, b) => {
+      const startA = getStartMinutes(a.time);
+      const startB = getStartMinutes(b.time);
+      if (startA !== startB) return startA - startB;
+      return String(a.name || '').localeCompare(String(b.name || ''), 'fr', { sensitivity: 'base' });
+    });
+  });
+
+  const alwaysVisibleDays = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'];
+  const visibleDays = activityCalendarDays.filter(day => alwaysVisibleDays.includes(day.key) || groupedActivities[day.key].length > 0);
+
+  const columnsHtml = visibleDays.map(day => {
+    const dayActivities = groupedActivities[day.key];
+    const itemsHtml = dayActivities.length
+      ? dayActivities.map(renderCalendarActivityItem).join('')
+      : '<p class="calendar-empty-slot">Aucune activite</p>';
+
+    return `
+      <section class="calendar-day-column">
+        <header class="calendar-day-header">
+          <h2>${day.label}</h2>
+          <span class="calendar-day-count">${dayActivities.length}</span>
+        </header>
+        <div class="calendar-day-content">
+          ${itemsHtml}
+        </div>
+      </section>
+    `;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="activities-calendar-grid">
+      ${columnsHtml}
+    </div>
+  `;
+}
+
+window.renderActivities = function(category) {
+  if (category) {
+    activityViewState.filter = category;
+  }
+
+  const cardsContainer = document.getElementById('activities-container');
+  const calendarContainer = document.getElementById('activities-calendar');
+  if (!cardsContainer) return;
+
+  if (activityViewState.view === 'calendar' && calendarContainer) {
+    cardsContainer.classList.add('is-hidden');
+    calendarContainer.classList.remove('is-hidden');
+    renderActivitiesCalendar(activityViewState.filter);
+    return;
+  }
+
+  cardsContainer.classList.remove('is-hidden');
+  if (calendarContainer) {
+    calendarContainer.classList.add('is-hidden');
+  }
+  renderActivitiesCards(activityViewState.filter);
 }
 
 // Aliases pour la compatibilité
 function filterActivities(cat) { window.filterActivities(cat); }
 function renderActivities(category) { window.renderActivities(category); }
+function switchActivitiesView(view) { window.switchActivitiesView(view); }
 
 // === Fonctions de partage pour les actualités ===
 window.shareNews = {

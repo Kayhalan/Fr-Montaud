@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Programme Foyer Rural de Montaud 2026-2027</title>
+  <style>
+    @page { size: A4 portrait; margin: 12mm; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #1f2f45;
+      line-height: 1.25;
+      font-size: 11px;
+      background: #fff;
+    }
+    .cover {
+      border: 2px solid #0077cc;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #eef7ff, #f5fff9);
+    }
+    .cover-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+    .logo {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 2px solid #d5e9fb;
+      background: #fff;
+      padding: 4px;
+    }
+    h1 {
+      margin: 0 0 4px;
+      font-size: 24px;
+      color: #0077cc;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    h2 {
+      margin: 16px 0 8px;
+      font-size: 15px;
+      color: #2e8b57;
+      page-break-after: avoid;
+    }
+    .subtitle {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #2e8b57;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .meta-card {
+      border: 1px solid #d8eaff;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 8px;
+    }
+    .meta-card strong { color: #0077cc; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      page-break-inside: auto;
+    }
+    thead { display: table-header-group; }
+    tbody { display: table-row-group; }
+    tr { page-break-inside: avoid; }
+    th, td {
+      border: 1px solid #d4deea;
+      padding: 6px 6px;
+      vertical-align: top;
+      word-wrap: break-word;
+    }
+    th {
+      background: #0077cc;
+      color: #fff;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    tbody tr:nth-child(odd) { background: #f9fcff; }
+    .w-activity { width: 16%; }
+    .w-public { width: 16%; }
+    .w-day { width: 11%; }
+    .w-time { width: 13%; }
+    .w-place { width: 13%; }
+    .w-price { width: 14%; }
+    .w-contact { width: 17%; }
+    .note {
+      margin-top: 10px;
+      border: 1px solid #dfe9f3;
+      border-radius: 8px;
+      padding: 10px;
+      background: #f7fbff;
+    }
+    .note ul { margin: 6px 0 0 18px; padding: 0; }
+    .footer {
+      margin-top: 10px;
+      font-size: 10px;
+      color: #4f6177;
+      border-top: 1px solid #d6e3f0;
+      padding-top: 6px;
+    }
+    .print-footer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-top: 1px solid #d6e3f0;
+      font-size: 9px;
+      color: #5a6f86;
+      display: flex;
+      justify-content: space-between;
+      padding-top: 4px;
+      background: #fff;
+    }
+    .page-num::after {
+      content: "Page " counter(page) " / " counter(pages);
+    }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <div class="cover-top">
+      <img class="logo" src="../logo.png" alt="Logo Foyer Rural de Montaud" />
+      <div>
+        <h1>Programme FR 2026-2027</h1>
+        <p class="subtitle">Foyer Rural de Montaud</p>
+      </div>
+    </div>
+    <div class="meta-grid">
+      <div class="meta-card"><strong>Inscriptions :</strong> à partir du 1er septembre 2026</div>
+      <div class="meta-card"><strong>Début des activités :</strong> semaine du 7 septembre 2026</div>
+      <div class="meta-card"><strong>Assemblée générale :</strong> vendredi 11 septembre 2026 à 19h, salle Pierre Combettes</div>
+      <div class="meta-card"><strong>Adhésion annuelle :</strong> enfant (&lt;18 ans) 10 € ; adulte 15 €</div>
+    </div>
+  </section>
+
+  <h2>Planning détaillé des activités 2026-2027</h2>
+  <table>
+    <thead>
+      <tr>
+        <th class="w-activity">Activité</th>
+        <th class="w-public">Public</th>
+        <th class="w-day">Jour</th>
+        <th class="w-time">Horaire</th>
+        <th class="w-place">Lieu</th>
+        <th class="w-price">Cotisation</th>
+        <th class="w-contact">Contact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Arts plastiques</td><td>Enfants (7/11 ans)</td><td>Mardi</td><td>17h15-18h15</td><td>Salle PC bas</td><td>210 € + adhésion</td><td>Virginie FLEURY<br/>06 85 59 80 46</td></tr>
+      <tr><td>Arts plastiques</td><td>Adultes</td><td>Mardi</td><td>18h15-20h00</td><td>Salle PC bas</td><td>250 € + adhésion</td><td>Virginie FLEURY<br/>06 85 59 80 46</td></tr>
+      <tr><td>Badminton (jeu)</td><td>Ados/Adultes</td><td>Lundi</td><td>18h30-20h30</td><td>Grange Robert</td><td>30 € + adhésion</td><td>Valérie REIMUND / Sophie BUSSIERE<br/>06 16 12 08 08 / 06 09 88 06 23</td></tr>
+      <tr><td>Badminton (entraînement)</td><td>Ados/Adultes</td><td>Mardi</td><td>19h00-20h30</td><td>Grange Robert</td><td>30 € + adhésion</td><td>Hugo REIMUND<br/>07 68 20 84 13</td></tr>
+      <tr><td>Boxe pieds-poings</td><td>Ados (&lt;14 ans)</td><td>Mardi</td><td>17h15-18h15</td><td>Salle PC haut</td><td>180 € + adhésion</td><td>Marianne COMBESCURE<br/>07 87 70 77 40</td></tr>
+      <tr><td>Boxe pieds-poings</td><td>Adultes</td><td>Mardi</td><td>18h15-19h15</td><td>Salle PC haut</td><td>210 € + adhésion</td><td>Marianne COMBESCURE<br/>07 87 70 77 40</td></tr>
+      <tr><td>Break dance</td><td>Débutants enfants (+6 ans)</td><td>Mercredi</td><td>17h30-18h30</td><td>Salle PC haut</td><td>180 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Break dance</td><td>Ados (confirmés)</td><td>Mercredi</td><td>18h30-20h00</td><td>Salle PC haut</td><td>210 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Danse Jazz/K-pop</td><td>Enfants (6/8 ans)</td><td>Mercredi</td><td>10h00-11h00</td><td>Salle PC haut</td><td>160 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Danse Jazz/K-pop</td><td>Enfants (8/10 ans)</td><td>Mercredi</td><td>11h00-12h00</td><td>Salle PC haut</td><td>160 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Danse traditionnelle (bi-mensuel)</td><td>Adultes</td><td>Mardi</td><td>20h30-22h00</td><td>Salle PC haut</td><td>60 € + adhésion</td><td>Magali LAGLAINE<br/>06 82 15 59 57</td></tr>
+      <tr><td>Fanfare</td><td>Adultes</td><td>Vendredi</td><td>18h30-20h30</td><td>Salle PC bas</td><td>Gratuit + adhésion</td><td>Sylvain GALLIZIA<br/>06 09 67 20 00</td></tr>
+      <tr><td>Fusion jazz</td><td>Ados (&gt;10 ans)</td><td>Mercredi</td><td>15h30-16h30</td><td>Salle PC haut</td><td>160 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Gym douce</td><td>Adultes</td><td>Vendredi</td><td>10h00-11h00</td><td>Salle PC haut</td><td>160 € + adhésion</td><td>Michel NACACHIAN<br/>06 12 54 48 35</td></tr>
+      <tr><td>Gym tonic</td><td>Adultes</td><td>Mardi</td><td>19h15-20h15</td><td>Salle PC haut</td><td>160 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Gym tonic</td><td>Adultes</td><td>Mercredi</td><td>17h30-19h00</td><td>Salle PC bas</td><td>190 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Judo</td><td>Enfants (4-8 ans)</td><td>Mercredi</td><td>13h15-14h15</td><td>Salle PC haut</td><td>180 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Judo</td><td>Ados (&gt;8 ans)</td><td>Mercredi</td><td>14h15-15h15</td><td>Salle PC haut</td><td>180 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Marche</td><td>Adultes</td><td>Jeudi</td><td>8h45-12h00</td><td>Extérieur</td><td>Gratuit + adhésion</td><td>Bernard LACQUEMENT<br/>06 04 14 89 24</td></tr>
+      <tr><td>Pilates</td><td>Adultes</td><td>Mercredi</td><td>19h00-20h00</td><td>Salle PC bas</td><td>160 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Pilates</td><td>Adultes</td><td>Vendredi</td><td>11h00-12h00</td><td>Salle PC haut</td><td>160 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Pétanque</td><td>Tout public</td><td>Vendredi</td><td>Après-midi</td><td>Grange Robert</td><td>Gratuit + adhésion</td><td>Joël BALSAN<br/>04 67 65 08 42</td></tr>
+      <tr><td>Rando VTT</td><td>Adultes (+18 ans)</td><td>Mardi</td><td>À partir de 14h00</td><td>Rdv salle PC</td><td>5 € + adhésion</td><td>Philippe REVERBEL<br/>06 83 46 29 79</td></tr>
+      <tr><td>Stretching</td><td>Adultes</td><td>Lundi</td><td>19h30-20h30</td><td>Salle PC haut</td><td>160 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Théâtre enfants</td><td>Enfants (6-9 ans)</td><td>Samedi</td><td>10h00-11h15</td><td>Salle PC haut</td><td>180 € + adhésion</td><td>Michel NACACHIAN<br/>06 12 54 48 35</td></tr>
+      <tr><td>Théâtre enfants</td><td>Enfants (10-16 ans)</td><td>Samedi</td><td>11h15-12h30</td><td>Salle PC haut</td><td>180 € + adhésion</td><td>Michel NACACHIAN<br/>06 12 54 48 35</td></tr>
+      <tr><td>Yoga</td><td>Adultes</td><td>Jeudi</td><td>18h30-19h30</td><td>Salle PC haut</td><td>180 € + adhésion</td><td>Michel NACACHIAN<br/>06 12 54 48 35</td></tr>
+      <tr><td>Zumba</td><td>Adultes</td><td>Lundi</td><td>18h30-19h30</td><td>Salle PC haut</td><td>160 € + adhésion</td><td>Alice HEITZMANN<br/>06 73 09 12 68</td></tr>
+      <tr><td>Zumba</td><td>Enfants/Ados (&gt;10 ans)</td><td>Mercredi</td><td>16h30-17h30</td><td>Salle PC haut</td><td>160 € + adhésion</td><td>Roselyne NACACHIAN<br/>06 32 65 67 76</td></tr>
+      <tr><td>Bibliothèque de Montaud</td><td>Tout public</td><td>Samedi</td><td>10h00-12h00</td><td>Ancienne Mairie</td><td>Gratuit (adhérents)</td><td>Accueil Mairie</td></tr>
+      <tr><td>Café citoyen (Mont'ô café)</td><td>Tout public</td><td>Samedi</td><td>10h00-12h30</td><td>Salle Mairie</td><td>Gratuit + adhésion</td><td>Marion GARGANI-FARE<br/>06 70 92 20 58</td></tr>
+    </tbody>
+  </table>
+
+  <section class="note">
+    <strong>Rappels formalités 2026-2027</strong>
+    <ul>
+      <li>La 1ère séance est gratuite.</li>
+      <li>Dossier complet à remettre au plus tard à la deuxième séance.</li>
+      <li>Règlement de l'année obligatoire à l'inscription, paiement possible en 3 chèques.</li>
+      <li>Une seule adhésion est demandée, même en cas de plusieurs activités.</li>
+      <li>L'adhésion à Montaud ou Saint-Bauzille ouvre l'accès aux activités des deux foyers.</li>
+    </ul>
+  </section>
+
+  <p class="footer">
+    Foyer rural de Montaud - Place de l'Eglise - 34160 Montaud - www.foyer-rural-montaud.com - foyerrural.montaud@gmail.com
+  </p>
+
+  <div class="print-footer">
+    <span>Foyer Rural de Montaud - Saison 2026-2027</span>
+    <span class="page-num"></span>
+  </div>
+</body>
+</html>
