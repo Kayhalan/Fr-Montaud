@@ -4,7 +4,15 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "functions/**",
+      "asset/pdf-sources/**",
+      "**/*.md",
+      "**/*.csv",
+      "**/*.xlsx",
+      "asset/Fiche inscription 2025-2026.pdf",
+      "asset/Fiche inscription 2025-2026 v2.pdf",
+      "asset/Programme Fr 25-26.pdf"
     ],
     "rewrites": [
       {
