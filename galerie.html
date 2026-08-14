@@ -1,16 +1,26 @@
-<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 
 <html lang="fr">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-51FVQ5KPFZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-51FVQ5KPFZ');
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="icon" type="image/png" href="asset/logo.png"/>
 <title>Galerie</title>
-<meta content="Foyer Rural de Montaud: activités sportives, culturelles, loisirs à Montaud, Hérault." name="description"/>
+<meta content="Foyer Rural de Montaud: activités sportives, culturelles, loisirs é  Montaud, Hé©rault." name="description"/>
 <link href="css/style.css" rel="stylesheet"/>
 <link href="https://www.foyer-rural-montaud.com/" rel="canonical"/>
 <meta content="website" property="og:type"/>
 <meta content="Galerie" property="og:title"/>
-<meta content="Découvrez nos activités et services à Montaud." property="og:description"/>
+<meta content="Dé©couvrez nos activités et services é  Montaud." property="og:description"/>
 <meta content="https://www.foyer-rural-montaud.com/" property="og:url"/>
 <meta content="Foyer Rural de Montaud" property="og:site_name"/>
 </head>
@@ -18,7 +28,7 @@
 <header>
   <nav class="container" style="position:relative;">
 
-    <!-- Bouton hamburger (masqué en desktop) -->
+    <!-- Bouton hamburger (masqué© en desktop) -->
     <button class="nav-toggle"
             aria-label="Menu"
             style="background:none;border:none;font-size:2rem;cursor:pointer;display:none;position:absolute;right:0;top:0.25rem;">
@@ -28,13 +38,11 @@
     <!-- Liens de navigation -->
     <ul class="nav-links">
       <li><a href="index.html">Accueil</a></li>
-      <li><a href="activites.html">Activités</a></li>
+      <li><a href="activites.html">Activité©s</a></li>
       <li><a href="tarifs.html">Tarifs &amp; Inscriptions</a></li>
       <li><a href="evenements.html">Agenda</a></li>
       <li><a href="galerie.html">Galerie</a></li>
-      <li><a href="association.html">L'Association</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="association.html">L'Association</a></li>      <li><a href="contact.html">Contact</a></li>
     </ul>
 
   </nav>
@@ -46,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.querySelector('.nav-links');
   const toggle   = document.querySelector('.nav-toggle');
 
-  // Basculer l’affichage du menu
+  // Basculer l'™affichage du menu
   toggle.addEventListener('click', () => {
     const isHidden = navLinks.style.display === 'none';
     navLinks.style.display = isHidden ? 'flex' : 'none';
@@ -56,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Adapter le header quand on change de taille d’écran
+  // Adapter le header quand on change de taille d'™é©cran
   function adapt() {
     if (window.innerWidth < 768) {      // mobile : montrer hamburger, cacher menu
       toggle.style.display  = 'block';
@@ -76,10 +84,22 @@ document.addEventListener('DOMContentLoaded', () => {
 <main class="container">
 <h1 class="section-title">Galerie</h1>
 <div class="cards-grid">
-<div class="card"><img alt="Atelier arts plastiques" src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800" style="width:100%;border-radius:12px;margin-bottom:15px;"/><p>Atelier arts plastiques</p></div>
-<div class="card"><img alt="Séance de yoga" src="https://images.unsplash.com/photo-1554284126-aa88f22d8b55?w=800" style="width:100%;border-radius:12px;margin-bottom:15px;"/><p>Séance de yoga</p></div>
-<div class="card"><img alt="Break dance" src="https://images.unsplash.com/photo-1529627055733-4f02eaecd475?w=800" style="width:100%;border-radius:12px;margin-bottom:15px;"/><p>Break dance</p></div>
-<div class="card"><img alt="Rando VTT" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800" style="width:100%;border-radius:12px;margin-bottom:15px;"/><p>Rando VTT</p></div>
+<div class="card"><img alt="Atelier arts plastiques" src="asset/arts_plastiques.jpg" style="width:100%;border-radius:12px;margin-bottom:15px;"/><p>Atelier arts plastiques</p></div>
+<div class="card"><img alt="Séance de yoga" src="asset/yoga.jpg" style="width:100%;border-radius:12px;margin-bottom:15px;"/><p>Séance de yoga</p></div>
+<div class="card"><img alt="Break dance" src="asset/break_ados.jpg" style="width:100%;border-radius:12px;margin-bottom:15px;"/><p>Break dance</p></div>
+<div class="card"><img alt="Rando VTT" src="asset/rando_vtt.jpg" style="width:100%;border-radius:12px;margin-bottom:15px;"/><p>Rando VTT</p></div>
+<div class="card">
+  <a href="galerie-guinguette.html" style="text-decoration: none; color: inherit;">
+    <img alt="Soirée Guinguette" src="asset/guinguette.png" style="width:100%;border-radius:12px;margin-bottom:15px;"/>
+    <p>Soirée Guinguette</p>
+  </a>
+</div>
+<div class="card">
+  <a href="galerie-karaoke.html" style="text-decoration: none; color: inherit;">
+    <img alt="Soirée Karaoké" src="asset/Karaoke/IMG-20251130-WA0005.jpg" style="width:100%;border-radius:12px;margin-bottom:15px;"/>
+    <p>🎤 Soirée Karaoké</p>
+  </a>
+</div>
 </div>
 </main>
 <footer>
@@ -93,17 +113,17 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 <div class="footer-section" style="text-align: center">
 <h4>Nos Partenaires</h4>
-<p><a href="https://www.montaud34.fr/">• Mairie de Montaud</a><br/>
-<a href="https://www.saintbauzilledemontmel.fr/associations/foyer-rural/">• Foyer Rural de St Bauzille</a><br/>
+<p><a href="https://www.montaud34.fr/">'¢ Mairie de Montaud</a><br/>
+<a href="https://www.saintbauzilledemontmel.fr/associations/foyer-rural/">'¢ Foyer Rural de St Bauzille</a><br/>
 </div>
 <div class="footer-section" style="text-align: center">
 <h4>Informations</h4>
-<p>Activités dès 3 ans<br/>
-Certificat médical requis</p>
+<p>Activité©s dé¨s 3 ans<br/>
+Certificat mé©dical requis</p>
 </div>
 </div>
 <div style="text-align: center; padding-top: 20px; border-top: 1px solid #34495e;">
-<p>© 2025 Foyer Rural de Montaud. Tous droits réservés. <a href="mentions-legales.html">Mentions légales</a></p>
+<p>Â© 2025 Foyer Rural de Montaud. Tous droits ré©servé©s. <a href="mentions-legales.html">Mentions lé©gales</a></p>
 </div>
 </div>
 </footer>
@@ -111,3 +131,6 @@ Certificat médical requis</p>
 <script src="js/main.js"></script>
 </body>
 </html>
+
+
+

@@ -1,0 +1,164 @@
+﻿﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-51FVQ5KPFZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-51FVQ5KPFZ');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../asset/logo.png">
+    <title>Théâtre Enfants - Foyer Rural de Montaud</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+        <header>
+        <nav class="container" style="position:relative;">
+            <!-- Bouton hamburger (masqué en desktop) -->
+            <button class="nav-toggle"
+                    aria-label="Menu"
+                    style="background:none;border:none;font-size:2rem;cursor:pointer;display:none;position:absolute;right:0;top:0.25rem;">
+              ☰
+            </button>
+
+            <!-- Liens de navigation -->
+            <ul class="nav-links">
+              <li><a href="../index.html">Accueil</a></li>
+              <li><a href="../activites.html">Activités</a></li>
+              <li><a href="../tarifs.html">Tarifs &amp; Inscriptions</a></li>
+              <li><a href="../evenements.html">Agenda</a></li>
+              <li><a href="../galerie.html">Galerie</a></li>
+              <li><a href="../association.html">L'Association</a></li>
+              
+              <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Petit JS autonome : cache/affiche les liens et le bouton selon la largeur -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.querySelector('.nav-links');
+      const toggle   = document.querySelector('.nav-toggle');
+
+      // Basculer l'affichage du menu
+      toggle.addEventListener('click', () => {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      });
+
+      // Réajuster selon la largeur
+      function handleResize() {
+        if (window.innerWidth >= 768) {
+          navLinks.style.display = 'flex';
+          toggle.style.display = 'none';
+        } else {
+          navLinks.style.display = 'none';
+          toggle.style.display = 'block';
+        }
+      }
+
+      handleResize();
+      window.addEventListener('resize', handleResize);
+    });
+    </script>
+
+    <main>
+        <div class="container">
+            <div class="activity-page">
+                <div class="activity-hero">
+                    <h1>🎭 THÉÂTRE ENFANTS</h1>
+                    <p class="activity-subtitle">Improvisation, prise de parole et construction de personnages pour les enfants</p>
+                </div>
+                
+                <div class="activity-header">
+                    <img src="../asset/theatre_enfant.jpg" alt="Théâtre Enfants - Ateliers créatifs" class="activity-image">
+                </div>
+
+                <div class="activity-content">
+                    <div class="activity-description">
+                        <h2>Description</h2>
+                        <p>Improvisation, prise de parole en public, travail sur la voix, construction de personnages, mise en scène... Pour les enfants, à travers différents exercices ludiques, ils apprendront le travail de la scène, les mimes, sketches, connaissance du corps...</p>
+                    </div>
+
+                    <div class="activity-info-grid">
+                        <div class="info-card">
+                            <h3>👥 Public</h3>
+                            <p>ENFANTS 6 À 16 ANS</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>🕒 Horaires</h3>
+                            <p>Mercredi</p>
+                            <ul>
+                                <li>6 à 9 ans : 14h45 à 16h</li>
+                                <li>10 à 16 ans : 16h à 17h15</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>📍 Lieu</h3>
+                            <p>Salle Pierre Combettes (HAUT)</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>💰 Tarifs</h3>
+                            <p>Cotisation annuelle : 180 € + adhésion</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>📅 Démarrage</h3>
+                            <p>10 septembre 2025</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>📞 Contact</h3>
+                            <p><strong>Professeur :</strong></p>
+                            <p>Bernard GUILLERMO</p>
+                            
+                            <p><strong>Référent FR :</strong></p>
+                            <p>Michel NACACHIAN</p>
+                            <p>📞 06 12 54 48 35</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>ℹ️ À noter</h3>
+                            <p>La répartition par groupe d'âge est indicative et peut être modulée en fonction de l'appréciation des animateurs. Des regroupements pourront être faits à certains moments de l'année (préparation spectacle fin année par exemple).</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>🎬 Vidéos</h3>
+                            <p>Court métrage de fin de saison juin 2020 :</p>
+                            <ul>
+                                <li><a href="https://we.tl/t-cK6MCDLr1v" target="_blank">Lien 1</a></li>
+                                <li><a href="https://transferxl.com/08jGt58WYfvnds" target="_blank">Lien 2</a></li>
+                                <li><a href="https://photos.app.goo.gl/gTJyuP9pwmBccCKH8" target="_blank">Lien 3</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="../tarifs.html" class="btn btn-primary">S'inscrire</a>
+                <a href="../contact.html" class="btn btn-secondary">Nous contacter</a>
+                <a href="../activites.html" class="btn btn-outline">Retour aux activités</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Foyer Rural de Montaud. Tous droits réservés.</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
+
+
+
+

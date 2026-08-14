@@ -1,0 +1,207 @@
+﻿﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-51FVQ5KPFZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-51FVQ5KPFZ');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="asset/logo.png">
+    <title>Soirée Guinguette - 27 septembre 2025 - Foyer Rural de Montaud</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .pdf-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            height: 80vh;
+            min-height: 600px;
+            border: 2px solid #0077cc;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,119,204,0.2);
+        }
+        
+        .download-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #0077cc 0%, #005fa3 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .download-link:hover {
+            background: linear-gradient(135deg, #005fa3 0%, #004080 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,119,204,0.3);
+        }
+        
+        .event-header {
+            text-align: center;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%);
+            margin-bottom: 2rem;
+            border-radius: 12px;
+        }
+        
+        .event-title {
+            color: #0077cc;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .event-date {
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            padding: 8px 16px;
+            color: #0077cc;
+            text-decoration: none;
+            border: 2px solid #0077cc;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: #0077cc;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .event-title {
+                font-size: 2rem;
+            }
+            
+            .pdf-viewer {
+                height: 70vh;
+                min-height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container" style="position:relative;">
+            <!-- Bouton hamburger (masqué en desktop) -->
+            <button class="nav-toggle"
+                    aria-label="Menu"
+                    style="background:none;border:none;font-size:2rem;cursor:pointer;display:none;position:absolute;right:0;top:0.25rem;">
+              â˜°
+            </button>
+
+            <!-- Liens de navigation -->
+            <ul class="nav-links">
+              <li><a href="index.html">Accueil</a></li>
+              <li><a href="activites.html">Activités</a></li>
+              <li><a href="tarifs.html">Tarifs &amp; Inscriptions</a></li>
+              <li><a href="evenements.html">Agenda</a></li>
+              <li><a href="galerie.html">Galerie</a></li>
+              <li><a href="association.html">L'Association</a></li>              
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Script navigation mobile -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.querySelector('.nav-links');
+      const toggle   = document.querySelector('.nav-toggle');
+
+      toggle.addEventListener('click', () => {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      });
+
+      function handleResize() {
+        if (window.innerWidth >= 768) {
+          navLinks.style.display = 'flex';
+          toggle.style.display = 'none';
+        } else {
+          navLinks.style.display = 'none';
+          toggle.style.display = 'block';
+        }
+      }
+
+      handleResize();
+      window.addEventListener('resize', handleResize);
+    });
+    </script>
+
+    <main class="container">
+        <a href="evenements.html" class="back-button">🔙 Retour à l'agenda</a>
+
+        <div class="event-header">
+            <h1 class="event-title">🎉 Soirée Guinguette</h1>
+            <p class="event-date">27 septembre 2025</p>
+        </div>
+        
+        <div class="pdf-container">
+            <iframe src="asset/Affiche_guinguette.pdf" 
+                    class="pdf-viewer"
+                    title="Affiche Soirée Guinguette">
+                <p>Votre navigateur ne supporte pas l'affichage des PDF. 
+                   <a href="asset/Affiche_guinguette.pdf" target="_blank">Cliquez ici pour télécharger l'affiche</a>
+                </p>
+            </iframe>
+            
+            <div>
+                <a href="asset/Affiche_guinguette.pdf" 
+                   target="_blank" 
+                   class="download-link">
+                    Télécharger l'affiche PDF
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section" style="text-align: center">
+                    <h4>Foyer Rural de Montaud</h4>
+                    <p>Association loi 1901<br/>
+                       Saison 2025-2026<br/>
+                       34160 Montaud</p>
+                </div>
+                <div class="footer-section" style="text-align: center">
+                    <h4>Contact</h4>
+                    <p>Pour plus d'informations<br/>
+                       <a href="contact.html">Nous contacter</a></p>
+                </div>
+                <div class="footer-section" style="text-align: center">
+                    <h4>événement</h4>
+                    <p>Bal musette et piste de danse<br/>
+                       Ambiance rétro garantie !</p>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 20px; border-top: 1px solid #34495e;">
+                <p>© 2025 Foyer Rural de Montaud. Tous droits réservés. <a href="mentions-legales.html">Mentions légales</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+
+

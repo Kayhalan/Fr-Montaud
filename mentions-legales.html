@@ -1,9 +1,19 @@
-<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 
 <html lang="fr">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-51FVQ5KPFZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-51FVQ5KPFZ');
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="icon" type="image/png" href="asset/logo.png"/>
 <title>Mentions Légales</title>
 <meta content="Foyer Rural de Montaud: activités sportives, culturelles, loisirs à Montaud, Hérault." name="description"/>
 <link href="css/style.css" rel="stylesheet"/>
@@ -32,8 +42,7 @@
       <li><a href="tarifs.html">Tarifs &amp; Inscriptions</a></li>
       <li><a href="evenements.html">Agenda</a></li>
       <li><a href="galerie.html">Galerie</a></li>
-      <li><a href="association.html">L'Association</a></li>
-      <li><a href="services.html">Services</a></li>
+      <li><a href="association.html">L'Association</a></li>      
       <li><a href="contact.html">Contact</a></li>
     </ul>
 
@@ -46,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.querySelector('.nav-links');
   const toggle   = document.querySelector('.nav-toggle');
 
-  // Basculer l’affichage du menu
+  // Basculer l'affichage du menu
   toggle.addEventListener('click', () => {
     const isHidden = navLinks.style.display === 'none';
     navLinks.style.display = isHidden ? 'flex' : 'none';
@@ -56,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Adapter le header quand on change de taille d’écran
+  // Adapter le header quand on change de taille d'écran
   function adapt() {
     if (window.innerWidth < 768) {      // mobile : montrer hamburger, cacher menu
       toggle.style.display  = 'block';
@@ -75,11 +84,147 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <main class="container">
 <h1 class="section-title">Mentions légales</h1>
-<p>Association Foyer Rural de Montaud, siège social : 34160 Montaud – France.<br/>
-        Responsable de la publication : Président du Foyer Rural.<br/>
-        Hébergement : Wix.com Ltd., 40 Namal Tel Aviv 6350671, Israël.<br/>
-        Les informations recueillies font l’objet d’un traitement destiné à l’usage exclusif de l’association.<br/>
-        Conformément au RGPD et à la loi « Informatique et Libertés », vous disposez d’un droit d’accès, de rectification et de suppression des données vous concernant en nous contactant à foyerrural.montaud@gmail.com.</p>
+
+<section style="margin-bottom: 2rem;">
+    <h2>1. Informations légales</h2>
+    <p>
+        <strong>Nom de l'association :</strong> Foyer Rural de Montaud<br/>
+        <strong>Statut juridique :</strong> Association régie par la loi du 1er juillet 1901<br/>
+        <strong>Numéro SIREN :</strong> 389 573 643<br/>
+        <strong>Siège social :</strong> 34160 Montaud, France<br/>
+        <strong>Email :</strong> <a href="mailto:foyerrural.montaud@gmail.com">foyerrural.montaud@gmail.com</a>
+    </p>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>2. Directeur de publication</h2>
+    <p>Le directeur de la publication du site est le Président en exercice de l'association Foyer Rural de Montaud.</p>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>3. Hébergement et nom de domaine</h2>
+    <p>
+        <strong>Nom de domaine :</strong> www.foyer-rural-montaud.com (Wix.com Ltd., 40 Namal Tel Aviv St, Tel Aviv-Yafo, 6350671, Israël)<br/>
+        <strong>Hébergement du site :</strong> Firebase Hosting (Google LLC)<br/>
+        <strong>Serveur :</strong> Europe-west9 (Paris, France)<br/>
+        <strong>Adresse de l'hébergeur :</strong> 1600 Amphitheatre Parkway, Mountain View, CA 94043, États-Unis
+    </p>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>4. Propriété intellectuelle</h2>
+    <p>L'ensemble du contenu de ce site (textes, images, photos, vidéos, logos, documents) est la propriété exclusive du Foyer Rural de Montaud. Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l'accord écrit préalable de l'association.</p>
+    <p>La violation de ces dispositions peut entraîner des poursuites, notamment sur le fondement de la contrefaçon.</p>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>5. Protection des données personnelles (RGPD)</h2>
+    
+    <h3 style="font-size: 1.1em; margin-top: 1rem;">5.1 Responsable du traitement</h3>
+    <p>Le responsable du traitement des données personnelles est le Foyer Rural de Montaud, représenté par son Président.</p>
+    
+    <h3 style="font-size: 1.1em; margin-top: 1rem;">5.2 Données collectées</h3>
+    <p>Les informations recueillies via les formulaires de contact et d'inscription (nom, prénom, email, téléphone, date de naissance) font l'objet d'un traitement informatique destiné exclusivement à :</p>
+    <ul style="margin-left: 2rem;">
+        <li>La gestion des adhésions et des inscriptions aux activités</li>
+        <li>L'organisation et le suivi des activités proposées</li>
+        <li>La communication d'informations relatives à l'association et ses événements</li>
+        <li>La gestion administrative et comptable</li>
+    </ul>
+    
+    <h3 style="font-size: 1.1em; margin-top: 1rem;">5.3 Base légale</h3>
+    <p>Conformément au Règlement Général sur la Protection des Données (RGPD) du 27 avril 2016 et à la loi « Informatique et Libertés » du 6 janvier 1978 modifiée, le traitement de vos données est fondé sur l'exécution d'un contrat (adhésion) et sur votre consentement.</p>
+    
+    <h3 style="font-size: 1.1em; margin-top: 1rem;">5.4 Vos droits</h3>
+    <p>Vous disposez des droits suivants concernant vos données personnelles :</p>
+    <ul style="margin-left: 2rem;">
+        <li><strong>Droit d'accès :</strong> obtenir une copie de vos données</li>
+        <li><strong>Droit de rectification :</strong> corriger des données inexactes ou incomplètes</li>
+        <li><strong>Droit de suppression :</strong> demander l'effacement de vos données</li>
+        <li><strong>Droit d'opposition :</strong> vous opposer au traitement de vos données</li>
+        <li><strong>Droit à la portabilité :</strong> récupérer vos données dans un format structuré</li>
+        <li><strong>Droit à la limitation :</strong> limiter le traitement de vos données</li>
+    </ul>
+    
+    <p><strong>Exercer vos droits :</strong> Pour toute demande concernant vos données personnelles, contactez-nous par email à : <a href="mailto:foyerrural.montaud@gmail.com">foyerrural.montaud@gmail.com</a></p>
+    
+    <h3 style="font-size: 1.1em; margin-top: 1rem;">5.5 Durée de conservation</h3>
+    <p>Vos données sont conservées pendant la durée de votre adhésion et jusqu'à 3 ans après la fin de celle-ci, conformément aux obligations légales et comptables applicables aux associations.</p>
+    
+    <h3 style="font-size: 1.1em; margin-top: 1rem;">5.6 Sécurité et confidentialité</h3>
+    <p>Vos données sont hébergées de manière sécurisée sur les serveurs Firebase (Google) situés en France. Elles ne sont jamais transmises, vendues ou échangées avec des tiers à des fins commerciales. Seuls les membres habilités de l'association y ont accès dans le cadre strict de leurs fonctions.</p>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>6. Cookies et mesure d'audience</h2>
+    
+    <h3 style="font-size: 1.1em; margin-top: 1rem;">6.1 Google Analytics</h3>
+    <p>Ce site utilise Google Analytics, un service d'analyse d'audience fourni par Google LLC. Ce service dépose des cookies permettant de collecter des données anonymisées sur votre navigation :</p>
+    <ul style="margin-left: 2rem;">
+        <li>Pages visitées et temps passé sur chaque page</li>
+        <li>Provenance géographique (ville, pays)</li>
+        <li>Type d'appareil utilisé (ordinateur, mobile, tablette)</li>
+        <li>Navigateur et système d'exploitation</li>
+    </ul>
+    
+    <h3 style="font-size: 1.1em; margin-top: 1rem;">6.2 Finalité</h3>
+    <p>Ces données sont utilisées exclusivement pour améliorer l'expérience utilisateur, optimiser le contenu du site et mieux comprendre les besoins des visiteurs.</p>
+    
+    <h3 style="font-size: 1.1em; margin-top: 1rem;">6.3 Gestion des cookies</h3>
+    <p>Vous pouvez refuser ou supprimer les cookies à tout moment en configurant les paramètres de votre navigateur ou en utilisant des extensions de blocage. Le refus des cookies n'affecte pas votre navigation sur le site, mais empêche la collecte de statistiques anonymes.</p>
+    
+    <p><strong>En savoir plus :</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Politique de confidentialité de Google Analytics</a></p>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>7. Limitation de responsabilité</h2>
+    <p>Le Foyer Rural de Montaud s'efforce d'assurer l'exactitude et la mise à jour régulière des informations diffusées sur ce site. Toutefois, l'association ne peut garantir l'absence d'erreurs, d'omissions ou l'actualité permanente des informations.</p>
+    
+    <p>L'association ne saurait être tenue responsable :</p>
+    <ul style="margin-left: 2rem;">
+        <li>Des dommages directs ou indirects résultant de l'accès au site ou de son utilisation</li>
+        <li>Des interruptions, dysfonctionnements ou indisponibilités temporaires du site</li>
+        <li>Des virus ou autres éléments nuisibles pouvant infecter votre équipement informatique</li>
+        <li>Des modifications d'horaires, de tarifs ou d'activités intervenant après publication</li>
+    </ul>
+    
+    <p>Les informations concernant les activités, horaires, tarifs et inscriptions sont données à titre indicatif et peuvent être modifiées sans préavis.</p>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>8. Liens externes</h2>
+    <p>Ce site peut contenir des liens hypertextes vers des sites externes (Mairie de Montaud, associations partenaires, prestataires). Ces liens sont fournis à titre informatif uniquement.</p>
+    
+    <p>Le Foyer Rural de Montaud n'exerce aucun contrôle sur le contenu de ces sites tiers et décline toute responsabilité concernant :</p>
+    <ul style="margin-left: 2rem;">
+        <li>Le contenu, l'exactitude et la disponibilité de ces sites</li>
+        <li>Leur politique de confidentialité et de gestion des données personnelles</li>
+        <li>Les dommages pouvant résulter de leur utilisation</li>
+    </ul>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>9. Droit applicable et juridiction compétente</h2>
+    <p>Les présentes mentions légales sont régies par le droit français. En cas de litige relatif à l'utilisation du site, à l'interprétation des présentes mentions ou au traitement des données personnelles, et à défaut de résolution amiable, les tribunaux français seront seuls compétents pour connaître du litige.</p>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>10. Modifications des mentions légales</h2>
+    <p>Le Foyer Rural de Montaud se réserve le droit de modifier les présentes mentions légales à tout moment. Les modifications prennent effet dès leur mise en ligne. Nous vous invitons à consulter régulièrement cette page pour prendre connaissance des éventuelles modifications.</p>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>11. Contact</h2>
+    <p>Pour toute question concernant le site, ces mentions légales ou vos données personnelles, vous pouvez nous contacter :</p>
+    <p>
+        <strong>Email :</strong> <a href="mailto:foyerrural.montaud@gmail.com">foyerrural.montaud@gmail.com</a><br/>
+        <strong>Adresse postale :</strong> Foyer Rural de Montaud, 34160 Montaud, France
+    </p>
+</section>
+
+<p style="text-align: center; color: #666; font-size: 0.9em; margin-top: 3rem;">
+    Dernière mise à jour : Octobre 2025
+</p>
 </main>
 <footer>
 <div class="container">
@@ -93,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="footer-section" style="text-align: center">
 <h4>Nos Partenaires</h4>
 <p><a href="https://www.montaud34.fr/">• Mairie de Montaud</a><br/>
-<a href="https://www.saintbauzilledemontmel.fr/associations/foyer-rural/">• Foyer Rural de St Bauzille</a><br/>
+<a href="https://www.saintbauzilledemontmel.fr/associations/foyer-rural/">• Foyer Rural de St Bauzille</a></p>
 </div>
 <div class="footer-section" style="text-align: center">
 <h4>Informations</h4>
@@ -110,3 +255,6 @@ Certificat médical requis</p>
 <script src="js/main.js"></script>
 </body>
 </html>
+
+
+

@@ -1,8 +1,18 @@
-<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-51FVQ5KPFZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-51FVQ5KPFZ');
+</script>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="asset/logo.png"/>
   <title>AGENDA</title>
 
   <!-- SEO / réseaux sociaux -->
@@ -65,7 +75,6 @@
       <li><a href="evenements.html">Agenda</a></li>
       <li><a href="galerie.html">Galerie</a></li>
       <li><a href="association.html">L'Association</a></li>
-      <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -101,22 +110,24 @@ document.addEventListener('DOMContentLoaded',()=>{
   <section class="events-grid">
 
     <!-- Soirée Guinguette -->
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1629321406535-a3d20c6bffed?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Ambiance guinguette sous guirlandes lumineuses">
+    <article class="card" style="cursor: pointer; transition: transform 0.3s ease;" onclick="window.location.href='guinguette.html'">
+      <img src="asset/guinguette/20250927_194331.jpg" alt="Ambiance guinguette sous guirlandes lumineuses">
       <div class="card-content">
         <h2>Soirée Guinguette</h2>
         <p class="event-date">27&nbsp;septembre&nbsp;2025</p>
         <p>Bal musette et piste de danse sous les guirlandes : ambiance rétro pour bien lancer la saison&nbsp;!</p>
+        <p style="color: #0077cc; font-weight: 600; margin-top: 10px;">📄 Cliquez pour voir l'affiche</p>
       </div>
     </article>
 
     <!-- Soirée Spectacle & Divertissement -->
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1753030722011-c50785aa569b?q=80&w=1635&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Spectacle sur scène, jeux de lumière">
+    <article class="card" style="cursor: pointer; transition: transform 0.3s ease;" onclick="window.location.href='karaoke.html'">
+      <img src="asset/karaoke.png" alt="Spectacle sur scène, jeux de lumière">
       <div class="card-content">
-        <h2>Soirée Spectacle &amp; Divertissement</h2>
-        <p class="event-date">Novembre&nbsp;2025 –&nbsp;date à venir</p>
-        <p>Humour, musique, numéros variés : une scène ouverte où les talents du foyer se dévoilent.</p>
+        <h2>Soirée &amp; Karaoké</h2>
+        <p class="event-date">22&nbsp;Novembre&nbsp;2025</p>
+        <p>Une scène ouverte où les talents Montaudois dévoileront tout leur potentiel !</p>
+        <p style="color: #0077cc; font-weight: 600; margin-top: 10px;">📄 Cliquez pour voir l'affiche</p>
       </div>
     </article>
 
@@ -135,7 +146,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       <img src="https://images.unsplash.com/photo-1660807304251-9e2012336d19?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Partie de jeu de société conviviale">
       <div class="card-content">
         <h2>Après-midi Jeux de Société</h2>
-        <p class="event-date">Mars&nbsp;2026 –&nbsp;jour à confirmer</p>
+        <p class="event-date">29 Mars&nbsp;2026</p>
         <p>Du classique au moderne : venez (re)découvrir des jeux pour tous les âges, dans une ambiance bon enfant.</p>
       </div>
     </article>
@@ -145,7 +156,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       <img src="https://images.unsplash.com/photo-1571158874937-beaf4f24a7cc?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Démonstration sportive et artistique">
       <div class="card-content">
         <h2>Représentations &amp; Démos des Activités</h2>
-        <p class="event-date">Fin&nbsp;juin&nbsp;2026</p>
+        <p class="event-date">07&nbsp;juin&nbsp;2026</p>
         <p>Une journée festive pour applaudir le travail réalisé tout au long de l’année : sports, arts et culture au programme.</p>
       </div>
     </article>
@@ -180,3 +191,5 @@ document.addEventListener('DOMContentLoaded',()=>{
 <script src="js/main.js"></script>
 </body>
 </html>
+
+

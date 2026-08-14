@@ -1,9 +1,19 @@
-<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 
 <html lang="fr">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-51FVQ5KPFZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-51FVQ5KPFZ');
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="icon" type="image/png" href="asset/logo.png"/>
 <title>Foyer Rural de Montaud - Saison 2025-2026</title>
 <meta content="Foyer Rural de Montaud: activités sportives, culturelles, loisirs à Montaud, Hérault." name="description"/>
 <link href="css/style.css" rel="stylesheet"/>
@@ -33,7 +43,6 @@
       <li><a href="evenements.html">Agenda</a></li>
       <li><a href="galerie.html">Galerie</a></li>
       <li><a href="association.html">L'Association</a></li>
-      <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
 
@@ -74,61 +83,305 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <main class="container">
-<div class="hero"><div class="hero-title"><img alt="Logo Foyer Rural Montaud" class="logo-img" src="asset/logo.png"/><h1>Bienvenue au Foyer Rural de Montaud</h1></div>
+<div class="hero"><div class="hero-title"><img alt="Logo Foyer Rural Montaud" class="logo-img" src="asset/logo.png"/><h1 id="hero-titre">Bienvenue au Foyer Rural de Montaud</h1></div>
 
-<p>Découvrez nos 30 activités pour la saison 2025-2026</p>
-<a class="cta-button" href="activites.html">Découvrir nos activités</a>
+<p id="hero-soustitre">Découvrez nos 24 activités pour la saison 2025-2026</p>
+<a class="cta-button" href="activites.html" id="hero-bouton">Découvrir nos activités</a>
 </div>
+<a href="tarifs.html" style="text-decoration: none; color: inherit;">
 <div class="alert-banner">
-<h3>🎉 Inscriptions Ouvertes - Saison 2025-2026</h3>
-<p>Les activités débutent à partir du 8 septembre 2025</p>
+<h3 id="banner-titre">🎉 Inscriptions Ouvertes - Saison 2025-2026</h3>
+<p id="banner-texte">Les activités débutent à partir du 8 septembre 2025</p>
 </div>
+</a>
 <div class="stats-grid">
 <div class="stat-card">
-<span class="stat-number">30</span>
+<span class="stat-number" id="stat-activites">24</span>
 <div class="stat-label">Activités proposées</div>
 </div>
 <div class="stat-card">
-<span class="stat-number">7/7</span>
+<span class="stat-number" id="stat-jours">7/7</span>
 <div class="stat-label">Jours d'activités</div>
 </div>
 <div class="stat-card">
-<span class="stat-number">3</span>
+<span class="stat-number" id="stat-salles">3</span>
 <div class="stat-label">Salles disponibles</div>
 </div>
 
 </div>
 <h2 class="section-title">Nos Activités Phares</h2>
 <div class="cards-grid">
-<div class="card">
+<a href="activites.html?filter=culture"><div class="card">
 <h3>🎭 Arts &amp; Culture</h3>
 <p>Théâtre pour enfants et adultes, arts plastiques, percussions... Exprimez votre créativité !</p>
-</div>
-<div class="card">
+</div></a>
+<a href="activites.html?filter=sport"><div class="card">
 <h3>🏃‍♀️ Sport &amp; Bien-être</h3>
 <p>Badminton, boxe, gym, yoga, pilates, zumba... Restez en forme avec nos cours variés !</p>
-</div>
-<div class="card">
+</div></a>
+<a href="activites.html"><div class="card">
 <h3>👶 Enfants, Ados, Adultes</h3>
 <p>Éveil corporel, judo, break dance, théâtre... Des activités adaptées à chaque âge !</p>
-</div>
-<div class="card">
+</div></a>
+<a href="activites.html"><div class="card">
 <h3>🌳 Activités Extérieures</h3>
 <p>Randonnée, VTT, pétanque, marche... Profitez du grand air et de la nature !</p>
-</div>
-<div class="card">
-<h3>🥳 Des évènements toute l'année</h3>
+</div></a>
+<a href="evenements.html"><div class="card">
+<h3>🥳 Les évènements</h3>
 <p>Spectacles, animations, découverte, repas, ... Des moments conviviaux qui nous rapprochent !</p>
-</div>
-<div class="card">
+</div></a>
+<a href="activites/cafe-citoyen.html"><div class="card">
 <h3>☕ Mont-Ô Café </h3>
 <p>Gratuit et ouvert à tous le Samedi 9h30 - 13h00 à la Mairie. Un espace d'échange et de débat citoyen autour d'un café.</p>
+</div></a>
 </div>
-</div><section class="past-events"><h2 class="section-title">Évènements passés</h2><div class="cards-grid">
-<div class="card"><h3>Battle Hip‑Hop 2020</h3><p>29 mars 2020 • Salle Pierre Combettes</p></div>
-<div class="card"><h3>Festival Montaud d’Òc</h3><p>6‑7 avril 2018 • Danses traditionnelles</p></div>
-<div class="card"><h3>Battle Hip‑Hop 2018</h3><p>10 février 2018 • 25 stagiaires, DJ H</p></div>
-</div></section>
+
+<section class="news-section">
+<h2 class="section-title">Actualités</h2>
+
+<div class="news-item-full">
+<div class="news-content">
+<div class="news-image guinguette-image">
+<img src="asset/guinguette.png" alt="Affiche Soirée Guinguette"/>
+</div>
+<h3><a href="guinguette.html">🎉 Soirée Guinguette - 27 septembre 2025</a></h3>
+<p><strong>Samedi 27 septembre 2025 - Place de Montlaur à Montaud</strong></p>
+<p>Le Foyer Rural de Montaud organise en inter-associations avec l'APE et le Comité des fêtes une <strong>Soirée Guinguette</strong> avec la participation du Cellier du Val des Pins.</p>
+
+<p><strong>Programme de la soirée :</strong></p>
+<ul>
+<li>🎺 <strong>19h</strong> : Fanfare du FR de Montaud</li>
+<li>🎵 <strong>20h</strong> : Groupe musical 45 Tours</li>
+</ul>
+
+<p><strong>Restauration sur place :</strong></p>
+<ul>
+<li>🍕 <strong>Food truck</strong> : Pizzas sur place ou à emporter</li>
+<li>🥪 <strong>Sandwiches gastronomiques</strong></li>
+<li>🍰 <strong>Desserts</strong></li>
+<li>🍷 <strong>Boissons</strong> : assurées par le Comité des fêtes et le Cellier</li>
+</ul>
+
+<p><strong>🚗 Parking</strong> : Rue de Montlaur</p>
+<p>Une soirée conviviale à ne pas manquer !</p>
+<div class="share-container">
+  <span class="share-label">Partager :</span>
+  <div class="share-buttons">
+    <button class="share-btn facebook" onclick="shareNews.facebook('Soirée Guinguette - 27 septembre 2025', 'https://www.foyer-rural-montaud.com/guinguette.html')" title="Partager sur Facebook">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </button>
+    <button class="share-btn twitter" onclick="shareNews.twitter('Soirée Guinguette - 27 septembre 2025', 'https://www.foyer-rural-montaud.com/guinguette.html')" title="Partager sur X">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </button>
+    <button class="share-btn whatsapp" onclick="shareNews.whatsapp('Soirée Guinguette - 27 septembre 2025', 'https://www.foyer-rural-montaud.com/guinguette.html')" title="Partager sur WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </button>
+    <button class="share-btn email" onclick="shareNews.email('Soirée Guinguette - 27 septembre 2025', 'Soirée conviviale avec fanfare et restauration', 'https://www.foyer-rural-montaud.com/guinguette.html')" title="Partager par email">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </button>
+    <button class="share-btn copy-link" onclick="shareNews.copyLink('https://www.foyer-rural-montaud.com/guinguette.html', this)" title="Copier le lien">🔗</button>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="news-item-full">
+<div class="news-content">
+<h3>📅 Assemblée Générale - 13 septembre 2025</h3>
+<p><strong>Samedi 13 septembre 2025 à 14h - Salle Pierre Combettes</strong></p>
+<p>L'Assemblée Générale du Foyer Rural de Montaud aura lieu le <strong>samedi 13 septembre 2025 à 14h</strong> en salle Pierre Combettes.</p>
+<p>Au programme :</p>
+<ul>
+<li>🔍 <strong>Bilan de la saison 2024-2025</strong> : retour sur nos activités, événements et réalisations</li>
+<li>💰 <strong>Rapport financier</strong> : présentation des comptes et budget prévisionnel</li>
+<li>🎯 <strong>Projets 2025-2026</strong> : découvrez nos nouvelles activités et événements à venir</li>
+<li>🗳️ <strong>Élections</strong> : renouvellement du conseil d'administration</li>
+<li>💬 <strong>Échanges et propositions</strong> : vos idées pour enrichir la vie associative</li>
+</ul>
+<p>Tous les adhérents sont invités à participer. Un pot de l'amitié sera offert à l'issue de la réunion pour échanger dans la convivialité !</p>
+<div class="share-container">
+  <span class="share-label">Partager :</span>
+  <div class="share-buttons">
+    <button class="share-btn facebook" onclick="shareNews.facebook('Assemblée Générale - 13 septembre 2025', 'https://www.foyer-rural-montaud.com')" title="Partager sur Facebook">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </button>
+    <button class="share-btn twitter" onclick="shareNews.twitter('Assemblée Générale - 13 septembre 2025', 'https://www.foyer-rural-montaud.com')" title="Partager sur X">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </button>
+    <button class="share-btn whatsapp" onclick="shareNews.whatsapp('Assemblée Générale - 13 septembre 2025', 'https://www.foyer-rural-montaud.com')" title="Partager sur WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </button>
+    <button class="share-btn email" onclick="shareNews.email('Assemblée Générale - 13 septembre 2025', 'AG du Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com')" title="Partager par email">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </button>
+    <button class="share-btn copy-link" onclick="shareNews.copyLink('https://www.foyer-rural-montaud.com', this)" title="Copier le lien">🔗</button>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="news-item-full">
+<div class="news-content">
+<div class="news-image">
+<a href="activites/arts-plastiques.html"><img src="asset/affiche arts plastiques_page-0001.jpg" alt="Affiche Arts Plastiques"/></a>
+</div>
+<h3><a href="activites/arts-plastiques.html">🎨 Arts Plastiques - Créativité à l'honneur</a></h3>
+<p>Découvrez notre activité <strong>Arts Plastiques</strong> ! Un espace dédié à la créativité où petits et grands peuvent s'exprimer librement.</p>
+<p><strong>Au programme :</strong> Peinture, dessin, sculpture, collage, techniques mixtes... Dans une ambiance conviviale et bienveillante, laissez libre cours à votre imagination !</p>
+<p>Que vous soyez débutant ou confirmé, nos animateurs vous accompagnent dans vos créations artistiques.</p>
+<div class="share-container">
+  <span class="share-label">Partager :</span>
+  <div class="share-buttons">
+    <button class="share-btn facebook" onclick="shareNews.facebook('Arts Plastiques au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/arts-plastiques.html')" title="Partager sur Facebook">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </button>
+    <button class="share-btn twitter" onclick="shareNews.twitter('Arts Plastiques au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/arts-plastiques.html')" title="Partager sur X">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </button>
+    <button class="share-btn whatsapp" onclick="shareNews.whatsapp('Arts Plastiques au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/arts-plastiques.html')" title="Partager sur WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </button>
+    <button class="share-btn email" onclick="shareNews.email('Arts Plastiques', 'Découvrez notre activité Arts Plastiques', 'https://www.foyer-rural-montaud.com/activites/arts-plastiques.html')" title="Partager par email">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </button>
+    <button class="share-btn copy-link" onclick="shareNews.copyLink('https://www.foyer-rural-montaud.com/activites/arts-plastiques.html', this)" title="Copier le lien">🔗</button>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="news-item-full">
+<div class="news-content">
+<div class="news-image">
+<a href="activites/judo.html"><img src="asset/Judo.jpg" alt="Judo"/></a>
+</div>
+<h3><a href="activites/judo.html">🥋 Le Judo fait son grand retour !</a></h3>
+<p><strong>Grande nouveauté 2025-2026 !</strong> Le judo fait son retour au Foyer Rural de Montaud.</p>
+<p>Art martial traditionnel japonais et sport olympique, le judo développe à la fois la force physique, la souplesse, l'équilibre mental et les valeurs de respect.</p>
+<p><strong>Ouvert à tous les âges</strong> - de l'éveil judo pour les plus petits aux cours adultes. Encadrement par un professeur diplômé.</p>
+<div class="share-container">
+  <span class="share-label">Partager :</span>
+  <div class="share-buttons">
+    <button class="share-btn facebook" onclick="shareNews.facebook('Le Judo fait son grand retour au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/judo.html')" title="Partager sur Facebook">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </button>
+    <button class="share-btn twitter" onclick="shareNews.twitter('Le Judo fait son grand retour au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/judo.html')" title="Partager sur X">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </button>
+    <button class="share-btn whatsapp" onclick="shareNews.whatsapp('Le Judo fait son grand retour au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/judo.html')" title="Partager sur WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </button>
+    <button class="share-btn email" onclick="shareNews.email('Le Judo fait son grand retour', 'Nouveauté 2025-2026 au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/judo.html')" title="Partager par email">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </button>
+    <button class="share-btn copy-link" onclick="shareNews.copyLink('https://www.foyer-rural-montaud.com/activites/judo.html', this)" title="Copier le lien">🔗</button>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="news-item-full">
+<div class="news-content">
+<div class="news-image">
+<a href="activites/zumba.html"><img src="asset/zumba.png" alt="Zumba"/></a>
+</div>
+<h3><a href="activites/zumba.html">💃 Nouvelle Activité : Zumba</a></h3>
+<p><strong>Bougez sur des rythmes endiablés !</strong> La Zumba arrive au Foyer Rural pour des séances fitness fun et énergiques.</p>
+<p>Mélange de danse et de fitness sur des musiques latines et internationales, la Zumba vous permet de brûler des calories tout en vous amusant !</p>
+<p>Cours adaptés à tous les niveaux dans une ambiance festive et motivante.</p>
+<div class="share-container">
+  <span class="share-label">Partager :</span>
+  <div class="share-buttons">
+    <button class="share-btn facebook" onclick="shareNews.facebook('Nouvelle Activité Zumba au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/zumba.html')" title="Partager sur Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+    <button class="share-btn twitter" onclick="shareNews.twitter('Nouvelle Activité Zumba au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/zumba.html')" title="Partager sur X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+    <button class="share-btn whatsapp" onclick="shareNews.whatsapp('Nouvelle Activité Zumba', 'https://www.foyer-rural-montaud.com/activites/zumba.html')" title="Partager sur WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button>
+    <button class="share-btn email" onclick="shareNews.email('Nouvelle Activité Zumba', 'Fitness fun et énergique', 'https://www.foyer-rural-montaud.com/activites/zumba.html')" title="Partager par email"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></button>
+    <button class="share-btn copy-link" onclick="shareNews.copyLink('https://www.foyer-rural-montaud.com/activites/zumba.html', this)" title="Copier le lien">🔗</button>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="news-item-full">
+<div class="news-content">
+<div class="news-image">
+<a href="activites/danse-africaine.html"><img src="asset/danse_africaine.jpg" alt="Danse Africaine"/></a>
+</div>
+<h3><a href="activites/danse-africaine.html">🌍 Nouvelle Activité : Danse Africaine</a></h3>
+<p><strong>Découvrez la richesse de la danse africaine !</strong> Une activité qui vous transporte à travers les rythmes traditionnels du continent africain.</p>
+<p>Mouvements expressifs, musiques authentiques et ambiance chaleureuse vous attendent dans cette nouvelle activité qui fait voyager corps et esprit.</p>
+<p>Une occasion unique de découvrir une culture riche à travers la danse !</p>
+<div class="share-container">
+  <span class="share-label">Partager :</span>
+  <div class="share-buttons">
+    <button class="share-btn facebook" onclick="shareNews.facebook('Nouvelle Activité Danse Africaine au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/danse-africaine.html')" title="Partager sur Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+    <button class="share-btn twitter" onclick="shareNews.twitter('Nouvelle Activité Danse Africaine au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/danse-africaine.html')" title="Partager sur X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+    <button class="share-btn whatsapp" onclick="shareNews.whatsapp('Nouvelle Activité Danse Africaine', 'https://www.foyer-rural-montaud.com/activites/danse-africaine.html')" title="Partager sur WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button>
+    <button class="share-btn email" onclick="shareNews.email('Nouvelle Activité Danse Africaine', 'Richesse des rythmes africains', 'https://www.foyer-rural-montaud.com/activites/danse-africaine.html')" title="Partager par email"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></button>
+    <button class="share-btn copy-link" onclick="shareNews.copyLink('https://www.foyer-rural-montaud.com/activites/danse-africaine.html', this)" title="Copier le lien">🔗</button>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="news-item-full">
+<div class="news-content">
+<div class="news-image">
+<a href="activites/percussions.html"><img src="asset/percussions.jpg" alt="Percussions"/></a>
+</div>
+<h3><a href="activites/percussions.html">🥁 Nouvelle Activité : Percussions</a></h3>
+<p><strong>Initiez-vous aux percussions !</strong> Djembé, congas, darbouka, cajon... Découvrez les rythmes du monde entier.</p>
+<p>Apprenez les techniques de base et participez à des sessions musicales collectives dans une ambiance conviviale et rythmée.</p>
+<p>Aucune expérience musicale requise - les instruments sont fournis !</p>
+<div class="share-container">
+  <span class="share-label">Partager :</span>
+  <div class="share-buttons">
+    <button class="share-btn facebook" onclick="shareNews.facebook('Nouvelle Activité Percussions au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/percussions.html')" title="Partager sur Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+    <button class="share-btn twitter" onclick="shareNews.twitter('Nouvelle Activité Percussions au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/percussions.html')" title="Partager sur X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+    <button class="share-btn whatsapp" onclick="shareNews.whatsapp('Nouvelle Activité Percussions', 'https://www.foyer-rural-montaud.com/activites/percussions.html')" title="Partager sur WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button>
+    <button class="share-btn email" onclick="shareNews.email('Nouvelle Activité Percussions', 'Djembé, congas, darbouka et plus', 'https://www.foyer-rural-montaud.com/activites/percussions.html')" title="Partager par email"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></button>
+    <button class="share-btn copy-link" onclick="shareNews.copyLink('https://www.foyer-rural-montaud.com/activites/percussions.html', this)" title="Copier le lien">🔗</button>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="news-item-full">
+<div class="news-content">
+<div class="news-image">
+<a href="activites/danse-latino.html"><img src="asset/danse_latino.jpg" alt="Danse Latino"/></a>
+</div>
+<h3><a href="activites/danse-latino.html">💃 Nouvelle Activité : Danse Latino</a></h3>
+<p><strong>Salsa, bachata, merengue...</strong> Plongez dans l'univers passionné et coloré de la danse latino !</p>
+<p>Cours pour débutants et confirmés dans une ambiance festive. Apprenez les pas de base et perfectionnez votre technique sur des musiques entraînantes.</p>
+<p>Venez seul(e) ou en couple - la bonne humeur et la convivialité sont au rendez-vous !</p>
+<div class="share-container">
+  <span class="share-label">Partager :</span>
+  <div class="share-buttons">
+    <button class="share-btn facebook" onclick="shareNews.facebook('Nouvelle Activité Danse Latino au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/danse-latino.html')" title="Partager sur Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+    <button class="share-btn twitter" onclick="shareNews.twitter('Nouvelle Activité Danse Latino au Foyer Rural de Montaud', 'https://www.foyer-rural-montaud.com/activites/danse-latino.html')" title="Partager sur X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+    <button class="share-btn whatsapp" onclick="shareNews.whatsapp('Nouvelle Activité Danse Latino', 'https://www.foyer-rural-montaud.com/activites/danse-latino.html')" title="Partager sur WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button>
+    <button class="share-btn email" onclick="shareNews.email('Nouvelle Activité Danse Latino', 'Salsa, bachata, merengue...', 'https://www.foyer-rural-montaud.com/activites/danse-latino.html')" title="Partager par email"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></button>
+    <button class="share-btn copy-link" onclick="shareNews.copyLink('https://www.foyer-rural-montaud.com/activites/danse-latino.html', this)" title="Copier le lien">🔗</button>
+  </div>
+</div>
+</div>
+</div>
+
+<a href="tarifs.html" style="text-decoration: none; color: inherit;">
+<div class="news-item-full highlight">
+<div class="news-content">
+<h3>🎯 Inscriptions Ouvertes pour la Saison 2025-2026 !</h3>
+<p><strong>Les inscriptions sont ouvertes depuis le 1er septembre 2025</strong></p>
+<p><strong>Démarrage des activités : Lundi 8 septembre 2025</strong></p>
+<p>Ne tardez plus à vous inscrire ! Avec plus de 20 activités proposées, il y en a pour tous les goûts et tous les âges.</p>
+<p>Rendez-vous sur notre page <a href="tarifs.html">Tarifs & Inscriptions</a> pour toutes les informations pratiques.</p>
+</div>
+</div>
+</a>
+
+</section>
 </main>
 <footer>
 <div class="container">
@@ -155,7 +408,234 @@ Certificat médical requis</p>
 </div>
 </div>
 </footer>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+  import { getFirestore, doc, getDoc, collection, getDocs, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+  // Configuration Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyC5nUayIeA8Dgx8loqZ1pyG5vei8PHWggU",
+    authDomain: "frmontaud-09-25.firebaseapp.com",
+    projectId: "frmontaud-09-25",
+    storageBucket: "frmontaud-09-25.firebasestorage.app",
+    messagingSenderId: "350075655257",
+    appId: "1:350075655257:web:84f8f375cf19b2610b0d48",
+    measurementId: "G-S7BKPP6F02"
+  };
+
+  // Initialisation Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Fonction pour charger les actualités dynamiques
+  async function loadDynamicNews() {
+    try {
+      console.log('📰 Chargement des actualités depuis Firebase...');
+      
+      const newsRef = collection(db, 'actualites');
+      // Trier d'abord par ordre personnalisé, puis par date de publication
+      let newsQuery;
+      try {
+        newsQuery = query(newsRef, orderBy('ordre', 'asc'), orderBy('datePublication', 'desc'));
+      } catch (error) {
+        // Si le champ 'ordre' n'existe pas encore, utiliser seulement la date
+        console.log('⚠️ Champ ordre non disponible, tri par date uniquement');
+        newsQuery = query(newsRef, orderBy('datePublication', 'desc'));
+      }
+      
+      const newsSnap = await getDocs(newsQuery);
+      
+      if (!newsSnap.empty) {
+        const newsSection = document.querySelector('.news-section');
+        if (!newsSection) return;
+        
+        // Garder seulement le titre de la section
+        const sectionTitle = newsSection.querySelector('.section-title');
+        newsSection.innerHTML = '';
+        if (sectionTitle) {
+          newsSection.appendChild(sectionTitle);
+        } else {
+          newsSection.innerHTML = '<h2 class="section-title">Actualités</h2>';
+        }
+        
+        // Ajouter les actualités dynamiques
+        newsSnap.forEach(doc => {
+          const data = doc.data();
+          const newsId = 'news-' + doc.id;
+          const newsItem = document.createElement('div');
+          newsItem.className = 'news-item-full';
+          newsItem.id = newsId;
+          
+          let imageHTML = '';
+          if (data.image) {
+            imageHTML = `
+              <div class="news-image">
+                <img src="${data.image}" alt="${data.titre}" />
+              </div>
+            `;
+          }
+          
+          let linkHTML = '';
+          if (data.lien) {
+            linkHTML = `<a href="${data.lien}" target="_blank">🔗 En savoir plus</a>`;
+          }
+          
+          const dateFormatted = data.datePublication?.toDate?.()?.toLocaleDateString('fr-FR') || 'Date inconnue';
+          
+          // Génération des boutons de partage - lien vers la page d'accueil avec ancre
+          const shareUrl = 'https://www.foyer-rural-montaud.com/#' + newsId;
+          const shareTitle = data.titre.replace(/'/g, "\\'");
+          const shareDesc = (data.contenu || '').substring(0, 100).replace(/'/g, "\\'");
+          
+          const shareButtonsHTML = `
+            <div class="share-container">
+              <span class="share-label">Partager :</span>
+              <div class="share-buttons">
+                <button class="share-btn facebook" onclick="shareNews.facebook('${shareTitle}', '${shareUrl}')" title="Partager sur Facebook">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </button>
+                <button class="share-btn twitter" onclick="shareNews.twitter('${shareTitle}', '${shareUrl}')" title="Partager sur X">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </button>
+                <button class="share-btn whatsapp" onclick="shareNews.whatsapp('${shareTitle}', '${shareUrl}')" title="Partager sur WhatsApp">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </button>
+                <button class="share-btn email" onclick="shareNews.email('${shareTitle}', '${shareDesc}', '${shareUrl}')" title="Partager par email">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </button>
+                <button class="share-btn copy-link" onclick="shareNews.copyLink('${shareUrl}', this)" title="Copier le lien">🔗</button>
+              </div>
+            </div>
+          `;
+          
+          newsItem.innerHTML = `
+            <div class="news-content">
+              ${imageHTML}
+              <h3>${data.titre}</h3>
+              <p style="white-space: pre-wrap;">${data.contenu}</p>
+              ${linkHTML ? `<p>${linkHTML}</p>` : ''}
+              <p><small>📅 Publié le ${dateFormatted} par ${data.auteur || 'Foyer Rural'}</small></p>
+              ${shareButtonsHTML}
+            </div>
+          `;
+          
+          newsSection.appendChild(newsItem);
+        });
+        
+        console.log(`✅ ${newsSnap.size} actualité(s) chargée(s) depuis Firebase`);
+      } else {
+        console.log('ℹ️ Aucune actualité trouvée dans Firebase, conservation du contenu statique');
+      }
+    } catch (error) {
+      console.warn('⚠️ Erreur lors du chargement des actualités, conservation du contenu statique:', error);
+    }
+  }
+
+  // Fonction pour charger le contenu depuis Firebase
+  async function loadDynamicContent() {
+    try {
+      console.log('🔄 Chargement du contenu dynamique depuis Firebase...');
+      
+      // Charger les données de la page d'accueil
+      const docRef = doc(db, 'contenu', 'accueil');
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        console.log('✅ Données Firebase chargées:', data);
+        
+        // Mettre à jour la section héro
+        if (data.hero) {
+          const heroTitre = document.getElementById('hero-titre');
+          const heroSoustitre = document.getElementById('hero-soustitre');
+          const heroBouton = document.getElementById('hero-bouton');
+          
+          if (heroTitre && data.hero.titre) {
+            heroTitre.textContent = data.hero.titre;
+            console.log('✅ Titre héro mis à jour:', data.hero.titre);
+          }
+          if (heroSoustitre && data.hero.soustitre) {
+            heroSoustitre.textContent = data.hero.soustitre;
+            console.log('✅ Sous-titre héro mis à jour:', data.hero.soustitre);
+          }
+          if (heroBouton && data.hero.bouton) {
+            heroBouton.textContent = data.hero.bouton;
+            console.log('✅ Bouton héro mis à jour:', data.hero.bouton);
+          }
+        }
+        
+        // Mettre à jour la bannière
+        if (data.banner) {
+          const bannerTitre = document.getElementById('banner-titre');
+          const bannerTexte = document.getElementById('banner-texte');
+          
+          if (bannerTitre && data.banner.titre) {
+            bannerTitre.textContent = data.banner.titre;
+            console.log('✅ Titre bannière mis à jour:', data.banner.titre);
+          }
+          if (bannerTexte && data.banner.texte) {
+            bannerTexte.textContent = data.banner.texte;
+            console.log('✅ Texte bannière mis à jour:', data.banner.texte);
+          }
+        }
+        
+        // Mettre à jour les statistiques
+        if (data.stats) {
+          const statActivites = document.getElementById('stat-activites');
+          const statJours = document.getElementById('stat-jours');
+          const statSalles = document.getElementById('stat-salles');
+          
+          if (statActivites && data.stats.activites) {
+            statActivites.textContent = data.stats.activites;
+            console.log('✅ Stat activités mise à jour:', data.stats.activites);
+          }
+          if (statJours && data.stats.jours) {
+            statJours.textContent = data.stats.jours;
+            console.log('✅ Stat jours mise à jour:', data.stats.jours);
+          }
+          if (statSalles && data.stats.salles) {
+            statSalles.textContent = data.stats.salles;
+            console.log('✅ Stat salles mise à jour:', data.stats.salles);
+          }
+        }
+        
+        console.log('🎉 Contenu dynamique chargé avec succès !');
+      } else {
+        console.log('ℹ️ Aucune donnée Firebase trouvée, utilisation du contenu statique par défaut');
+      }
+    } catch (error) {
+      console.warn('⚠️ Erreur lors du chargement Firebase, utilisation du contenu statique:', error);
+    }
+  }
+
+  // Fonction principale de chargement
+  async function loadAllDynamicContent() {
+    await loadDynamicContent(); // Charger le contenu de la page d'accueil
+    await loadDynamicNews();    // Charger les actualités
+    
+    // Scroll vers l'ancre si présente dans l'URL (après chargement des news)
+    if (window.location.hash) {
+      // Attendre que le DOM soit bien mis à jour
+      setTimeout(() => {
+        const hash = window.location.hash;
+        const target = document.getElementById(hash.substring(1));
+        console.log('🔗 Tentative de scroll vers:', hash, 'Élément trouvé:', target);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 500);
+    }
+  }
+
+  // Charger le contenu une fois la page chargée
+  document.addEventListener('DOMContentLoaded', loadAllDynamicContent);
+
+</script>
+
 <script src="js/activities.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
+

@@ -1,0 +1,154 @@
+﻿﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-51FVQ5KPFZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-51FVQ5KPFZ');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../asset/logo.png">
+    <title>Théâtre Adulte - Foyer Rural de Montaud</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+        <header>
+        <nav class="container" style="position:relative;">
+            <!-- Bouton hamburger (masqué en desktop) -->
+            <button class="nav-toggle"
+                    aria-label="Menu"
+                    style="background:none;border:none;font-size:2rem;cursor:pointer;display:none;position:absolute;right:0;top:0.25rem;">
+              ☰
+            </button>
+
+            <!-- Liens de navigation -->
+            <ul class="nav-links">
+              <li><a href="../index.html">Accueil</a></li>
+              <li><a href="../activites.html">Activités</a></li>
+              <li><a href="../tarifs.html">Tarifs &amp; Inscriptions</a></li>
+              <li><a href="../evenements.html">Agenda</a></li>
+              <li><a href="../galerie.html">Galerie</a></li>
+              <li><a href="../association.html">L'Association</a></li>
+              
+              <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Petit JS autonome : cache/affiche les liens et le bouton selon la largeur -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.querySelector('.nav-links');
+      const toggle   = document.querySelector('.nav-toggle');
+
+      // Basculer l'affichage du menu
+      toggle.addEventListener('click', () => {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      });
+
+      // Réajuster selon la largeur
+      function handleResize() {
+        if (window.innerWidth >= 768) {
+          navLinks.style.display = 'flex';
+          toggle.style.display = 'none';
+        } else {
+          navLinks.style.display = 'none';
+          toggle.style.display = 'block';
+        }
+      }
+
+      handleResize();
+      window.addEventListener('resize', handleResize);
+    });
+    </script>
+
+    <main>
+        <div class="container">
+            <div class="activity-page">
+                <div class="activity-hero">
+                    <h1>🎭 THÉÂTRE ADULTE</h1>
+                    <div class="nouveau-badge">NOUVEAU !</div>
+                    <p class="activity-subtitle">Découvrez l'art dramatique, l'improvisation et l'expression scénique pour adultes</p>
+                </div>
+                
+                <div class="activity-header">
+                    <img src="../asset/theatre_adulte.jpg" alt="Théâtre Adulte - Expression scénique" class="activity-image">
+                </div>
+
+                <div class="activity-content">
+                    <div class="activity-description">
+                        <h2>Description</h2>
+                        <p>Venez découvrir ou redécouvrir l'art du théâtre ! À travers des exercices d'improvisation, de mise en scène et de travail sur la voix, développez votre expression corporelle et votre confiance en vous. Un espace de créativité et de partage pour tous les adultes, débutants ou confirmés.</p>
+                    </div>
+
+                    <div class="activity-info-grid">
+                        <div class="info-card">
+                            <h3>👥 Public</h3>
+                            <p>ADULTES (18 ans et +)</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>🕒 Horaires</h3>
+                            <p>Jeudi</p>
+                            <ul>
+                                <li>19h30 à 21h30</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>📍 Lieu</h3>
+                            <p>Salle Pierre Combettes</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>💰 Tarifs</h3>
+                            <p>Cotisation annuelle : 210€ + adhésion</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>📅 Démarrage</h3>
+                            <p>11 septembre 2025</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>📞 Contact</h3>
+                            <p><strong>Référent FR :</strong></p>
+                            <p>Michel NACACHIAN</p>
+                            <p>📞 06 12 54 48 35</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>🎯 Objectifs</h3>
+                            <ul>
+                                <li>Développer la confiance en soi</li>
+                                <li>Améliorer l'expression orale et corporelle</li>
+                                <li>Découvrir l'improvisation théâtrale</li>
+                                <li>Créer un spectacle de fin d'année</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="../tarifs.html" class="btn btn-primary">S'inscrire</a>
+                <a href="../contact.html" class="btn btn-secondary">Nous contacter</a>
+                <a href="../activites.html" class="btn btn-outline">Retour aux activités</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Foyer Rural de Montaud. Tous droits réservés.</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,165 @@
+﻿﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-51FVQ5KPFZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-51FVQ5KPFZ');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../asset/logo.png">
+    <title>Gym Tonic - Foyer Rural de Montaud</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+        <header>
+        <nav class="container" style="position:relative;">
+            <!-- Bouton hamburger (masqué en desktop) -->
+            <button class="nav-toggle"
+                    aria-label="Menu"
+                    style="background:none;border:none;font-size:2rem;cursor:pointer;display:none;position:absolute;right:0;top:0.25rem;">
+              ☰
+            </button>
+
+            <!-- Liens de navigation -->
+            <ul class="nav-links">
+              <li><a href="../index.html">Accueil</a></li>
+              <li><a href="../activites.html">Activités</a></li>
+              <li><a href="../tarifs.html">Tarifs &amp; Inscriptions</a></li>
+              <li><a href="../evenements.html">Agenda</a></li>
+              <li><a href="../galerie.html">Galerie</a></li>
+              <li><a href="../association.html">L'Association</a></li>
+              
+              <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Petit JS autonome : cache/affiche les liens et le bouton selon la largeur -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.querySelector('.nav-links');
+      const toggle   = document.querySelector('.nav-toggle');
+
+      // Basculer l'affichage du menu
+      toggle.addEventListener('click', () => {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      });
+
+      // Réajuster selon la largeur
+      function handleResize() {
+        if (window.innerWidth >= 768) {
+          navLinks.style.display = 'flex';
+          toggle.style.display = 'none';
+        } else {
+          navLinks.style.display = 'none';
+          toggle.style.display = 'block';
+        }
+      }
+
+      handleResize();
+      window.addEventListener('resize', handleResize);
+    });
+    </script>
+
+    <main>
+        <div class="container">
+            <div class="activity-page">
+                <div class="activity-hero">
+                    <h1>💪 GYM TONIC</h1>
+                    <p class="activity-subtitle">Gymnastique dynamique et énergisante pour rester en forme</p>
+                </div>
+                
+                <div class="activity-header">
+                    <img src="../asset/gym_tonic.jpg" alt="Gym Tonic" class="activity-image">
+                </div>
+
+                <div class="activity-content">
+                    <div class="activity-description">
+                        <h2>Description</h2>
+                        <p>Gymnastique dynamique et énergisante pour rester en forme ! Cours collectifs toniques mêlant renforcement musculaire, cardio et étirements dans une ambiance motivante.</p>
+                    </div>
+
+                    <div class="activity-info-grid">
+                        <div class="info-card">
+                            <h3>👥 Public</h3>
+                            <p>Adultes</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>🕒 Horaires</h3>
+                            <p>Deux créneaux disponibles :</p>
+                            <ul>
+                                <li>Mardi : 19h15 à 20h15</li>
+                                <li>Mercredi : 17h30 à 19h00</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>📍 Lieu</h3>
+                            <p>Mardi : Salle Pierre Combettes (HAUT)</p>
+                            <p>Mercredi : Salle Pierre Combettes (BAS)</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>💰 Tarifs</h3>
+                            <p>Cotisation annuelle :</p>
+                            <ul>
+                                <li>Mardi : 160 € + adhésion (15 €)</li>
+                                <li>Mercredi : 190 € + adhésion (15 €)</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>📅 Démarrage</h3>
+                            <p>Mardi : 09 septembre 2025</p>
+                            <p>Mercredi : 10 septembre 2025</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>📞 Contact</h3>
+                            <p><strong>Animatrice :</strong></p>
+                            <p>Colette SOLIVERES</p>
+                            
+                            <p><strong>Référente Foyer Rural :</strong></p>
+                            <p>Roselyne NACACHIAN</p>
+                            <p>📞 06 32 65 67 76</p>
+                        </div>
+
+                        <div class="info-card important">
+                            <h3>⚠️ Important</h3>
+                            <p>Certificat médical obligatoire</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>💪 Objectifs</h3>
+                            <p>Amélioration de la condition physique générale, renforcement musculaire et bien-être dans un esprit de groupe convivial.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="../tarifs.html" class="btn btn-primary">S'inscrire</a>
+                <a href="../contact.html" class="btn btn-secondary">Nous contacter</a>
+                <a href="../activites.html" class="btn btn-outline">Retour aux activités</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Foyer Rural de Montaud. Tous droits réservés.</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
+
+
+
+

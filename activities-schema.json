@@ -1,0 +1,399 @@
+﻿{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "ActivitÃ©s Foyer Rural de Montaud 2025-2026",
+  "description": "Liste complÃ¨te des 24 activitÃ©s proposÃ©es par le Foyer Rural de Montaud",
+  "numberOfItems": 24,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "SportsActivity",
+        "name": "Yoga",
+        "description": "Cours de yoga pour tous niveaux, relaxation et bien-Ãªtre",
+        "category": "Bien-Ãªtre",
+        "ageRange": "Adultes",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "SportsActivity",
+        "name": "Badminton",
+        "description": "Sport de raquette dynamique en salle",
+        "category": "Sport",
+        "ageRange": "Tous Ã¢ges",
+        "location": {
+          "@type": "Place",
+          "name": "Grange Robert",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "TheaterEvent",
+        "name": "ThÃ©Ã¢tre Adultes",
+        "description": "Atelier thÃ©Ã¢tre pour adultes, expression et crÃ©ativitÃ©",
+        "category": "Culture",
+        "ageRange": "Adultes",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Haut",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "TheaterEvent",
+        "name": "ThÃ©Ã¢tre Enfants",
+        "description": "Atelier thÃ©Ã¢tre pour enfants, dÃ©veloppement de l'expression",
+        "category": "Culture",
+        "ageRange": "Enfants",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Haut",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "SportsActivity",
+        "name": "Judo",
+        "description": "Art martial japonais, self-dÃ©fense et discipline",
+        "category": "Arts martiaux",
+        "ageRange": "Enfants et adultes",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Haut",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+        "@type": "DanceEvent",
+        "name": "Danse Africaine",
+        "description": "Danse traditionnelle africaine, rythmes et mouvements authentiques",
+        "category": "Danse",
+        "ageRange": "Tous Ã¢ges",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Haut",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "item": {
+        "@type": "DanceEvent",
+        "name": "Danse Latino",
+        "description": "Danses latines Ã©nergiques et festives",
+        "category": "Danse",
+        "ageRange": "Adultes",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Haut",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "item": {
+        "@type": "SportsActivity",
+        "name": "Zumba",
+        "description": "Fitness dansÃ© sur musiques latines",
+        "category": "Fitness",
+        "ageRange": "Adultes",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "item": {
+        "@type": "SportsActivity",
+        "name": "Pilates",
+        "description": "MÃ©thode de renforcement musculaire et de posture",
+        "category": "Bien-Ãªtre",
+        "ageRange": "Adultes",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Bas",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
+      "item": {
+        "@type": "SportsActivity",
+        "name": "Gym Douce",
+        "description": "Gymnastique adaptÃ©e pour seniors et dÃ©butants",
+        "category": "Fitness",
+        "ageRange": "Seniors",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Bas",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 11,
+      "item": {
+        "@type": "SportsActivity",
+        "name": "Gym Tonic",
+        "description": "Gymnastique dynamique et tonifiante",
+        "category": "Fitness",
+        "ageRange": "Adultes",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Bas",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 12,
+      "item": {
+        "@type": "VisualArtsEvent",
+        "name": "Arts Plastiques",
+        "description": "Atelier crÃ©atif : peinture, dessin, sculpture",
+        "category": "Arts",
+        "ageRange": "Tous Ã¢ges",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Bas",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "item": {
+        "@type": "MusicEvent",
+        "name": "Percussions",
+        "description": "Ensemble de percussions, rythmes du monde",
+        "category": "Musique",
+        "ageRange": "Tous Ã¢ges",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 14,
+      "item": {
+        "@type": "MusicEvent",
+        "name": "Fanfare",
+        "description": "Ensemble musical de cuivres et percussion",
+        "category": "Musique",
+        "ageRange": "Adultes",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 15,
+      "item": {
+        "@type": "DanceEvent",
+        "name": "Break Dance",
+        "description": "Danse urbaine acrobatique pour jeunes",
+        "category": "Danse",
+        "ageRange": "Enfants et ados",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Haut",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 16,
+      "item": {
+        "@type": "SportsActivity",
+        "name": "Boxe Pieds-Poings",
+        "description": "Art martial complet de combat",
+        "category": "Arts martiaux",
+        "ageRange": "Ados et adultes",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Haut",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 17,
+      "item": {
+        "@type": "SportsActivity",
+        "name": "PÃ©tanque",
+        "description": "Sport traditionnel provenÃ§al convivial",
+        "category": "Sport",
+        "ageRange": "Tous Ã¢ges",
+        "location": {
+          "@type": "Place",
+          "name": "Grange Robert et extÃ©rieur",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 18,
+      "item": {
+        "@type": "SportsActivity",
+        "name": "RandonnÃ©e VTT",
+        "description": "Sorties VTT dÃ©couverte de la rÃ©gion",
+        "category": "Sport nature",
+        "ageRange": "Adultes",
+        "location": {
+          "@type": "Place",
+          "name": "DÃ©part Montaud",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 19,
+      "item": {
+        "@type": "SportsActivity",
+        "name": "Marche du Jeudi",
+        "description": "RandonnÃ©e pÃ©destre hebdomadaire",
+        "category": "Sport nature",
+        "ageRange": "Adultes",
+        "location": {
+          "@type": "Place",
+          "name": "DÃ©part Montaud",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 20,
+      "item": {
+        "@type": "EducationEvent",
+        "name": "Ãveil Corporel",
+        "description": "DÃ©veloppement psychomoteur pour petits enfants",
+        "category": "Enfance",
+        "ageRange": "3-6 ans",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 21,
+      "item": {
+        "@type": "DanceEvent",
+        "name": "Initiation Danses",
+        "description": "DÃ©couverte de diffÃ©rents styles de danse",
+        "category": "Danse",
+        "ageRange": "Enfants",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Haut",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 22,
+      "item": {
+        "@type": "DanceEvent",
+        "name": "Danse Traditionnelle",
+        "description": "Danses folkloriques rÃ©gionales franÃ§aises",
+        "category": "Danse",
+        "ageRange": "Tous Ã¢ges",
+        "location": {
+          "@type": "Place",
+          "name": "Salle Pierre Combettes Haut",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 23,
+      "item": {
+        "@type": "Library",
+        "name": "BibliothÃ¨que",
+        "description": "Service de prÃªt de livres et espace lecture",
+        "category": "Culture",
+        "ageRange": "Tous Ã¢ges",
+        "location": {
+          "@type": "Place",
+          "name": "Ancienne Mairie",
+          "address": "34160 Montaud"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 24,
+      "item": {
+        "@type": "SocialEvent",
+        "name": "CafÃ© Citoyen Mont-Ã CafÃ©",
+        "description": "Espace de rencontre et dÃ©bats citoyens",
+        "category": "Social",
+        "ageRange": "Adultes",
+        "location": {
+          "@type": "Place",
+          "name": "RDC Mairie",
+          "address": "34160 Montaud"
+        }
+      }
+    }
+  ],
+  "provider": {
+    "@type": "Organization",
+    "name": "Foyer Rural de Montaud",
+    "url": "https://www.foyer-rural-montaud.com"
+  }
+}
+

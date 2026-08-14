@@ -1,0 +1,135 @@
+﻿{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Foyer Rural de Montaud",
+  "description": "Association loi 1901 proposant 24 activitÃ©s sportives, culturelles et de loisirs Ã  Montaud dans l'HÃ©rault. Saison 2025-2026.",
+  "url": "https://www.foyer-rural-montaud.com",
+  "logo": "https://www.foyer-rural-montaud.com/asset/logo.png",
+  "foundingDate": "1901",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "34160 Montaud",
+    "addressLocality": "Montaud",
+    "postalCode": "34160",
+    "addressRegion": "HÃ©rault",
+    "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 43.8167,
+    "longitude": 3.8167
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33-6-71-93-05-07",
+      "contactType": "PrÃ©sident",
+      "areaServed": "FR",
+      "availableLanguage": "French"
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33-7-67-55-05-12",
+      "contactType": "Vice-PrÃ©sident",
+      "areaServed": "FR",
+      "availableLanguage": "French"
+    }
+  ],
+  "sameAs": [
+    "https://www.montaud34.fr/",
+    "https://www.saintbauzilledemontmel.fr/associations/foyer-rural/"
+  ],
+  "knowsAbout": [
+    "Sport",
+    "Culture",
+    "Loisirs",
+    "ActivitÃ©s associatives",
+    "Bien-Ãªtre",
+    "Danse",
+    "Arts martiaux",
+    "ThÃ©Ã¢tre",
+    "RandonnÃ©e",
+    "Yoga",
+    "Pilates",
+    "Badminton"
+  ],
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "ActivitÃ©s sportives",
+        "description": "Badminton, judo, boxe, gym, yoga, pilates, zumba, randonnÃ©e, VTT, pÃ©tanque"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "ActivitÃ©s culturelles",
+        "description": "ThÃ©Ã¢tre adultes et enfants, arts plastiques, percussions, fanfare, danse africaine, danse latino"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Services communautaires",
+        "description": "BibliothÃ¨que, cafÃ© citoyen, Ã©veil corporel pour enfants"
+      }
+    }
+  ],
+  "event": [
+    {
+      "@type": "Event",
+      "name": "SoirÃ©e Guinguette",
+      "startDate": "2025-08-30",
+      "location": {
+        "@type": "Place",
+        "name": "Montaud",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Montaud",
+          "postalCode": "34160",
+          "addressCountry": "FR"
+        }
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Foyer Rural de Montaud"
+      }
+    },
+    {
+      "@type": "Event",
+      "name": "ReprÃ©sentations & DÃ©mos des ActivitÃ©s",
+      "startDate": "2026-06-30",
+      "location": {
+        "@type": "Place",
+        "name": "Montaud",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Montaud",
+          "postalCode": "34160",
+          "addressCountry": "FR"
+        }
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Foyer Rural de Montaud"
+      }
+    }
+  ],
+  "member": [
+    {
+      "@type": "Person",
+      "name": "Daniel FERRANT",
+      "jobTitle": "PrÃ©sident"
+    },
+    {
+      "@type": "Person",
+      "name": "Jonathan DRAY",
+      "jobTitle": "Vice-PrÃ©sident"
+    }
+  ]
+}
+

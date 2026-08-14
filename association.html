@@ -1,9 +1,19 @@
-<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 
 <html lang="fr">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-51FVQ5KPFZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-51FVQ5KPFZ');
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="icon" type="image/png" href="asset/logo.png"/>
 <title>L'Association</title>
 <meta content="Foyer Rural de Montaud: activités sportives, culturelles, loisirs à Montaud, Hérault." name="description"/>
 <link href="css/style.css" rel="stylesheet"/>
@@ -33,7 +43,6 @@
       <li><a href="evenements.html">Agenda</a></li>
       <li><a href="galerie.html">Galerie</a></li>
       <li><a href="association.html">L'Association</a></li>
-      <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
 
@@ -75,29 +84,185 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <main class="container">
 <h1 class="section-title">L'Association</h1>
+
+<!-- Section Notre Mission et Valeurs -->
 <div class="cards-grid">
-<div class="card"><h3>🎯 Notre Mission</h3><p>Le Foyer Rural de Montaud a pour vocation de dynamiser la vie sociale et culturelle de notre commune en proposant des activités variées pour tous les âges et tous les goûts.</p></div>
-<div class="card"><h3>🤝 Nos Valeurs</h3><ul style="margin-left: 20px; margin-top: 15px;"><li>Convivialité et esprit d'équipe</li><li>Accessibilité pour tous</li><li>Qualité des enseignements</li><li>Respect et bienveillance</li></ul></div>
+<div class="card">
+  <h3>🎯 Notre Mission</h3>
+  <p>Le Foyer Rural de Montaud a pour vocation de dynamiser la vie sociale et culturelle de notre commune en proposant des activités variées pour tous les âges et tous les goûts.</p>
 </div>
+<div class="card">
+  <h3>🤝 Nos Valeurs</h3>
+  <ul style="margin-left: 20px; margin-top: 15px;">
+    <li>Convivialité et esprit d'équipe</li>
+    <li>Accessibilité pour tous</li>
+    <li>Qualité des enseignements</li>
+    <li>Respect et bienveillance</li>
+  </ul>
+</div>
+</div>
+
+<!-- Section Nos Lieux d'Activités -->
 <h2 class="section-title">Nos Lieux d'Activités</h2>
 <div class="cards-grid">
-<div class="card"><h3>🏢 Salle Pierre Combettes</h3><p><strong>Salle principale avec étage</strong></p><ul style="margin-left: 20px; margin-top: 15px;"><li>Salle PC haut : Arts martiaux, danse, théâtre</li><li>Salle PC bas : Gym, pilates, arts plastiques</li></ul></div>
-<div class="card"><h3>🏛️ Grange Robert</h3><p><strong>Espace sportif</strong></p><ul style="margin-left: 20px; margin-top: 15px;"><li>Badminton</li><li>Pétanque</li><li>Activités de groupe</li></ul></div>
-<div class="card"><h3>🏛️ Mairie</h3><p><strong>Services communautaires</strong></p><ul style="margin-left: 20px; margin-top: 15px;"><li>Bibliothèque (ancienne mairie)</li><li>Café citoyen (RDC)</li><li>Point de rendez-vous VTT</li></ul></div>
+<div class="card">
+  <h3>🏢 Salle Pierre Combettes</h3>
+  <p><strong>Salle principale avec étage</strong></p>
+  <ul style="margin-left: 20px; margin-top: 15px;">
+    <li>Salle PC haut : Arts martiaux, danse, théâtre</li>
+    <li>Salle PC bas : Gym, pilates, arts plastiques</li>
+  </ul>
 </div>
-<!-- Bloc « Bureau du Foyer » -->
+<div class="card">
+  <h3>🏛️ Grange Robert</h3>
+  <p><strong>Espace sportif</strong></p>
+  <ul style="margin-left: 20px; margin-top: 15px;">
+    <li>Badminton</li>
+    <li>Pétanque</li>
+    <li>Activités de groupe</li>
+  </ul>
+</div>
+<div class="card">
+  <h3>🏛️ Mairie</h3>
+  <p><strong>Services communautaires</strong></p>
+  <ul style="margin-left: 20px; margin-top: 15px;">
+    <li>Bibliothèque (ancienne mairie)</li>
+    <li>Café citoyen (RDC)</li>
+    <li>Point de rendez-vous VTT</li>
+  </ul>
+</div>
+</div>
+
+<!-- Bloc « Bureau du Foyer » - Version dynamique avec fallback -->
 <section id="bureau" class="bureau-section">
   <div class="bureau-card">
     <h2 class="section-title">Bureau du Foyer</h2>
+    
+    <!-- Contenu dynamique depuis Firestore (chargé par JavaScript) -->
+    <div id="bureau-dynamic"></div>
+    
+    <!-- Contenu statique (fallback si Firebase indisponible) -->
+    <div id="bureau-static">
+      <ul class="bureau-list">
+        <li><span class="role">Président</span> : <span class="name">Jonathan DRAY</span> – <a href="tel:+33767550512" class="phone">07 67 55 05 12</a></li>
+        <li><span class="role">Vice-Président</span> : <span class="name">Jérome COMBESCURE</span> – <a href="tel:+33681898255" class="phone">06 81 89 82 55</a></li>
+        <li><span class="role">Secrétaire</span> : <span class="name">Marianne COMBESCURE</span> – <a href="tel:+33787707740" class="phone">07 87 70 77 40</a></li>
+        <li><span class="role">Secrétaire adjointe</span> : <span class="name">Emma GOURLAN</span> – <a href="tel:+33782897449" class="phone">07 82 89 74 49</a></li>
+        <li><span class="role">Trésorière</span> : <span class="name">Roselyne NACACHIAN</span> – <a href="tel:+33632656776" class="phone">06 32 65 67 76</a></li>
+        <li><span class="role">Trésorier adjoint</span> : <span class="name">Philippe REVERBEL</span> – <a href="tel:+33683462979" class="phone">06 83 46 29 79</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    <ul class="bureau-list">
-      <li><span class="role">Président</span> : <span class="name">Daniel FERRANT</span> – <a href="tel:+33671930507" class="phone">06 71 93 05 07</a></li>
-      <li><span class="role">Vice-Président</span> : <span class="name">Jonathan DRAY</span> – <a href="tel:+33767550512" class="phone">07 67 55 05 12</a></li>
-      <li><span class="role">Secrétaire</span> : <span class="name">Marianne COMBESCURE</span> – <a href="tel:+33787707740" class="phone">07 87 70 77 40</a></li>
-      <li><span class="role">Secrétaire adjointe</span> : <span class="name">Virginie FLEURY</span> – <a href="tel:+33685598046" class="phone">06 85 59 80 46</a></li>
-      <li><span class="role">Trésorière</span> : <span class="name">Roselyne NACACHIAN</span> – <a href="tel:+33632656776" class="phone">06 32 65 67 76</a></li>
-      <li><span class="role">Trésorière adjointe</span> : <span class="name">Christelle BOGUD</span> – <a href="tel:+33601285318" class="phone">06 01 28 53 18</a></li>
-    </ul>
+<!-- Section Assemblées Générales -->
+<section class="ag-section">
+  <h2 class="section-title">Comptes Rendus d'Assemblées Générales</h2>
+  <div class="cards-grid">
+    <!-- Colonne dynamique pour 2025-2026 -->
+    <div class="card" id="ag-dynamic-card">
+      <h3>📄 AG 2025-2026</h3>
+      <ul class="ag-list" id="ag-dynamic-list">
+        <!-- Les nouveaux documents AG seront ajoutés ici dynamiquement -->
+      </ul>
+    </div>
+    
+    <div class="card">
+      <h3>📄 Assemblées Générales précédentes</h3>
+      <ul class="ag-list">
+        <li><a href="pv_ag/AGOA 21_09_2024 signée.pdf" target="_blank">AG 21 septembre 2024</a></li>
+        <li><a href="pv_ag/ANNONCE AG 2024.pdf" target="_blank">Annonce AG 2024</a></li>
+        <li><a href="pv_ag/CR AG du 19 Septembre 2020 V6.pdf" target="_blank">AG 19 septembre 2020</a></li>
+        <li><a href="pv_ag/A7- PV AG  du 5-10-2019.pdf" target="_blank">AG 5 octobre 2019</a></li>
+        <li><a href="pv_ag/A6- PV AGE du 02 02 19.pdf" target="_blank">AGE 2 février 2019</a></li>
+        <li><a href="pv_ag/A5- PV AG 22-09-2018.pdf" target="_blank">AG 22 septembre 2018</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📄 Archives AG</h3>
+      <ul class="ag-list">
+        <li><a href="pv_ag/AG et CA du 23 septembre 2017.pdf" target="_blank">AG et CA 23 sept 2017</a></li>
+        <li><a href="pv_ag/A3- PV AG du 17 09 16.pdf" target="_blank">AG 17 septembre 2016</a></li>
+        <li><a href="pv_ag/A2- PV AG sept 2015 .pdf" target="_blank">AG septembre 2015</a></li>
+        <li><a href="pv_ag/A1- PV AG 20 sept 2014.pdf" target="_blank">AG 20 septembre 2014</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Section Conseils d'Administration -->
+<section class="ca-section">
+  <h2 class="section-title">Réunions du Conseil d'Administration</h2>
+  <div class="cards-grid">
+    <!-- Colonne dynamique pour 2025-2026 -->
+    <div class="card" id="ca-dynamic-card">
+      <h3>📋 CA 2025-2026</h3>
+      <ul class="ag-list" id="ca-dynamic-list">
+        <!-- Les nouveaux documents CA seront ajoutés ici dynamiquement -->
+      </ul>
+    </div>
+    
+    <div class="card">
+      <h3>📋 CA récents (2024-2020)</h3>
+      <ul class="ag-list">
+        <li><a href="pv_ag/CA du 21_09_2024 nomination bureau.pdf" target="_blank">CA 21 septembre 2024 - Nomination bureau</a></li>
+        <li><a href="pv_ag/C38- PV CA 03-03-20.pdf" target="_blank">CA 3 mars 2020</a></li>
+        <li><a href="pv_ag/C37-PV CA 20-12-19.pdf" target="_blank">CA 20 décembre 2019</a></li>
+        <li><a href="pv_ag/C36-PV CA 25-10-2019.pdf" target="_blank">CA 25 octobre 2019</a></li>
+        <li><a href="pv_ag/C34- PV CA 13-09-19.pdf" target="_blank">CA 13 septembre 2019</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📋 CA 2019-2018</h3>
+      <ul class="ag-list">
+        <li><a href="pv_ag/C33- PV CA 21-06-19.pdf" target="_blank">CA 21 juin 2019</a></li>
+        <li><a href="pv_ag/C32-PV CA 27-4-19.pdf" target="_blank">CA 27 avril 2019</a></li>
+        <li><a href="pv_ag/C31-PV CA 15-03-19.pdf" target="_blank">CA 15 mars 2019</a></li>
+        <li><a href="pv_ag/C30-PV CA 14-12-18.pdf" target="_blank">CA 14 décembre 2018</a></li>
+        <li><a href="pv_ag/C29-PV CA 22-09-18.pdf" target="_blank">CA 22 septembre 2018</a></li>
+        <li><a href="pv_ag/C28 PV CA 8 septembre 2018.pdf" target="_blank">CA 8 septembre 2018</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Section Mouvement Rural -->
+<section class="mouvement-section">
+  <h2 class="section-title">Mouvement Rural Hérault</h2>
+  <div class="card">
+    <h3>🌾 UDFRA34</h3>
+    <p>Suite à la décision prise par la Fédération départementale des foyers ruraux de l'Hérault de ne plus adhérer à la Confédération nationale des foyers ruraux, le Foyer de Montaud, désireux de garder le lien avec le mouvement national, adhère désormais à la nouvelle <strong>Union départementale des foyers ruraux de l'Hérault (UDFRA34)</strong>, dont il est membre fondateur.</p>
+    <p>L'UDFRA34 adhère elle-même à la <strong>Confédération nationale des foyers ruraux (CNFR)</strong>.</p>
+    <p>Ces structures représentent les foyers ruraux aux échelons départemental, régional et national et offrent divers services aux foyers ruraux locaux.</p>
+  </div>
+</section>
+
+<!-- Section RGPD -->
+<section class="rgpd-section">
+  <h2 class="section-title">RGPD - Protection des Données</h2>
+  <div class="card">
+    <h3>🔒 Consentement explicite et éclairé</h3>
+    <p>Dans le cadre de l'activité de notre association Foyer Rural de Montaud nous avons constitué un fichier contenant des informations à caractère personnel sur nos membres.</p>
+    <p>Les informations recueillies sont enregistrées dans un fichier par le Président dans le but de gérer les activités du Foyer. Elles sont conservées pendant 3 ans et sont destinées au Bureau du Foyer et aux animateurs.</p>
+    <p>Conformément à la loi « RGPD », vous pouvez exercer votre droit d'accès aux données vous concernant et les faire rectifier en contactant <a href="mailto:foyerrural.montaud@gmail.com">foyerrural.montaud@gmail.com</a></p>
+  </div>
+</section>
+
+<!-- Section Documents Officiels -->
+<section class="documents-section">
+  <h2 class="section-title">Documents Officiels</h2>
+  <div class="cards-grid">
+    <div class="card">
+      <h3>📜 Statuts</h3>
+      <p><a href="Statuts/STATUTS DU 02 02 19 SIGNES.pdf" target="_blank" class="download-link">📥 Télécharger les Statuts (PDF)</a></p>
+    </div>
+    <div class="card">
+      <h3>📧 Participez à la Vie du Foyer</h3>
+      <p>Ce site est aussi le vôtre ! Dites nous ce que vous avez réalisé dans vos sections ou à l'occasion des événements organisés par le foyer.</p>
+      <p>Faites publier photos, vidéos, textes, liens etc.</p>
+      <p><strong>Pour cela, envoyez vos fichiers à :</strong><br>
+      <a href="mailto:foyerrural.montaud@gmail.com">foyerrural.montaud@gmail.com</a></p>
+    </div>
   </div>
 </section>
 <footer>
@@ -127,5 +292,84 @@ Certificat médical requis</p>
 </footer>
 <script src="js/activities.js"></script>
 <script src="js/main.js"></script>
+
+<!-- Firebase SDK (v8 compatible) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<!-- Configuration Firebase -->
+<script src="js/firebase-config.js"></script>
+
+<!-- Module de chargement dynamique -->
+<script src="js/firestore-loader.js"></script>
+
+<!-- Chargement des données au démarrage -->
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    await window.loadDynamicContent.loadBureau();
+    // Charger également les documents CA/AG
+    await loadDynamicDocuments();
+  } catch (error) {
+    console.log('Mode fallback: contenu statique maintenu');
+  }
+});
+
+// Charger les documents dynamiques depuis Firebase
+async function loadDynamicDocuments() {
+  try {
+    console.log('📚 Chargement des documents CA/AG depuis Firebase...');
+    
+    const documentsRef = firebase.firestore().collection('documents');
+    const snapshot = await documentsRef.orderBy('date', 'desc').get();
+    
+    const agList = document.getElementById('ag-dynamic-list');
+    const caList = document.getElementById('ca-dynamic-list');
+    const agCard = document.getElementById('ag-dynamic-card');
+    const caCard = document.getElementById('ca-dynamic-card');
+    
+    let agCount = 0;
+    let caCount = 0;
+    
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const li = document.createElement('li');
+      const link = document.createElement('a');
+      
+      link.href = data.fileUrl;
+      link.target = '_blank';
+      link.textContent = data.title;
+      li.appendChild(link);
+      
+      if (data.type === 'AG') {
+        agList.appendChild(li);
+        agCount++;
+      } else if (data.type === 'CA') {
+        caList.appendChild(li);
+        caCount++;
+      }
+    });
+    
+    // Masquer les colonnes vides
+    if (agCount === 0) {
+      agCard.style.display = 'none';
+    }
+    if (caCount === 0) {
+      caCard.style.display = 'none';
+    }
+    
+    console.log(`✅ Documents chargés: ${agCount} AG, ${caCount} CA`);
+    
+  } catch (error) {
+    console.warn('⚠️ Erreur lors du chargement des documents:', error);
+    // Masquer les colonnes en cas d'erreur
+    document.getElementById('ag-dynamic-card').style.display = 'none';
+    document.getElementById('ca-dynamic-card').style.display = 'none';
+  }
+}
+</script>
+<script type="module" src="js/firestore-data.js"></script>
 </body>
 </html>
+
+

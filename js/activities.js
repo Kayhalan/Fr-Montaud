@@ -1,4 +1,21 @@
-const activities = [
+﻿const activities = [
+{
+    "name": "Arts plastiques",
+    "public": "Enfants (+7 ans)",
+    "day": "Mercredi",
+    "time": "10h00–11h30",
+    "price": "210 € + adhésion",
+    "referent": "Virginie FLEURY",
+    "phone": "06 85 59 80 46",
+    "animator": "Virginie FLEURY",
+    "location": "Salle PC bas",
+    "start": "10/09/2025",
+    "detailUrl": "activites/arts-plastiques.html",
+    "category": [
+      "enfants",
+      "culture"
+    ]
+  },
 {
     "name": "Arts plastiques",
     "public": "Adultes",
@@ -10,6 +27,7 @@ const activities = [
     "animator": "Virginie FLEURY",
     "location": "Salle PC bas",
     "start": "09/09/2025",
+    "detailUrl": "activites/arts-plastiques.html",
     "category": [
       "adultes",
       "culture"
@@ -26,6 +44,7 @@ const activities = [
     "animator": "Valérie REIMUND / Sophie BUSSIERE",
     "location": "Grange Robert",
     "start": "08/09/2025",
+    "detailUrl": "activites/badminton.html",
     "category": [
       "ados",
       "adultes",
@@ -43,6 +62,7 @@ const activities = [
     "animator": "Valérie REIMUND / Sophie BUSSIERE",
     "location": "Grange Robert",
     "start": "11/09/2025",
+    "detailUrl": "activites/badminton.html",
     "category": [
       "ados",
       "adultes",
@@ -60,6 +80,7 @@ const activities = [
     "animator": "Sabine ESQUIE",
     "location": "Salle PC haut",
     "start": "09/09/2025",
+    "detailUrl": "activites/boxe-pieds-poings.html",
     "category": [
       "ados",
       "sport"
@@ -76,6 +97,7 @@ const activities = [
     "animator": "Sabine ESQUIE",
     "location": "Salle PC haut",
     "start": "09/09/2025",
+    "detailUrl": "activites/boxe-pieds-poings.html",
     "category": [
       "adultes",
       "sport"
@@ -92,6 +114,7 @@ const activities = [
     "animator": "Valheires SOUDAY",
     "location": "Salle PC haut",
     "start": "10/09/2025",
+    "detailUrl": "activites/break-dance.html",
     "category": [
       "enfants",
       "sport",
@@ -109,6 +132,7 @@ const activities = [
     "animator": "Valheires SOUDAY",
     "location": "Salle PC haut",
     "start": "10/09/2025",
+    "detailUrl": "activites/break-dance.html",
     "category": [
       "ados",
       "sport",
@@ -126,6 +150,7 @@ const activities = [
     "animator": "Salem BLE",
     "location": "Salle PC haut",
     "start": "12/09/2025",
+    "detailUrl": "activites/danse-africaine.html",
     "category": ["enfants", "culture"]
   },
   {
@@ -139,19 +164,21 @@ const activities = [
     "animator": "Salem BLE",
     "location": "Salle PC haut",
     "start": "12/09/2025",
+    "detailUrl": "activites/danse-africaine.html",
     "category": ["adultes", "culture"]
   },
   {
     "name": "Danse latino",
     "public": "Adultes",
-    "day": "Vendredi",
+    "day": "Lundi",
     "time": "19h30–20h30",
     "price": "160 € + adhésion",
     "referent": "Alice HEITZMANN",
     "phone": "06 73 09 12 68",
     "animator": "Jean Philippe TRAN",
     "location": "Salle PC haut",
-    "start": "12/09/2025",
+    "start": "08/09/2025",
+    "detailUrl": "activites/danse-latino.html",
     "category": ["adultes", "culture"]
   },
   {
@@ -165,6 +192,7 @@ const activities = [
     "animator": "Erwan LAGLAINE",
     "location": "Salle PC bas",
     "start": "09/09/2025",
+    "detailUrl": "activites/danse-traditionnelle.html",
     "category": ["adultes", "culture"]
   },
   {
@@ -178,6 +206,7 @@ const activities = [
     "animator": "Amandine MAILLARD",
     "location": "Salle PC haut",
     "start": "10/09/2025",
+    "detailUrl": "activites/eveil-corporel.html",
     "category": [
       "enfants",
       "sport"
@@ -194,6 +223,7 @@ const activities = [
     "animator": "Sylvain GALLIZIA",
     "location": "Salle PC bas",
     "start": "12/09/2025",
+    "detailUrl": "activites/fanfare.html",
     "category": ["adultes", "culture"]
   },
   {
@@ -207,6 +237,7 @@ const activities = [
     "animator": "Colette SOLIVERES",
     "location": "Salle PC haut",
     "start": "12/09/2025",
+    "detailUrl": "activites/gym-douce.html",
     "category": [
       "adultes",
       "sport"
@@ -223,6 +254,7 @@ const activities = [
     "animator": "Colette SOLIVERES",
     "location": "Salle PC haut",
     "start": "09/09/2025",
+    "detailUrl": "activites/gym-tonic.html",
     "category": [
       "adultes",
       "sport"
@@ -239,6 +271,7 @@ const activities = [
     "animator": "Colette SOLIVERES",
     "location": "Salle PC bas",
     "start": "09/09/2025",
+    "detailUrl": "activites/gym-tonic.html",
     "category": [
       "adultes",
       "sport"
@@ -255,6 +288,7 @@ const activities = [
     "animator": "Amandine MAILLARD",
     "location": "Salle PC haut",
     "start": "10/09/2025",
+    "detailUrl": "activites/initiation-danses.html",
     "category": [
       "enfants",
       "culture"
@@ -271,6 +305,7 @@ const activities = [
     "animator": "Jérémy CHIAROTTO",
     "location": "Salle PC haut",
     "start": "10/09/2025",
+    "detailUrl": "activites/judo.html",
     "category": [
       "enfants",
       "sport"
@@ -287,27 +322,10 @@ const activities = [
     "animator": "Jérémy CHIAROTTO",
     "location": "Salle PC haut",
     "start": "10/09/2025",
+    "detailUrl": "activites/judo.html",
     "category": [
       "ados",
       "sport"
-    ]
-  },
-  {
-    "name": "Percussions",
-    "public": "Tous âges",
-    "day": "Vendredi",
-    "time": "18h20–19h20 (bi-mensuel)",
-    "price": "111 € + adhésion",
-    "referent": "Karine JACQUET",
-    "phone": "06 88 49 59 42",
-    "animator": "Tobi VOLI",
-    "location": "Salle PC haut",
-    "start": "12/09/2025",
-    "category": [
-      "enfants",
-      "ados",
-      "adultes",
-      "culture"
     ]
   },
   {
@@ -321,9 +339,29 @@ const activities = [
     "animator": "Bernard LACQUEMENT",
     "location": "Extérieur",
     "start": "11/09/2025",
+    "detailUrl": "activites/marche-jeudi.html",
     "category": [
       "adultes",
       "sport"
+    ]
+  },
+  {
+    "name": "Percussions",
+    "public": "Tous âges",
+    "day": "Vendredi",
+    "time": "18h20–19h20 (bi-mensuel)",
+    "price": "111 € + adhésion",
+    "referent": "Karine JACQUET",
+    "phone": "06 88 49 59 41",
+    "animator": "Tobi VOLI",
+    "location": "Salle PC haut",
+    "start": "12/09/2025",
+    "detailUrl": "activites/percussions.html",
+    "category": [
+      "enfants",
+      "ados",
+      "adultes",
+      "culture"
     ]
   },
   {
@@ -337,6 +375,7 @@ const activities = [
     "animator": "Joel BALSAN",
     "location": "Grange Robert",
     "start": "Toute l'année",
+    "detailUrl": "activites/petanque.html",
     "category": [
       "enfants",
       "ados",
@@ -355,6 +394,7 @@ const activities = [
     "animator": "Colette SOLIVERES",
     "location": "Salle PC bas",
     "start": "10/09/2025",
+    "detailUrl": "activites/pilates.html",
     "category": [
       "adultes",
       "sport"
@@ -371,6 +411,7 @@ const activities = [
     "animator": "Colette SOLIVERES",
     "location": "Salle PC haut",
     "start": "10/09/2025",
+    "detailUrl": "activites/pilates.html",
     "category": [
       "adultes",
       "sport"
@@ -387,6 +428,7 @@ const activities = [
     "animator": "Philippe REVERBEL",
     "location": "Rdv salle PC",
     "start": "09/09/2025",
+    "detailUrl": "activites/rando-vtt.html",
     "category": [
       "adultes",
       "sport"
@@ -396,13 +438,14 @@ const activities = [
     "name": "Théâtre",
     "public": "Adultes",
     "day": "Jeudi",
-    "time": "19h30–21h00",
+    "time": "19h30–21h30",
     "price": "210 € + adhésion",
     "referent": "Michel NACACHIAN",
     "phone": "06 12 54 48 35",
     "animator": "Bernard GUILLERMO",
     "location": "Salle PC haut",
     "start": "10/09/2025",
+    "detailUrl": "activites/theatre-adulte.html",
     "category": [
       "adultes",
       "culture"
@@ -419,6 +462,7 @@ const activities = [
     "animator": "Bernard GUILLERMO",
     "location": "Salle PC haut",
     "start": "10/09/2025",
+    "detailUrl": "activites/theatre-enfants.html",
     "category": [
       "enfants",
       "culture"
@@ -435,6 +479,7 @@ const activities = [
     "animator": "Bernard GUILLERMO",
     "location": "Salle PC haut",
     "start": "10/09/2025",
+    "detailUrl": "activites/theatre-enfants.html",
     "category": [
       "ados",
       "culture"
@@ -451,6 +496,7 @@ const activities = [
     "animator": "Elisabeth MAITRE",
     "location": "Salle PC haut",
     "start": "11/09/2025",
+    "detailUrl": "activites/yoga.html",
     "category": [
       "adultes",
       "sport"
@@ -467,6 +513,7 @@ const activities = [
     "animator": "Jean Philippe TRAN",
     "location": "Salle PC haut",
     "start": "08/09/2025",
+    "detailUrl": "activites/zumba.html",
     "category": [
       "enfants",
       "sport"
@@ -483,6 +530,7 @@ const activities = [
     "animator": "Jean Philippe TRAN",
     "location": "Salle PC haut",
     "start": "08/09/2025",
+    "detailUrl": "activites/zumba.html",
     "category": [
       "ados",
       "adultes",
@@ -490,3 +538,4 @@ const activities = [
     ]
   }
 ];
+

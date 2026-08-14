@@ -1,0 +1,337 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - list [ref=e4]:
+        - listitem [ref=e5]:
+          - link "Accueil" [ref=e6] [cursor=pointer]:
+            - /url: index.html
+        - listitem [ref=e7]:
+          - link "Activités" [ref=e8] [cursor=pointer]:
+            - /url: activites.html
+        - listitem [ref=e9]:
+          - link "Tarifs & Inscriptions" [ref=e10] [cursor=pointer]:
+            - /url: tarifs.html
+        - listitem [ref=e11]:
+          - link "Agenda" [ref=e12] [cursor=pointer]:
+            - /url: evenements.html
+        - listitem [ref=e13]:
+          - link "Galerie" [ref=e14] [cursor=pointer]:
+            - /url: galerie.html
+        - listitem [ref=e15]:
+          - link "L'Association" [ref=e16] [cursor=pointer]:
+            - /url: association.html
+        - listitem [ref=e17]:
+          - link "Contact" [ref=e18] [cursor=pointer]:
+            - /url: contact.html
+  - main [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e21]:
+        - img "Logo Foyer Rural Montaud" [ref=e22]
+        - heading "Bienvenue au Foyer Rural de Montaud" [level=1] [ref=e23]
+      - paragraph [ref=e24]: Découvrez nos 24 activités pour la saison 2025-2026
+      - link "Découvrir nos activités" [ref=e25] [cursor=pointer]:
+        - /url: activites.html
+    - link [ref=e26] [cursor=pointer]:
+      - /url: tarifs.html
+      - generic [ref=e27]:
+        - heading "🎉 Inscriptions Ouvertes - Saison 2025-2026" [level=3] [ref=e28]
+        - paragraph [ref=e29]: Les activités débutent à partir du 8 septembre 2025
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - generic [ref=e32]: "24"
+        - generic [ref=e33]: Activités proposées
+      - generic [ref=e34]:
+        - generic [ref=e35]: 7/7
+        - generic [ref=e36]: Jours d'activités
+      - generic [ref=e37]:
+        - generic [ref=e38]: "3"
+        - generic [ref=e39]: Salles disponibles
+    - heading "Nos Activités Phares" [level=2] [ref=e40]
+    - generic [ref=e41]:
+      - link [ref=e42] [cursor=pointer]:
+        - /url: activites.html?filter=culture
+        - generic [ref=e43]:
+          - heading "🎭 Arts & Culture" [level=3] [ref=e44]
+          - paragraph [ref=e45]: Théâtre pour enfants et adultes, arts plastiques, percussions... Exprimez votre créativité !
+      - link [ref=e46] [cursor=pointer]:
+        - /url: activites.html?filter=sport
+        - generic [ref=e47]:
+          - heading "🏃‍♀️ Sport & Bien-être" [level=3] [ref=e48]
+          - paragraph [ref=e49]: Badminton, boxe, gym, yoga, pilates, zumba... Restez en forme avec nos cours variés !
+      - link [ref=e50] [cursor=pointer]:
+        - /url: activites.html
+        - generic [ref=e51]:
+          - heading "👶 Enfants, Ados, Adultes" [level=3] [ref=e52]
+          - paragraph [ref=e53]: Éveil corporel, judo, break dance, théâtre... Des activités adaptées à chaque âge !
+      - link [ref=e54] [cursor=pointer]:
+        - /url: activites.html
+        - generic [ref=e55]:
+          - heading "🌳 Activités Extérieures" [level=3] [ref=e56]
+          - paragraph [ref=e57]: Randonnée, VTT, pétanque, marche... Profitez du grand air et de la nature !
+      - link [ref=e58] [cursor=pointer]:
+        - /url: evenements.html
+        - generic [ref=e59]:
+          - heading "🥳 Les évènements" [level=3] [ref=e60]
+          - paragraph [ref=e61]: Spectacles, animations, découverte, repas, ... Des moments conviviaux qui nous rapprochent !
+      - link [ref=e62] [cursor=pointer]:
+        - /url: activites/cafe-citoyen.html
+        - generic [ref=e63]:
+          - heading "☕ Mont-Ô Café" [level=3] [ref=e64]
+          - paragraph [ref=e65]: Gratuit et ouvert à tous le Samedi 9h30 - 13h00 à la Mairie. Un espace d'échange et de débat citoyen autour d'un café.
+    - generic [ref=e66]:
+      - heading "Actualités" [level=2] [ref=e67]
+      - generic [ref=e69]:
+        - img "Affiche Soirée Guinguette" [ref=e71]
+        - heading [level=3] [ref=e72]:
+          - link "🎉 Soirée Guinguette - 27 septembre 2025" [ref=e73] [cursor=pointer]:
+            - /url: guinguette.html
+        - paragraph [ref=e74]:
+          - strong [ref=e75]: Samedi 27 septembre 2025 - Place de Montlaur à Montaud
+        - paragraph [ref=e76]:
+          - text: Le Foyer Rural de Montaud organise en inter-associations avec l'APE et le Comité des fêtes une
+          - strong [ref=e77]: Soirée Guinguette
+          - text: avec la participation du Cellier du Val des Pins.
+        - paragraph [ref=e78]:
+          - strong [ref=e79]: "Programme de la soirée :"
+        - list [ref=e80]:
+          - listitem [ref=e81]:
+            - text: 🎺
+            - strong [ref=e82]: 19h
+            - text: ": Fanfare du FR de Montaud"
+          - listitem [ref=e83]:
+            - text: 🎵
+            - strong [ref=e84]: 20h
+            - text: ": Groupe musical 45 Tours"
+        - paragraph [ref=e85]:
+          - strong [ref=e86]: "Restauration sur place :"
+        - list [ref=e87]:
+          - listitem [ref=e88]:
+            - text: 🍕
+            - strong [ref=e89]: Food truck
+            - text: ": Pizzas sur place ou à emporter"
+          - listitem [ref=e90]:
+            - text: 🥪
+            - strong [ref=e91]: Sandwiches gastronomiques
+          - listitem [ref=e92]:
+            - text: 🍰
+            - strong [ref=e93]: Desserts
+          - listitem [ref=e94]:
+            - text: 🍷
+            - strong [ref=e95]: Boissons
+            - text: ": assurées par le Comité des fêtes et le Cellier"
+        - paragraph [ref=e96]:
+          - strong [ref=e97]: 🚗 Parking
+          - text: ": Rue de Montlaur"
+        - paragraph [ref=e98]: Une soirée conviviale à ne pas manquer !
+        - generic [ref=e99]:
+          - generic [ref=e100]: "Partager :"
+          - generic [ref=e101]:
+            - button "Partager sur Facebook" [ref=e102] [cursor=pointer]
+            - button "Partager sur X" [ref=e105] [cursor=pointer]
+            - button "Partager sur WhatsApp" [ref=e108] [cursor=pointer]
+            - button "Partager par email" [ref=e111] [cursor=pointer]
+            - button "🔗" [ref=e114] [cursor=pointer]
+      - generic [ref=e116]:
+        - heading "📅 Assemblée Générale - 13 septembre 2025" [level=3] [ref=e117]
+        - paragraph [ref=e118]:
+          - strong [ref=e119]: Samedi 13 septembre 2025 à 14h - Salle Pierre Combettes
+        - paragraph [ref=e120]:
+          - text: L'Assemblée Générale du Foyer Rural de Montaud aura lieu le
+          - strong [ref=e121]: samedi 13 septembre 2025 à 14h
+          - text: en salle Pierre Combettes.
+        - paragraph [ref=e122]: "Au programme :"
+        - list [ref=e123]:
+          - listitem [ref=e124]:
+            - text: 🔍
+            - strong [ref=e125]: Bilan de la saison 2024-2025
+            - text: ": retour sur nos activités, événements et réalisations"
+          - listitem [ref=e126]:
+            - text: 💰
+            - strong [ref=e127]: Rapport financier
+            - text: ": présentation des comptes et budget prévisionnel"
+          - listitem [ref=e128]:
+            - text: 🎯
+            - strong [ref=e129]: Projets 2025-2026
+            - text: ": découvrez nos nouvelles activités et événements à venir"
+          - listitem [ref=e130]:
+            - text: 🗳️
+            - strong [ref=e131]: Élections
+            - text: ": renouvellement du conseil d'administration"
+          - listitem [ref=e132]:
+            - text: 💬
+            - strong [ref=e133]: Échanges et propositions
+            - text: ": vos idées pour enrichir la vie associative"
+        - paragraph [ref=e134]: Tous les adhérents sont invités à participer. Un pot de l'amitié sera offert à l'issue de la réunion pour échanger dans la convivialité !
+        - generic [ref=e135]:
+          - generic [ref=e136]: "Partager :"
+          - generic [ref=e137]:
+            - button "Partager sur Facebook" [ref=e138] [cursor=pointer]
+            - button "Partager sur X" [ref=e141] [cursor=pointer]
+            - button "Partager sur WhatsApp" [ref=e144] [cursor=pointer]
+            - button "Partager par email" [ref=e147] [cursor=pointer]
+            - button "🔗" [ref=e150] [cursor=pointer]
+      - generic [ref=e152]:
+        - link [ref=e154] [cursor=pointer]:
+          - /url: activites/arts-plastiques.html
+          - img "Affiche Arts Plastiques" [ref=e155]
+        - heading [level=3] [ref=e156]:
+          - link "🎨 Arts Plastiques - Créativité à l'honneur" [ref=e157] [cursor=pointer]:
+            - /url: activites/arts-plastiques.html
+        - paragraph [ref=e158]:
+          - text: Découvrez notre activité
+          - strong [ref=e159]: Arts Plastiques
+          - text: "! Un espace dédié à la créativité où petits et grands peuvent s'exprimer librement."
+        - paragraph [ref=e160]:
+          - strong [ref=e161]: "Au programme :"
+          - text: Peinture, dessin, sculpture, collage, techniques mixtes... Dans une ambiance conviviale et bienveillante, laissez libre cours à votre imagination !
+        - paragraph [ref=e162]: Que vous soyez débutant ou confirmé, nos animateurs vous accompagnent dans vos créations artistiques.
+        - generic [ref=e163]:
+          - generic [ref=e164]: "Partager :"
+          - generic [ref=e165]:
+            - button "Partager sur Facebook" [ref=e166] [cursor=pointer]
+            - button "Partager sur X" [ref=e169] [cursor=pointer]
+            - button "Partager sur WhatsApp" [ref=e172] [cursor=pointer]
+            - button "Partager par email" [ref=e175] [cursor=pointer]
+            - button "🔗" [ref=e178] [cursor=pointer]
+      - generic [ref=e180]:
+        - link [ref=e182] [cursor=pointer]:
+          - /url: activites/judo.html
+          - img "Judo" [ref=e183]
+        - heading [level=3] [ref=e184]:
+          - link "🥋 Le Judo fait son grand retour !" [ref=e185] [cursor=pointer]:
+            - /url: activites/judo.html
+        - paragraph [ref=e186]:
+          - strong [ref=e187]: Grande nouveauté 2025-2026 !
+          - text: Le judo fait son retour au Foyer Rural de Montaud.
+        - paragraph [ref=e188]: Art martial traditionnel japonais et sport olympique, le judo développe à la fois la force physique, la souplesse, l'équilibre mental et les valeurs de respect.
+        - paragraph [ref=e189]:
+          - strong [ref=e190]: Ouvert à tous les âges
+          - text: "- de l'éveil judo pour les plus petits aux cours adultes. Encadrement par un professeur diplômé."
+        - generic [ref=e191]:
+          - generic [ref=e192]: "Partager :"
+          - generic [ref=e193]:
+            - button "Partager sur Facebook" [ref=e194] [cursor=pointer]
+            - button "Partager sur X" [ref=e197] [cursor=pointer]
+            - button "Partager sur WhatsApp" [ref=e200] [cursor=pointer]
+            - button "Partager par email" [ref=e203] [cursor=pointer]
+            - button "🔗" [ref=e206] [cursor=pointer]
+      - generic [ref=e208]:
+        - link [ref=e210] [cursor=pointer]:
+          - /url: activites/zumba.html
+          - img "Zumba" [ref=e211]
+        - heading [level=3] [ref=e212]:
+          - 'link "💃 Nouvelle Activité : Zumba" [ref=e213] [cursor=pointer]':
+            - /url: activites/zumba.html
+        - paragraph [ref=e214]:
+          - strong [ref=e215]: Bougez sur des rythmes endiablés !
+          - text: La Zumba arrive au Foyer Rural pour des séances fitness fun et énergiques.
+        - paragraph [ref=e216]: Mélange de danse et de fitness sur des musiques latines et internationales, la Zumba vous permet de brûler des calories tout en vous amusant !
+        - paragraph [ref=e217]: Cours adaptés à tous les niveaux dans une ambiance festive et motivante.
+        - generic [ref=e218]:
+          - generic [ref=e219]: "Partager :"
+          - generic [ref=e220]:
+            - button "Partager sur Facebook" [ref=e221] [cursor=pointer]
+            - button "Partager sur X" [ref=e224] [cursor=pointer]
+            - button "Partager sur WhatsApp" [ref=e227] [cursor=pointer]
+            - button "Partager par email" [ref=e230] [cursor=pointer]
+            - button "🔗" [ref=e233] [cursor=pointer]
+      - generic [ref=e235]:
+        - link [ref=e237] [cursor=pointer]:
+          - /url: activites/danse-africaine.html
+          - img "Danse Africaine" [ref=e238]
+        - heading [level=3] [ref=e239]:
+          - 'link "🌍 Nouvelle Activité : Danse Africaine" [ref=e240] [cursor=pointer]':
+            - /url: activites/danse-africaine.html
+        - paragraph [ref=e241]:
+          - strong [ref=e242]: Découvrez la richesse de la danse africaine !
+          - text: Une activité qui vous transporte à travers les rythmes traditionnels du continent africain.
+        - paragraph [ref=e243]: Mouvements expressifs, musiques authentiques et ambiance chaleureuse vous attendent dans cette nouvelle activité qui fait voyager corps et esprit.
+        - paragraph [ref=e244]: Une occasion unique de découvrir une culture riche à travers la danse !
+        - generic [ref=e245]:
+          - generic [ref=e246]: "Partager :"
+          - generic [ref=e247]:
+            - button "Partager sur Facebook" [ref=e248] [cursor=pointer]
+            - button "Partager sur X" [ref=e251] [cursor=pointer]
+            - button "Partager sur WhatsApp" [ref=e254] [cursor=pointer]
+            - button "Partager par email" [ref=e257] [cursor=pointer]
+            - button "🔗" [ref=e260] [cursor=pointer]
+      - generic [ref=e262]:
+        - link [ref=e264] [cursor=pointer]:
+          - /url: activites/percussions.html
+          - img "Percussions" [ref=e265]
+        - heading [level=3] [ref=e266]:
+          - 'link "🥁 Nouvelle Activité : Percussions" [ref=e267] [cursor=pointer]':
+            - /url: activites/percussions.html
+        - paragraph [ref=e268]:
+          - strong [ref=e269]: Initiez-vous aux percussions !
+          - text: Djembé, congas, darbouka, cajon... Découvrez les rythmes du monde entier.
+        - paragraph [ref=e270]: Apprenez les techniques de base et participez à des sessions musicales collectives dans une ambiance conviviale et rythmée.
+        - paragraph [ref=e271]: Aucune expérience musicale requise - les instruments sont fournis !
+        - generic [ref=e272]:
+          - generic [ref=e273]: "Partager :"
+          - generic [ref=e274]:
+            - button "Partager sur Facebook" [ref=e275] [cursor=pointer]
+            - button "Partager sur X" [ref=e278] [cursor=pointer]
+            - button "Partager sur WhatsApp" [ref=e281] [cursor=pointer]
+            - button "Partager par email" [ref=e284] [cursor=pointer]
+            - button "🔗" [ref=e287] [cursor=pointer]
+      - generic [ref=e289]:
+        - link [ref=e291] [cursor=pointer]:
+          - /url: activites/danse-latino.html
+          - img "Danse Latino" [ref=e292]
+        - heading [level=3] [ref=e293]:
+          - 'link "💃 Nouvelle Activité : Danse Latino" [ref=e294] [cursor=pointer]':
+            - /url: activites/danse-latino.html
+        - paragraph [ref=e295]:
+          - strong [ref=e296]: Salsa, bachata, merengue...
+          - text: Plongez dans l'univers passionné et coloré de la danse latino !
+        - paragraph [ref=e297]: Cours pour débutants et confirmés dans une ambiance festive. Apprenez les pas de base et perfectionnez votre technique sur des musiques entraînantes.
+        - paragraph [ref=e298]: Venez seul(e) ou en couple - la bonne humeur et la convivialité sont au rendez-vous !
+        - generic [ref=e299]:
+          - generic [ref=e300]: "Partager :"
+          - generic [ref=e301]:
+            - button "Partager sur Facebook" [ref=e302] [cursor=pointer]
+            - button "Partager sur X" [ref=e305] [cursor=pointer]
+            - button "Partager sur WhatsApp" [ref=e308] [cursor=pointer]
+            - button "Partager par email" [ref=e311] [cursor=pointer]
+            - button "🔗" [ref=e314] [cursor=pointer]
+      - link:
+        - /url: tarifs.html
+      - generic [ref=e315]:
+        - link:
+          - /url: tarifs.html
+        - generic [ref=e316]:
+          - link [ref=e317] [cursor=pointer]:
+            - /url: tarifs.html
+            - heading "🎯 Inscriptions Ouvertes pour la Saison 2025-2026 !" [level=3] [ref=e318]
+            - paragraph [ref=e319]:
+              - strong [ref=e320]: Les inscriptions sont ouvertes depuis le 1er septembre 2025
+            - paragraph [ref=e321]:
+              - strong [ref=e322]: "Démarrage des activités : Lundi 8 septembre 2025"
+            - paragraph [ref=e323]: Ne tardez plus à vous inscrire ! Avec plus de 20 activités proposées, il y en a pour tous les goûts et tous les âges.
+          - paragraph [ref=e324]:
+            - link "Rendez-vous sur notre page" [ref=e325] [cursor=pointer]:
+              - /url: tarifs.html
+            - link "Tarifs & Inscriptions" [ref=e326] [cursor=pointer]:
+              - /url: tarifs.html
+            - text: pour toutes les informations pratiques.
+  - contentinfo [ref=e327]:
+    - generic [ref=e328]:
+      - generic [ref=e329]:
+        - generic [ref=e330]:
+          - heading "Foyer Rural de Montaud" [level=4] [ref=e331]
+          - paragraph [ref=e332]: Association loi 1901 Saison 2025-2026 34160 Montaud
+        - generic [ref=e333]:
+          - heading "Nos Partenaires" [level=4] [ref=e334]
+          - paragraph [ref=e335]:
+            - link "• Mairie de Montaud" [ref=e336] [cursor=pointer]:
+              - /url: https://www.montaud34.fr/
+            - link "• Foyer Rural de St Bauzille" [ref=e337] [cursor=pointer]:
+              - /url: https://www.saintbauzilledemontmel.fr/associations/foyer-rural/
+        - generic [ref=e338]:
+          - heading "Informations" [level=4] [ref=e339]
+          - paragraph [ref=e340]: Activités dès 3 ans Certificat médical requis
+      - paragraph [ref=e342]:
+        - text: © 2025 Foyer Rural de Montaud. Tous droits réservés.
+        - link "Mentions légales" [ref=e343] [cursor=pointer]:
+          - /url: mentions-legales.html

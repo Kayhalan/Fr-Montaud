@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+    <!-- Page d'accueil -->
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/index.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Pages principales -->
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/tarifs.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/contact.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/evenements.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/association.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/galerie.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <!-- Pages d'activitÃ©s principales -->
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/yoga.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/badminton.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/theatre-adulte.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/theatre-enfants.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/judo.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/danse-africaine.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/danse-latino.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/zumba.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/pilates.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/gym-douce.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/gym-tonic.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/arts-plastiques.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/percussions.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/fanfare.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/break-dance.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/boxe-pieds-poings.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/petanque.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/rando-vtt.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/marche-jeudi.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/eveil-corporel.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/initiation-danses.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/danse-traditionnelle.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/bibliotheque.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/activites/cafe-citoyen.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Pages lÃ©gales -->
+    <url>
+        <loc>https://www.foyer-rural-montaud.com/mentions-legales.html</loc>
+        <lastmod>2025-01-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+</urlset>
+

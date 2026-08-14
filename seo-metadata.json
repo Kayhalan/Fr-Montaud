@@ -1,0 +1,122 @@
+﻿{
+  "pages": {
+    "index.html": {
+      "title": "Foyer Rural de Montaud - 24 ActivitÃ©s Sportives et Culturelles | Saison 2025-2026",
+      "description": "Foyer Rural de Montaud : 24 activitÃ©s pour tous Ã¢ges. Yoga, badminton, thÃ©Ã¢tre, danse, judo. Inscriptions ouvertes saison 2025-2026. HÃ©rault 34160.",
+      "keywords": "foyer rural montaud, activitÃ©s sportives montaud, activitÃ©s culturelles hÃ©rault, yoga montaud, badminton, thÃ©Ã¢tre enfants, association loi 1901",
+      "canonical": "https://www.foyer-rural-montaud.com/",
+      "og:title": "Foyer Rural de Montaud - 24 ActivitÃ©s pour Tous",
+      "og:description": "DÃ©couvrez nos 24 activitÃ©s : sport, culture, bien-Ãªtre Ã  Montaud. Saison 2025-2026.",
+      "priority": "1.0",
+      "changefreq": "weekly"
+    },
+    "activites.html": {
+      "title": "24 ActivitÃ©s Sportives et Culturelles - Foyer Rural Montaud | Yoga, ThÃ©Ã¢tre, Badminton",
+      "description": "DÃ©couvrez nos 24 activitÃ©s : sport (yoga, badminton, judo), culture (thÃ©Ã¢tre, arts), bien-Ãªtre (pilates, zumba). Tous Ã¢ges, dÃ¨s 3 ans. Montaud, HÃ©rault.",
+      "keywords": "activitÃ©s montaud, cours yoga hÃ©rault, thÃ©Ã¢tre enfants, badminton montaud, judo, danse africaine, arts plastiques, break dance",
+      "canonical": "https://www.foyer-rural-montaud.com/activites.html",
+      "og:title": "24 ActivitÃ©s Sportives et Culturelles Ã  Montaud",
+      "og:description": "Sport, culture, bien-Ãªtre : 24 activitÃ©s pour tous les Ã¢ges au Foyer Rural de Montaud",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "tarifs.html": {
+      "title": "Tarifs et Inscriptions 2025-2026 - Foyer Rural Montaud | ActivitÃ©s dÃ¨s 3 ans",
+      "description": "Tarifs et modalitÃ©s d'inscription Foyer Rural Montaud 2025-2026. ActivitÃ©s dÃ¨s 3 ans. Certificat mÃ©dical requis. Contact : 06 71 93 05 07.",
+      "keywords": "tarifs foyer rural montaud, inscription activitÃ©s hÃ©rault, prix cours yoga montaud, tarif thÃ©Ã¢tre enfants, inscription badminton",
+      "canonical": "https://www.foyer-rural-montaud.com/tarifs.html",
+      "og:title": "Tarifs et Inscriptions - Foyer Rural Montaud",
+      "og:description": "Inscrivez-vous pour la saison 2025-2026. ActivitÃ©s dÃ¨s 3 ans.",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    "contact.html": {
+      "title": "Contact Foyer Rural Montaud | PrÃ©sident, Bureau, Horaires | HÃ©rault 34160",
+      "description": "Contactez le Foyer Rural de Montaud. PrÃ©sident Daniel FERRANT : 06 71 93 05 07. Adresse : 34160 Montaud, HÃ©rault. Informations et inscriptions.",
+      "keywords": "contact foyer rural montaud, tÃ©lÃ©phone prÃ©sident montaud, adresse association hÃ©rault, daniel ferrant, jonathan dray",
+      "canonical": "https://www.foyer-rural-montaud.com/contact.html",
+      "og:title": "Contact - Foyer Rural de Montaud",
+      "og:description": "Toutes les informations pour nous contacter Ã  Montaud",
+      "priority": "0.8",
+      "changefreq": "yearly"
+    },
+    "evenements.html": {
+      "title": "Agenda ÃvÃ©nements 2025-2026 - Foyer Rural Montaud | Guinguette, Spectacles",
+      "description": "Agenda des Ã©vÃ©nements Foyer Rural Montaud 2025-2026 : SoirÃ©e Guinguette (30 aoÃ»t), reprÃ©sentations activitÃ©s (juin). Montaud, HÃ©rault.",
+      "keywords": "Ã©vÃ©nements montaud, guinguette hÃ©rault, spectacle foyer rural, agenda activitÃ©s montaud, soirÃ©e montaud",
+      "canonical": "https://www.foyer-rural-montaud.com/evenements.html",
+      "og:title": "Agenda ÃvÃ©nements - Foyer Rural Montaud",
+      "og:description": "DÃ©couvrez nos Ã©vÃ©nements festifs et culturels pour la saison 2025-2026",
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "association.html": {
+      "title": "L'Association Foyer Rural Montaud | Histoire, Bureau, Salles | Loi 1901 HÃ©rault",
+      "description": "DÃ©couvrez l'association Foyer Rural de Montaud, loi 1901. Bureau, Ã©quipements (salle Pierre Combettes, Grange Robert). Histoire et valeurs.",
+      "keywords": "association montaud, foyer rural loi 1901, bureau montaud, salle pierre combettes, grange robert, daniel ferrant prÃ©sident",
+      "canonical": "https://www.foyer-rural-montaud.com/association.html",
+      "og:title": "L'Association - Foyer Rural de Montaud",
+      "og:description": "Une association au service de la communautÃ© de Montaud depuis des gÃ©nÃ©rations",
+      "priority": "0.6",
+      "changefreq": "yearly"
+    },
+    "galerie.html": {
+      "title": "Galerie Photos ActivitÃ©s - Foyer Rural Montaud | Sport, Culture, ÃvÃ©nements",
+      "description": "Photos des activitÃ©s et Ã©vÃ©nements du Foyer Rural de Montaud : sport, culture, spectacles. DÃ©couvrez l'ambiance de nos cours et festivitÃ©s.",
+      "keywords": "photos foyer rural montaud, galerie activitÃ©s hÃ©rault, images spectacles montaud, photos cours yoga thÃ©Ã¢tre",
+      "canonical": "https://www.foyer-rural-montaud.com/galerie.html",
+      "og:title": "Galerie Photos - Foyer Rural de Montaud",
+      "og:description": "Revivez en images nos activitÃ©s et Ã©vÃ©nements",
+      "priority": "0.5",
+      "changefreq": "monthly"
+    }
+  },
+  "activities_meta": {
+    "arts-plastiques.html": {
+      "title": "Arts Plastiques Enfants et Adultes Montaud - CrÃ©ativitÃ© Artistique | Foyer Rural HÃ©rault",
+      "description": "Ateliers d'arts plastiques Ã  Montaud pour enfants (dÃ¨s 7 ans) et adultes. Peinture, dessin, crÃ©ativitÃ©. Salle Pierre Combettes. Foyer Rural HÃ©rault 34160.",
+      "keywords": "arts plastiques montaud, cours arts enfants hÃ©rault, peinture dessin montaud, crÃ©ativitÃ© artistique 34160, atelier arts"
+    },
+    "yoga.html": {
+      "title": "Cours de Yoga Montaud - Foyer Rural | Bien-Ãªtre et Relaxation HÃ©rault",
+      "description": "Cours de yoga Ã  Montaud (34160) au Foyer Rural. Tous niveaux, salle Pierre Combettes. Bien-Ãªtre, relaxation, postures. Inscriptions ouvertes.",
+      "keywords": "yoga montaud, cours yoga hÃ©rault, relaxation montaud, bien-Ãªtre 34160, yoga dÃ©butant, foyer rural"
+    },
+    "badminton.html": {
+      "title": "Badminton Montaud - Sport Raquette | Foyer Rural HÃ©rault Grange Robert",
+      "description": "Badminton Ã  Montaud, Grange Robert. Sport de raquette pour tous Ã¢ges. Foyer Rural HÃ©rault 34160. Cours et entraÃ®nements saison 2025-2026.",
+      "keywords": "badminton montaud, sport raquette hÃ©rault, grange robert, badminton tous Ã¢ges"
+    },
+    "theatre-adulte.html": {
+      "title": "ThÃ©Ã¢tre Adultes Montaud - Expression CrÃ©ativitÃ© | Foyer Rural HÃ©rault",
+      "description": "Atelier thÃ©Ã¢tre pour adultes Ã  Montaud. Expression, crÃ©ativitÃ©, salle Pierre Combettes Haut. Foyer Rural HÃ©rault 34160.",
+      "keywords": "thÃ©Ã¢tre adultes montaud, expression crÃ©ativitÃ© hÃ©rault, atelier thÃ©Ã¢tre 34160"
+    },
+    "theatre-enfants.html": {
+      "title": "ThÃ©Ã¢tre Enfants Montaud - Expression DÃ©veloppement | Foyer Rural HÃ©rault",
+      "description": "ThÃ©Ã¢tre pour enfants Ã  Montaud. DÃ©veloppement expression, confiance en soi. Salle Pierre Combettes Haut. Foyer Rural HÃ©rault 34160.",
+      "keywords": "thÃ©Ã¢tre enfants montaud, expression enfants hÃ©rault, dÃ©veloppement crÃ©ativitÃ©"
+    }
+  },
+  "structured_data_snippets": {
+    "faq": [
+      {
+        "question": "Combien d'activitÃ©s propose le Foyer Rural de Montaud ?",
+        "answer": "Le Foyer Rural de Montaud propose 24 activitÃ©s diffÃ©rentes : sport, culture, bien-Ãªtre et loisirs pour tous les Ã¢ges dÃ¨s 3 ans."
+      },
+      {
+        "question": "OÃ¹ se trouve le Foyer Rural de Montaud ?",
+        "answer": "Le Foyer Rural de Montaud est situÃ© Ã  Montaud, 34160 dans l'HÃ©rault en rÃ©gion Occitanie."
+      },
+      {
+        "question": "Quand commencent les activitÃ©s 2025-2026 ?",
+        "answer": "Les activitÃ©s du Foyer Rural de Montaud dÃ©butent Ã  partir du 8 septembre 2025."
+      },
+      {
+        "question": "Faut-il un certificat mÃ©dical ?",
+        "answer": "Oui, un certificat mÃ©dical est requis pour toutes les activitÃ©s du Foyer Rural de Montaud."
+      }
+    ]
+  }
+}
+

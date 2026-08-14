@@ -1,0 +1,162 @@
+﻿﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-51FVQ5KPFZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-51FVQ5KPFZ');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../asset/logo.png">
+    <title>Judo - Foyer Rural de Montaud</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="container" style="position:relative;">
+            <!-- Bouton hamburger (masqué en desktop) -->
+            <button class="nav-toggle"
+                    aria-label="Menu"
+                    style="background:none;border:none;font-size:2rem;cursor:pointer;display:none;position:absolute;right:0;top:0.25rem;">
+              ☰
+            </button>
+
+            <!-- Liens de navigation -->
+            <ul class="nav-links">
+              <li><a href="../index.html">Accueil</a></li>
+              <li><a href="../activites.html">Activités</a></li>
+              <li><a href="../tarifs.html">Tarifs &amp; Inscriptions</a></li>
+              <li><a href="../evenements.html">Agenda</a></li>
+              <li><a href="../galerie.html">Galerie</a></li>
+              <li><a href="../association.html">L'Association</a></li>
+              
+              <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Petit JS autonome : cache/affiche les liens et le bouton selon la largeur -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.querySelector('.nav-links');
+      const toggle   = document.querySelector('.nav-toggle');
+
+      // Basculer l'affichage du menu
+      toggle.addEventListener('click', () => {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      });
+
+      // Réajuster selon la largeur
+      function handleResize() {
+        if (window.innerWidth >= 768) {
+          navLinks.style.display = 'flex';
+          toggle.style.display = 'none';
+        } else {
+          navLinks.style.display = 'none';
+          toggle.style.display = 'block';
+        }
+      }
+
+      handleResize();
+      window.addEventListener('resize', handleResize);
+    });
+    </script>
+
+    <main>
+        <div class="container">
+            <div class="activity-page">
+                <div class="activity-hero">
+                    <h1>🥋 JUDO</h1>
+                    <div class="nouveau-badge">NOUVEAU !</div>
+                    <p class="activity-subtitle">Art martial pour développer concentration, discipline et respect</p>
+                </div>
+                
+                <div class="activity-header">
+                    <img src="../asset/Judo.jpg" alt="Judo - Art martial traditionnel" class="activity-image">
+                </div>
+
+                <div class="activity-content">
+                    <div class="activity-description">
+                        <h2>Description</h2>
+                        <p>Le judo est un art martial qui développe la concentration, la discipline, le respect et la confiance en soi. Accessible dès le plus jeune âge, c'est une excellente activité pour l'épanouissement physique et mental.</p>
+                    </div>
+
+                    <div class="activity-info-grid">
+                        <div class="info-card">
+                            <h3>👥 Public</h3>
+                            <p>Enfants (4-8 ans) et Ados (+8 ans)</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>🕒 Horaires</h3>
+                            <p>Mercredi</p>
+                            <ul>
+                                <li>Enfants (4-8 ans) : 13h00 à 13h45</li>
+                                <li>Ados (+8 ans) : 13h45 à 14h45</li>
+                            </ul>
+                        </div>
+
+                <div class="info-card">
+                    <h3> Lieu</h3>
+                    <p>Salle Pierre Combettes (HAUT)</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>💰 Tarifs</h3>
+                    <p>Cotisation annuelle :</p>
+                    <ul>
+                        <li>Enfants (4-8 ans) : 132 € + adhésion (10 €)</li>
+                        <li>Ados (+8 ans) : 171 € + adhésion (10 €)</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>Démarrage</h3>
+                    <p>10 septembre 2025</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>📞 Contact</h3>
+                    <p><strong>Animateur :</strong></p>
+                    <p>Jérémy CHIAROTTO</p>
+                    
+                    <p><strong>Référente Foyer Rural :</strong></p>
+                    <p>Roselyne NACACHIAN</p>
+                    <p>📞 06 32 65 67 76</p>
+                </div>
+
+                <div class="info-card important">
+                    <h3>⚠️ Important</h3>
+                    <p>Certificat médical obligatoire. Judogi (kimono) nécessaire.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>🥋 Valeurs du Judo</h3>
+                    <p>Respect, courage, sincérité, honneur, modestie, contrôle de soi, amitié et politesse.</p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="../tarifs.html" class="btn btn-primary">S'inscrire</a>
+                <a href="../contact.html" class="btn btn-secondary">Nous contacter</a>
+                <a href="../activites.html" class="btn btn-outline">Retour aux activités</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Foyer Rural de Montaud. Tous droits réservés.</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
+
+
+
+

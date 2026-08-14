@@ -1,16 +1,26 @@
-<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 
 <html lang="fr">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-51FVQ5KPFZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-51FVQ5KPFZ');
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="icon" type="image/png" href="asset/logo.png"/>
 <title>Tarifs &amp; Inscription</title>
-<meta content="Foyer Rural de Montaud: activités sportives, culturelles, loisirs à Montaud, Hérault." name="description"/>
+<meta content="Foyer Rural de Montaud: activités sportives, culturelles, loisirs é  Montaud, Hérault." name="description"/>
 <link href="css/style.css" rel="stylesheet"/>
 <link href="https://www.foyer-rural-montaud.com/" rel="canonical"/>
 <meta content="website" property="og:type"/>
 <meta content="Tarifs &amp; Inscription" property="og:title"/>
-<meta content="Découvrez nos activités et services à Montaud." property="og:description"/>
+<meta content="Découvrez nos activités et services é  Montaud." property="og:description"/>
 <meta content="https://www.foyer-rural-montaud.com/" property="og:url"/>
 <meta content="Foyer Rural de Montaud" property="og:site_name"/>
 </head>
@@ -32,8 +42,7 @@
       <li><a href="tarifs.html">Tarifs &amp; Inscriptions</a></li>
       <li><a href="evenements.html">Agenda</a></li>
       <li><a href="galerie.html">Galerie</a></li>
-      <li><a href="association.html">L'Association</a></li>
-      <li><a href="services.html">Services</a></li>
+      <li><a href="association.html">L'Association</a></li>      
       <li><a href="contact.html">Contact</a></li>
     </ul>
 
@@ -46,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.querySelector('.nav-links');
   const toggle   = document.querySelector('.nav-toggle');
 
-  // Basculer l’affichage du menu
+  // Basculer l'™affichage du menu
   toggle.addEventListener('click', () => {
     const isHidden = navLinks.style.display === 'none';
     navLinks.style.display = isHidden ? 'flex' : 'none';
@@ -56,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Adapter le header quand on change de taille d’écran
+  // Adapter le header quand on change de taille d'™écran
   function adapt() {
     if (window.innerWidth < 768) {      // mobile : montrer hamburger, cacher menu
       toggle.style.display  = 'block';
@@ -75,51 +84,147 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <main class="container">
 <h1 class="section-title">Tarifs &amp; Inscription</h1>
-<!-- À placer là où se trouvait votre ancien code -->
-<div class="pricing-info">
-  <h3>Adhésion Annuelle Obligatoire</h3>
 
+<div class="alert-banner" style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; margin-bottom: 2rem; border: 1px solid #b8dabd;">
+  <h3 style="color: #155724;"> Début des inscriptions le 1er septembre 2025</h3>
+  <p style="margin: 0; color: #155724; font-weight: 500;">Les activités commencent la semaine du 8 septembre 2025</p>
+</div>
+
+<!-- Section Adhésion -->
+<div class="pricing-info">
+  <h2>Adhésion Annuelle Obligatoire</h2>
+  
   <div class="pricing-row">
     <div class="price-block">
-      <h4>Enfant&nbsp;(-18&nbsp;ans)</h4>
+      <h4>Enfants (jusqu'à 18 ans)</h4>
       <span class="price">10 €</span>
     </div>
-
+    
     <div class="price-block">
       <h4>Adultes</h4>
       <span class="price">15 €</span>
     </div>
   </div>
-
-  <p class="pricing-note">
-    Donne accès à la bibliothèque municipale et aux marches du jeudi (gratuites)
-  </p>
+  
+  <div class="info-notes">
+    <p>✅ <strong>L'adhésion n'est payée qu'une seule fois</strong> quelque soit le nombre d'activités pratiquées</p>
+    <p>✅ <strong>Adhésion valable aussi</strong> pour le Foyer Rural de St Bauzille et inversement</p>
+    <p>✅ <strong>L'adhésion comprend :</strong></p>
+    <ul style="margin-left: 20px;">
+      <li>Accès gratuit à la bibliothèque municipale</li>
+      <li>Participation gratuite aux marches du jeudi</li>
+      <li>Assurance responsabilité civile et accidents corporels</li>
+      <li>Adhésion à l'Union Départementale des Foyers Ruraux de l'Hérault</li>
+    </ul>
+  </div>
 </div>
 
-<div class="cards-grid">
-<div class="card">
-<h3>📝 Comment s'inscrire ?</h3>
-<ul style="margin-left: 20px; margin-top: 15px;">
-<li>Adhésion annuelle</li>
-<li>Cotisation activité selon le tarif</li>
-<li>Certificat médical requis pour le sport</li>
-<li>Inscription avant le début des cours</li>
-</ul>
+<!-- Section Activités gratuites -->
+<div class="cards-grid" style="margin: 2rem 0;">
+  <div class="card" style="background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%); border-left: 4px solid #17a2b8; border: 1px solid #abdde5;">
+    <h3 style="color: #0c5460;">Activités Gratuites (avec adhésion)</h3>
+    <ul style="margin-left: 20px; margin-top: 15px; color: #0c5460;">
+      <li>📚 Bibliothèque</li>
+      <li>☕ Café citoyen</li>
+      <li>🎺 Fanfare</li>
+      <li>🚶‍♀️ Marche du jeudi</li>
+      <li>🎱 Pétanque</li>
+    </ul>
+  </div>
 </div>
-<div class="card">
-<h3>💳 Moyens de paiement</h3>
-<ul style="margin-left: 20px; margin-top: 15px;">
-<li>Chèque à l'ordre du Foyer Rural</li>
-<li>Espèces</li>
-<li>Paiement en plusieurs fois possible</li>
-<li>Tarifs dégressifs familles nombreuses</li>
-</ul>
+
+<!-- Section Comment s'inscrire -->
+<div class="inscription-methods">
+  <h2>📋 Comment s'inscrire ?</h2>
+
+  <div class="cards-grid">
+    <div class="card">
+      <h3>🖥️ Inscription en ligne (recommandé)</h3>
+      <p>Cliquez sur le lien ci-dessous :</p>
+      <a href="https://foyer-rural-de-montaud.assoconnect.com/collect/description/603784-x-adhesions-2025-2026" 
+         class="btn btn-primary" 
+         target="_blank" 
+         style="display: inline-block; margin-top: 10px;">
+        S'inscrire en ligne
+      </a>
+    </div>
+    
+    <div class="card">
+      <h3>📝 Fiche d'inscription papier</h3>
+      <p>Vous pouvez :</p>
+      <ul style="margin-left: 20px;">
+        <li>Imprimer la fiche ci-dessous</li>
+        <li>La retirer à la Mairie</li>
+        <li>La récupérer auprès de l'animateur</li>
+      </ul>
+      <a href="asset/Fiche inscription 2025-2026 v2.pdf" 
+         class="btn btn-secondary" 
+         target="_blank" 
+         style="display: inline-block; margin-top: 10px;">
+        📥 Télécharger la fiche
+      </a>
+    </div>
+  </div>
 </div>
+
+<!-- Section Documents requis -->
+<div class="requirements-section">
+  <h2>Documents à fournir</h2>
+
+  <div class="cards-grid">
+    <div class="card">
+      <h3>📄 Règlement</h3>
+      <ul style="margin-left: 20px; margin-top: 15px;">
+        <li>Chèque à l'ordre du "Foyer Rural de Montaud"</li>
+        <li>Adhésion + cotisation activité</li>
+        <li>Paiement en plusieurs fois possible</li>
+      </ul>
+    </div>
+    
+    <div class="card">
+      <h3>📄 Certificat médical</h3>
+      <ul style="margin-left: 20px; margin-top: 15px;">
+        <li><strong>Obligatoire</strong> pour les activités sportives</li>
+        <li>Valable 3 ans</li>
+        <li>Doit mentionner "aptitude aux activités sportives"</li>
+      </ul>
+    </div>
+  </div>
 </div>
-<div class="alert-banner">
-<h3>⏰ Dates importantes</h3>
-<p>Début des activités : 8 septembre 2025 • Inscriptions ouvertes dès maintenant</p>
+
+<!-- Section Remise du dossier -->
+<div class="submission-section">
+  <h2>📥 Où remettre votre dossier ?</h2>
+
+  <div class="cards-grid">
+    <div class="card">
+      <h3>📍 à la Mairie</h3>
+      <p>Dans la panière du Foyer Rural</p>
+    </div>
+    
+    <div class="card">
+      <h3>📍 à l'animateur</h3>
+      <p>Directement lors du premier cours</p>
+    </div>
+  </div>
 </div>
+
+<!-- Section Contact -->
+<div class="contact-section">
+  <h2>📞 Besoin d'aide ?</h2>
+
+  <div class="cards-grid">
+    <div class="card">
+      <h3>Pour tout problème d'inscription</h3>
+      <p><strong>Président :</strong> Jonathan DRAY</p>
+      <p><strong>Trésorière :</strong> Roselyne NACACHIAN</p>
+      <a href="contact.html" class="btn btn-outline" style="display: inline-block; margin-top: 10px;">
+        Nous contacter
+      </a>
+    </div>
+  </div>
+</div>
+
 </main>
 <footer>
 <div class="container">
@@ -132,8 +237,8 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 <div class="footer-section" style="text-align: center">
 <h4>Nos Partenaires</h4>
-<p><a href="https://www.montaud34.fr/">• Mairie de Montaud</a><br/>
-<a href="https://www.saintbauzilledemontmel.fr/associations/foyer-rural/">• Foyer Rural de St Bauzille</a><br/>
+<p><a href="https://www.montaud34.fr/">'¢ Mairie de Montaud</a><br/>
+<a href="https://www.saintbauzilledemontmel.fr/associations/foyer-rural/">'¢ Foyer Rural de St Bauzille</a><br/>
 </div>
 <div class="footer-section" style="text-align: center">
 <h4>Informations</h4>
@@ -150,3 +255,6 @@ Certificat médical requis</p>
 <script src="js/main.js"></script>
 </body>
 </html>
+
+
+

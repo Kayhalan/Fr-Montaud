@@ -1,0 +1,31 @@
+﻿User-agent: *
+Allow: /
+
+# Fichiers prioritaires pour l'indexation
+Allow: /index.html
+Allow: /activites.html
+Allow: /activites/
+Allow: /tarifs.html
+Allow: /contact.html
+Allow: /association.html
+Allow: /evenements.html
+Allow: /galerie.html
+
+# Ressources statiques
+Allow: /css/
+Allow: /js/
+Allow: /asset/
+
+# Fichiers à ne pas indexer
+Disallow: /functions/
+Disallow: /pv_ag/
+Disallow: /Statuts/
+Disallow: *.pdf$
+Disallow: /404.html
+
+# Sitemap
+Sitemap: https://www.foyer-rural-montaud.com/sitemap.xml
+
+# Délai entre les requêtes (optionnel)
+Crawl-delay: 1
+
