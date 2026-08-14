@@ -92,6 +92,78 @@
             background: white;
         }
 
+        .field-style-editor {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #dce5f0;
+            background: #f8fbff;
+        }
+
+        .field-style-editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #48627b;
+            font-weight: 600;
+        }
+
+        .field-style-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 90px 90px auto;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .field-style-editor select,
+        .field-style-editor input[type="number"],
+        .field-style-editor input[type="color"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #c8d7e6;
+            border-radius: 8px;
+            font-size: 12px;
+            background: #fff;
+        }
+
+        .field-style-actions {
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .style-btn {
+            border: 1px solid #b8c8d8;
+            border-radius: 7px;
+            background: #fff;
+            color: #334a61;
+            padding: 6px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            min-width: 30px;
+        }
+
+        .style-btn.active {
+            background: #dff0ff;
+            border-color: #3498db;
+            color: #0d4f82;
+            font-weight: 700;
+        }
+
+        .style-btn-reset {
+            background: #fff7ea;
+            border-color: #e8c997;
+            color: #8a5c12;
+            padding: 6px 10px;
+        }
+
+        .rich-text-target {
+            transition: color 0.2s ease, font-size 0.2s ease, font-family 0.2s ease;
+        }
+
         .btn {
             background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
@@ -1012,6 +1084,36 @@
         let currentNews = [];
         let currentSection = 'accueil';
         let originalFormData = {};
+        let authorizedUsers = {};
+        let authorizedUsersLoaded = false;
+        let currentTextStyles = {};
+
+        const FIELD_STYLE_DEFAULTS = {
+            fontFamily: 'inherit',
+            fontSize: 14,
+            color: '#2c3e50',
+            fontWeight: '400',
+            fontStyle: 'normal',
+            textDecoration: 'none',
+            textAlign: 'left'
+        };
+
+        const FONT_FAMILY_OPTIONS = [
+            { label: 'Par defaut', value: 'inherit' },
+            { label: 'Segoe UI', value: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" },
+            { label: 'Georgia', value: "Georgia, 'Times New Roman', serif" },
+            { label: 'Trebuchet MS', value: "'Trebuchet MS', Helvetica, sans-serif" },
+            { label: 'Courier New', value: "'Courier New', Courier, monospace" },
+            { label: 'Verdana', value: "Verdana, Geneva, sans-serif" }
+        ];
+
+        const HERO_STYLE_FIELDS = ['hero-titre', 'hero-soustitre', 'hero-bouton'];
+        const BANNER_STYLE_FIELDS = ['banner-titre', 'banner-texte'];
+        const STATS_STYLE_FIELDS = ['stat-activites', 'stat-jours', 'stat-salles'];
+        const NEWS_STYLE_FIELDS = ['news-titre', 'news-contenu'];
+        const ACTIVITY_STYLE_FIELDS = ['activity-nom', 'activity-public', 'activity-jour', 'activity-horaires', 'activity-prix', 'activity-lieu', 'activity-responsable', 'activity-telephone', 'activity-animateur', 'activity-debut', 'activity-categories'];
+        const BUREAU_STYLE_FIELDS = ['president-nom', 'president-tel', 'vp-nom', 'vp-tel', 'sec-nom', 'sec-tel', 'secadj-nom', 'secadj-tel', 'tres-nom', 'tres-tel', 'tresadj-nom', 'tresadj-tel'];
+        const DOCUMENT_STYLE_FIELDS = ['document-title', 'document-description'];
         
         // Variable pour tracker les changements d'ordre des actualités
         let hasUnsavedNewsOrder = false;
@@ -1032,6 +1134,436 @@
             element.textContent = message;
             element.classList.remove('hidden');
             setTimeout(() => element.classList.add('hidden'), duration);
+        }
+
+        function normalizeLogin(value) {
+            return String(value || '')
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9]/g, '')
+                .trim();
+        }
+
+        async function sha256Hex(input) {
+            const buffer = new TextEncoder().encode(input);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function sha256Base64(input) {
+            const buffer = new TextEncoder().encode(input);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+            const bytes = new Uint8Array(hashBuffer);
+            let binary = '';
+            bytes.forEach((b) => {
+                binary += String.fromCharCode(b);
+            });
+            return btoa(binary);
+        }
+
+        async function loadAuthorizedUsers() {
+            const collectionsToScan = ['admins', 'admin'];
+            const usersMap = {};
+
+            for (const collectionName of collectionsToScan) {
+                try {
+                    const usersSnap = await getDocs(collection(db, collectionName));
+                    usersSnap.forEach((userDoc) => {
+                        const data = userDoc.data() || {};
+                        const normalizedCandidates = [
+                            userDoc.id,
+                            data.username,
+                            data.identifiant,
+                            data.prenom,
+                            data.nom ? data.nom.split(' ')[0] : ''
+                        ]
+                            .map(normalizeLogin)
+                            .filter(Boolean);
+
+                        const userPayload = {
+                            id: userDoc.id,
+                            nom: data.nom || userDoc.id,
+                            role: data.role || 'admin',
+                            passwordHash: data.passwordHash || '',
+                            password: data.password || '',
+                            motdepasse: data.motdepasse || ''
+                        };
+
+                        normalizedCandidates.forEach((key) => {
+                            usersMap[key] = userPayload;
+                        });
+                    });
+                } catch (error) {
+                    console.warn(`Impossible de lire la collection ${collectionName}:`, error);
+                }
+            }
+
+            authorizedUsers = usersMap;
+            authorizedUsersLoaded = true;
+            console.log('Utilisateurs admin chargés:', Object.keys(authorizedUsers).length);
+        }
+
+        async function verifyUserPassword(user, rawPassword) {
+            const candidates = [user.passwordHash, user.password, user.motdepasse]
+                .map((v) => String(v || '').trim())
+                .filter(Boolean);
+
+            if (!candidates.length) {
+                return false;
+            }
+
+            const password = String(rawPassword || '');
+            const shaHex = await sha256Hex(password);
+            const shaB64 = await sha256Base64(password);
+
+            return candidates.some((stored) => {
+                if (stored === password) return true;
+                if (/^[a-f0-9]{64}$/i.test(stored) && stored.toLowerCase() === shaHex) return true;
+                if (/^[A-Za-z0-9+/=]{40,}$/.test(stored) && stored === shaB64) return true;
+                return false;
+            });
+        }
+
+        function clampStyleFontSize(value) {
+            const parsed = Number.parseInt(value, 10);
+            if (Number.isNaN(parsed)) return FIELD_STYLE_DEFAULTS.fontSize;
+            return Math.min(72, Math.max(10, parsed));
+        }
+
+        function sanitizeStyleColor(value) {
+            return /^#[0-9a-fA-F]{6}$/.test(String(value || ''))
+                ? String(value).toLowerCase()
+                : FIELD_STYLE_DEFAULTS.color;
+        }
+
+        function sanitizeFieldStyle(style = {}) {
+            const safe = {
+                fontFamily: String(style.fontFamily || FIELD_STYLE_DEFAULTS.fontFamily),
+                fontSize: clampStyleFontSize(style.fontSize),
+                color: sanitizeStyleColor(style.color),
+                fontWeight: style.fontWeight === '700' ? '700' : '400',
+                fontStyle: style.fontStyle === 'italic' ? 'italic' : 'normal',
+                textDecoration: style.textDecoration === 'underline' ? 'underline' : 'none',
+                textAlign: ['left', 'center', 'right'].includes(style.textAlign) ? style.textAlign : 'left'
+            };
+
+            const allowedFamilies = new Set(FONT_FAMILY_OPTIONS.map(option => option.value));
+            if (!allowedFamilies.has(safe.fontFamily)) {
+                safe.fontFamily = FIELD_STYLE_DEFAULTS.fontFamily;
+            }
+
+            return safe;
+        }
+
+        function serializeStyle(style = {}) {
+            const safe = sanitizeFieldStyle(style);
+            return [safe.fontFamily, safe.fontSize, safe.color, safe.fontWeight, safe.fontStyle, safe.textDecoration, safe.textAlign].join('|');
+        }
+
+        function parseSerializedStyle(value) {
+            const parts = String(value || '').split('|');
+            if (parts.length !== 7) {
+                return sanitizeFieldStyle(FIELD_STYLE_DEFAULTS);
+            }
+
+            return sanitizeFieldStyle({
+                fontFamily: parts[0],
+                fontSize: parts[1],
+                color: parts[2],
+                fontWeight: parts[3],
+                fontStyle: parts[4],
+                textDecoration: parts[5],
+                textAlign: parts[6]
+            });
+        }
+
+        function isStyleDefault(style = {}) {
+            return serializeStyle(style) === serializeStyle(FIELD_STYLE_DEFAULTS);
+        }
+
+        function isStylableField(field) {
+            if (!field || !field.id) return false;
+            if (field.dataset.richControl === 'true') return false;
+            if (field.closest('#login-form')) return false;
+
+            const tagName = field.tagName.toLowerCase();
+            if (tagName === 'textarea') return true;
+            if (tagName !== 'input') return false;
+
+            const type = (field.type || 'text').toLowerCase();
+            return ['text', 'number', 'tel'].includes(type);
+        }
+
+        function getTrackableInputs(form) {
+            return Array.from(form.querySelectorAll('input, textarea, select'))
+                .filter(input => input.dataset.richControl !== 'true');
+        }
+
+        function getFieldStyle(fieldId) {
+            return sanitizeFieldStyle(currentTextStyles[fieldId] || FIELD_STYLE_DEFAULTS);
+        }
+
+        function applyStyleToField(fieldId) {
+            const field = document.getElementById(fieldId);
+            if (!field) return;
+
+            const style = getFieldStyle(fieldId);
+            field.classList.add('rich-text-target');
+            field.style.fontFamily = style.fontFamily;
+            field.style.fontSize = `${style.fontSize}px`;
+            field.style.color = style.color;
+            field.style.fontWeight = style.fontWeight;
+            field.style.fontStyle = style.fontStyle;
+            field.style.textDecoration = style.textDecoration;
+            field.style.textAlign = style.textAlign;
+        }
+
+        function syncStyleEditor(fieldId) {
+            const editor = document.querySelector(`.field-style-editor[data-style-editor-for="${fieldId}"]`);
+            if (!editor) return;
+
+            const style = getFieldStyle(fieldId);
+            const familySelect = editor.querySelector('[data-style-prop="fontFamily"]');
+            const sizeInput = editor.querySelector('[data-style-prop="fontSize"]');
+            const colorInput = editor.querySelector('[data-style-prop="color"]');
+            const alignSelect = editor.querySelector('[data-style-prop="textAlign"]');
+            const boldButton = editor.querySelector('[data-style-toggle="bold"]');
+            const italicButton = editor.querySelector('[data-style-toggle="italic"]');
+            const underlineButton = editor.querySelector('[data-style-toggle="underline"]');
+
+            if (familySelect) familySelect.value = style.fontFamily;
+            if (sizeInput) sizeInput.value = style.fontSize;
+            if (colorInput) colorInput.value = style.color;
+            if (alignSelect) alignSelect.value = style.textAlign;
+
+            if (boldButton) boldButton.classList.toggle('active', style.fontWeight === '700');
+            if (italicButton) italicButton.classList.toggle('active', style.fontStyle === 'italic');
+            if (underlineButton) underlineButton.classList.toggle('active', style.textDecoration === 'underline');
+        }
+
+        function triggerFieldChange(fieldId) {
+            const field = document.getElementById(fieldId);
+            if (!field) return;
+            field.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+
+        function setFieldStyle(fieldId, stylePatch = {}, triggerUpdate = true) {
+            const current = getFieldStyle(fieldId);
+            const next = sanitizeFieldStyle({ ...current, ...stylePatch });
+
+            if (isStyleDefault(next)) {
+                delete currentTextStyles[fieldId];
+            } else {
+                currentTextStyles[fieldId] = next;
+            }
+
+            applyStyleToField(fieldId);
+            syncStyleEditor(fieldId);
+
+            if (triggerUpdate) {
+                triggerFieldChange(fieldId);
+            }
+        }
+
+        function resetFieldStyle(fieldId, triggerUpdate = true) {
+            delete currentTextStyles[fieldId];
+            applyStyleToField(fieldId);
+            syncStyleEditor(fieldId);
+            if (triggerUpdate) {
+                triggerFieldChange(fieldId);
+            }
+        }
+
+        function collectStylesForFieldIds(fieldIds = []) {
+            const styles = {};
+            fieldIds.forEach((fieldId) => {
+                const style = getFieldStyle(fieldId);
+                if (!isStyleDefault(style)) {
+                    styles[fieldId] = style;
+                }
+            });
+            return styles;
+        }
+
+        function applyStylesForFieldIds(fieldIds = [], styles = {}) {
+            fieldIds.forEach((fieldId) => {
+                if (styles && styles[fieldId]) {
+                    currentTextStyles[fieldId] = sanitizeFieldStyle(styles[fieldId]);
+                } else {
+                    delete currentTextStyles[fieldId];
+                }
+                applyStyleToField(fieldId);
+                syncStyleEditor(fieldId);
+            });
+        }
+
+        function resetStylesForFieldIds(fieldIds = []) {
+            fieldIds.forEach((fieldId) => {
+                delete currentTextStyles[fieldId];
+                applyStyleToField(fieldId);
+                syncStyleEditor(fieldId);
+            });
+        }
+
+        function createStyleEditorForField(field) {
+            const editor = document.createElement('div');
+            editor.className = 'field-style-editor';
+            editor.dataset.styleEditorFor = field.id;
+
+            const header = document.createElement('div');
+            header.className = 'field-style-editor-header';
+            header.textContent = 'Personnalisation du texte';
+
+            const grid = document.createElement('div');
+            grid.className = 'field-style-grid';
+
+            const familySelect = document.createElement('select');
+            familySelect.dataset.richControl = 'true';
+            familySelect.dataset.styleProp = 'fontFamily';
+            FONT_FAMILY_OPTIONS.forEach((option) => {
+                const opt = document.createElement('option');
+                opt.value = option.value;
+                opt.textContent = option.label;
+                familySelect.appendChild(opt);
+            });
+
+            const sizeInput = document.createElement('input');
+            sizeInput.type = 'number';
+            sizeInput.min = '10';
+            sizeInput.max = '72';
+            sizeInput.step = '1';
+            sizeInput.title = 'Taille du texte';
+            sizeInput.dataset.richControl = 'true';
+            sizeInput.dataset.styleProp = 'fontSize';
+
+            const colorInput = document.createElement('input');
+            colorInput.type = 'color';
+            colorInput.title = 'Couleur du texte';
+            colorInput.dataset.richControl = 'true';
+            colorInput.dataset.styleProp = 'color';
+
+            const actions = document.createElement('div');
+            actions.className = 'field-style-actions';
+
+            const boldButton = document.createElement('button');
+            boldButton.type = 'button';
+            boldButton.textContent = 'B';
+            boldButton.title = 'Gras';
+            boldButton.className = 'style-btn';
+            boldButton.dataset.richControl = 'true';
+            boldButton.dataset.styleToggle = 'bold';
+
+            const italicButton = document.createElement('button');
+            italicButton.type = 'button';
+            italicButton.textContent = 'I';
+            italicButton.title = 'Italique';
+            italicButton.className = 'style-btn';
+            italicButton.dataset.richControl = 'true';
+            italicButton.dataset.styleToggle = 'italic';
+
+            const underlineButton = document.createElement('button');
+            underlineButton.type = 'button';
+            underlineButton.textContent = 'U';
+            underlineButton.title = 'Souligne';
+            underlineButton.className = 'style-btn';
+            underlineButton.dataset.richControl = 'true';
+            underlineButton.dataset.styleToggle = 'underline';
+
+            const alignSelect = document.createElement('select');
+            alignSelect.dataset.richControl = 'true';
+            alignSelect.dataset.styleProp = 'textAlign';
+            [
+                { label: 'Gauche', value: 'left' },
+                { label: 'Centre', value: 'center' },
+                { label: 'Droite', value: 'right' }
+            ].forEach((option) => {
+                const opt = document.createElement('option');
+                opt.value = option.value;
+                opt.textContent = option.label;
+                alignSelect.appendChild(opt);
+            });
+
+            const resetButton = document.createElement('button');
+            resetButton.type = 'button';
+            resetButton.textContent = 'Reset';
+            resetButton.title = 'Reinitialiser le style';
+            resetButton.className = 'style-btn style-btn-reset';
+            resetButton.dataset.richControl = 'true';
+            resetButton.dataset.styleAction = 'reset';
+
+            actions.appendChild(boldButton);
+            actions.appendChild(italicButton);
+            actions.appendChild(underlineButton);
+            actions.appendChild(alignSelect);
+            actions.appendChild(resetButton);
+
+            grid.appendChild(familySelect);
+            grid.appendChild(sizeInput);
+            grid.appendChild(colorInput);
+            grid.appendChild(actions);
+
+            editor.appendChild(header);
+            editor.appendChild(grid);
+
+            familySelect.addEventListener('change', () => {
+                setFieldStyle(field.id, { fontFamily: familySelect.value });
+            });
+
+            sizeInput.addEventListener('input', () => {
+                setFieldStyle(field.id, { fontSize: clampStyleFontSize(sizeInput.value) });
+            });
+
+            colorInput.addEventListener('input', () => {
+                setFieldStyle(field.id, { color: colorInput.value });
+            });
+
+            alignSelect.addEventListener('change', () => {
+                setFieldStyle(field.id, { textAlign: alignSelect.value });
+            });
+
+            boldButton.addEventListener('click', () => {
+                const current = getFieldStyle(field.id);
+                setFieldStyle(field.id, { fontWeight: current.fontWeight === '700' ? '400' : '700' });
+            });
+
+            italicButton.addEventListener('click', () => {
+                const current = getFieldStyle(field.id);
+                setFieldStyle(field.id, { fontStyle: current.fontStyle === 'italic' ? 'normal' : 'italic' });
+            });
+
+            underlineButton.addEventListener('click', () => {
+                const current = getFieldStyle(field.id);
+                setFieldStyle(field.id, { textDecoration: current.textDecoration === 'underline' ? 'none' : 'underline' });
+            });
+
+            resetButton.addEventListener('click', () => {
+                resetFieldStyle(field.id);
+            });
+
+            return editor;
+        }
+
+        function initializeRichTextEditors(root = document) {
+            const fields = Array.from(root.querySelectorAll('input, textarea')).filter(isStylableField);
+
+            fields.forEach((field) => {
+                if (!field.id) return;
+
+                if (field.dataset.richEditorReady === 'true') {
+                    applyStyleToField(field.id);
+                    syncStyleEditor(field.id);
+                    return;
+                }
+
+                const editor = createStyleEditorForField(field);
+                field.insertAdjacentElement('afterend', editor);
+                field.dataset.richEditorReady = 'true';
+
+                applyStyleToField(field.id);
+                syncStyleEditor(field.id);
+            });
         }
 
         function showAdminPanel() {
@@ -1678,7 +2210,7 @@
         function setupLivePreviewUpdates(iframe) {
             const currentForm = getCurrentForm();
             if (currentForm) {
-                const inputs = currentForm.querySelectorAll('input, textarea, select');
+                const inputs = getTrackableInputs(currentForm);
                 inputs.forEach(input => {
                     input.addEventListener('input', () => {
                         setTimeout(() => applyLiveChangesToPreview(iframe), 100);
@@ -1732,7 +2264,8 @@
                 lien: lien || null,
                 datePublication: newsId ? null : new Date(), // Ne pas modifier la date de publication lors d'une modification
                 statut: 'publié',
-                auteur: currentUser.nom || 'Admin'
+                auteur: currentUser.nom || 'Admin',
+                textStyles: collectStylesForFieldIds(NEWS_STYLE_FIELDS)
             };
             
             // Gestion de l'image si fournie
@@ -1764,7 +2297,8 @@
                     contenu: contenu,
                     lien: lien || null,
                     ordre: existingNews?.ordre || 0, // Préserver l'ordre existant
-                    dateModification: new Date()
+                    dateModification: new Date(),
+                    textStyles: collectStylesForFieldIds(NEWS_STYLE_FIELDS)
                 };
                 
                 // Ajouter l'image si elle a été uploadée
@@ -1810,6 +2344,7 @@
             
             // Réinitialiser le formulaire et masquer le conteneur
             form.reset();
+            resetStylesForFieldIds(NEWS_STYLE_FIELDS);
             document.getElementById('news-image-preview').classList.add('hidden');
             hideAndRestoreForm('news-form-container', originalNewsFormParent);
             
@@ -1870,7 +2405,8 @@
                     animateur: animateur !== undefined ? animateur : (existingActivity.animateur || ''),
                     debut: debut !== undefined ? debut : (existingActivity.debut || ''),
                     categories: categories !== undefined ? categories : (existingActivity.categories || ''),
-                    dateModification: new Date()
+                    dateModification: new Date(),
+                    textStyles: collectStylesForFieldIds(ACTIVITY_STYLE_FIELDS)
                 };
                 
                 console.log('🔗 Base de données connectée:', !!db);
@@ -1897,6 +2433,7 @@
                     animateur: animateur || '',
                     debut: debut || '',
                     categories: categories || '',
+                    textStyles: collectStylesForFieldIds(ACTIVITY_STYLE_FIELDS),
                     dateCreation: new Date()
                 };
                 
@@ -1909,6 +2446,7 @@
             
             // Réinitialiser le formulaire et masquer le conteneur
             form.reset();
+            resetStylesForFieldIds(ACTIVITY_STYLE_FIELDS);
             hideAndRestoreForm('activity-form-container', originalActivityFormParent);
             
             // Recharger la liste
@@ -1974,6 +2512,7 @@
                     nom: tresadjNom || '',
                     telephone: tresadjTel || ''
                 },
+                textStyles: collectStylesForFieldIds(BUREAU_STYLE_FIELDS),
                 lastUpdated: new Date()
             };
             
@@ -2013,6 +2552,7 @@
                 title: title,
                 date: new Date(date),
                 description: description || '',
+                textStyles: collectStylesForFieldIds(DOCUMENT_STYLE_FIELDS),
                 dateModification: new Date()
             };
             
@@ -2053,6 +2593,7 @@
             
             // Réinitialiser le formulaire et masquer le conteneur
             form.reset();
+            resetStylesForFieldIds(DOCUMENT_STYLE_FIELDS);
             document.getElementById('document-file-info').classList.add('hidden');
             document.getElementById('document-form-container').classList.add('hidden');
             
@@ -2071,18 +2612,21 @@
             const heroData = {
                 titre: document.getElementById('hero-titre')?.value?.trim() || '',
                 soustitre: document.getElementById('hero-soustitre')?.value?.trim() || '',
-                bouton: document.getElementById('hero-bouton')?.value?.trim() || ''
+                bouton: document.getElementById('hero-bouton')?.value?.trim() || '',
+                styles: collectStylesForFieldIds(HERO_STYLE_FIELDS)
             };
             
             const bannerData = {
                 titre: document.getElementById('banner-titre')?.value?.trim() || '',
-                texte: document.getElementById('banner-texte')?.value?.trim() || ''
+                texte: document.getElementById('banner-texte')?.value?.trim() || '',
+                styles: collectStylesForFieldIds(BANNER_STYLE_FIELDS)
             };
             
             const statsData = {
                 activites: document.getElementById('stat-activites')?.value?.trim() || '',
                 jours: document.getElementById('stat-jours')?.value?.trim() || '',
-                salles: document.getElementById('stat-salles')?.value?.trim() || ''
+                salles: document.getElementById('stat-salles')?.value?.trim() || '',
+                styles: collectStylesForFieldIds(STATS_STYLE_FIELDS)
             };
             
             // Sauvegarder dans Firestore
@@ -2115,7 +2659,8 @@
                 const heroData = {
                     titre: document.getElementById('hero-titre')?.value?.trim() || '',
                     soustitre: document.getElementById('hero-soustitre')?.value?.trim() || '',
-                    bouton: document.getElementById('hero-bouton')?.value?.trim() || ''
+                    bouton: document.getElementById('hero-bouton')?.value?.trim() || '',
+                    styles: collectStylesForFieldIds(HERO_STYLE_FIELDS)
                 };
                 
                 console.log('📝 Données à sauvegarder:', heroData);
@@ -2143,7 +2688,8 @@
             console.log('Sauvegarde des données bannière...');
             const bannerData = {
                 titre: document.getElementById('banner-titre')?.value?.trim() || '',
-                texte: document.getElementById('banner-texte')?.value?.trim() || ''
+                texte: document.getElementById('banner-texte')?.value?.trim() || '',
+                styles: collectStylesForFieldIds(BANNER_STYLE_FIELDS)
             };
 
             const accueilRef = doc(db, 'contenu', 'accueil');
@@ -2161,7 +2707,8 @@
             const statsData = {
                 activites: document.getElementById('stat-activites')?.value?.trim() || '',
                 jours: document.getElementById('stat-jours')?.value?.trim() || '',
-                salles: document.getElementById('stat-salles')?.value?.trim() || ''
+                salles: document.getElementById('stat-salles')?.value?.trim() || '',
+                styles: collectStylesForFieldIds(STATS_STYLE_FIELDS)
             };
 
             const accueilRef = doc(db, 'contenu', 'accueil');
@@ -2247,21 +2794,27 @@
                         document.getElementById('hero-soustitre').value = data.hero.soustitre || '';
                         document.getElementById('hero-bouton').value = data.hero.bouton || '';
                     }
+                    applyStylesForFieldIds(HERO_STYLE_FIELDS, data.hero?.styles || {});
                     
                     if (data.banner) {
                         document.getElementById('banner-titre').value = data.banner.titre || '';
                         document.getElementById('banner-texte').value = data.banner.texte || '';
                     }
+                    applyStylesForFieldIds(BANNER_STYLE_FIELDS, data.banner?.styles || {});
                     
                     if (data.stats) {
                         document.getElementById('stat-activites').value = data.stats.activites || '';
                         document.getElementById('stat-jours').value = data.stats.jours || '';
                         document.getElementById('stat-salles').value = data.stats.salles || '';
                     }
+                    applyStylesForFieldIds(STATS_STYLE_FIELDS, data.stats?.styles || {});
                     
                     console.log('✅ Formulaires pré-remplis avec les données sauvegardées');
                 } else {
                     console.log('ℹ️ Aucune donnée existante trouvée pour la page d\'accueil');
+                    resetStylesForFieldIds(HERO_STYLE_FIELDS);
+                    resetStylesForFieldIds(BANNER_STYLE_FIELDS);
+                    resetStylesForFieldIds(STATS_STYLE_FIELDS);
                 }
             } catch (error) {
                 console.error('❌ Erreur lors du chargement des données:', error);
@@ -2281,11 +2834,15 @@
             const currentForm = getCurrentForm();
             if (currentForm) {
                 console.log('Capture des données originales pour:', currentSection);
-                const inputs = currentForm.querySelectorAll('input, textarea, select');
+                const inputs = getTrackableInputs(currentForm);
                 inputs.forEach(input => {
                     const key = input.name || input.id;
                     const value = input.type === 'file' ? '' : input.value;
                     originalFormData[key] = value;
+
+                    if (isStylableField(input)) {
+                        originalFormData[`__style__${key}`] = serializeStyle(getFieldStyle(key));
+                    }
                 });
                 console.log('Données capturées:', Object.keys(originalFormData).length, 'champs');
             } else {
@@ -2296,11 +2853,16 @@
         function restoreOriginalFormData() {
             const currentForm = getCurrentForm();
             if (currentForm && originalFormData) {
-                const inputs = currentForm.querySelectorAll('input, textarea, select');
+                const inputs = getTrackableInputs(currentForm);
                 inputs.forEach(input => {
                     const key = input.name || input.id;
                     if (originalFormData[key] !== undefined) {
                         input.value = originalFormData[key];
+                    }
+
+                    if (isStylableField(input) && originalFormData[`__style__${key}`] !== undefined) {
+                        const parsedStyle = parseSerializedStyle(originalFormData[`__style__${key}`]);
+                        setFieldStyle(key, parsedStyle, false);
                     }
                 });
             }
@@ -2328,7 +2890,7 @@
                 return;
             }
 
-            const inputs = currentForm.querySelectorAll('input, textarea, select');
+            const inputs = getTrackableInputs(currentForm);
             let hasChanges = false;
             let changeDetails = [];
             
@@ -2342,6 +2904,16 @@
                 if (currentValue !== originalValue) {
                     hasChanges = true;
                     changeDetails.push(`${key}: "${originalValue}" → "${currentValue}"`);
+                }
+
+                if (isStylableField(input)) {
+                    const styleKey = `__style__${key}`;
+                    const currentStyleSignature = serializeStyle(getFieldStyle(key));
+                    const originalStyleSignature = originalFormData[styleKey] || serializeStyle(FIELD_STYLE_DEFAULTS);
+                    if (currentStyleSignature !== originalStyleSignature) {
+                        hasChanges = true;
+                        changeDetails.push(`${key}: style modifie`);
+                    }
                 }
             });
             
@@ -2417,6 +2989,14 @@
                     document.getElementById('stat-activites').value = data.stats?.activites || '';
                     document.getElementById('stat-jours').value = data.stats?.jours || '';
                     document.getElementById('stat-salles').value = data.stats?.salles || '';
+
+                    applyStylesForFieldIds(HERO_STYLE_FIELDS, data.hero?.styles || {});
+                    applyStylesForFieldIds(BANNER_STYLE_FIELDS, data.banner?.styles || {});
+                    applyStylesForFieldIds(STATS_STYLE_FIELDS, data.stats?.styles || {});
+                } else {
+                    resetStylesForFieldIds(HERO_STYLE_FIELDS);
+                    resetStylesForFieldIds(BANNER_STYLE_FIELDS);
+                    resetStylesForFieldIds(STATS_STYLE_FIELDS);
                 }
                 
                 // Charger les activités phares
@@ -2520,6 +3100,9 @@
                     `;
                     
                     document.body.insertAdjacentHTML('beforeend', editForm);
+                    const modalRoot = document.getElementById('edit-featured-modal');
+                    initializeRichTextEditors(modalRoot);
+                    applyStylesForFieldIds(['featured-title', 'featured-description', 'featured-link', 'featured-order'], data.textStyles || {});
                     
                     // Gestionnaire de soumission du formulaire
                     document.getElementById('featured-edit-form').addEventListener('submit', async (e) => {
@@ -2530,6 +3113,7 @@
                             description: document.getElementById('featured-description').value.trim(),
                             lien: document.getElementById('featured-link').value.trim(),
                             ordre: parseInt(document.getElementById('featured-order').value) || 1,
+                            textStyles: collectStylesForFieldIds(['featured-title', 'featured-description', 'featured-link', 'featured-order']),
                             dateModification: new Date()
                         };
                         
@@ -2718,6 +3302,7 @@
             document.getElementById('news-titre').value = newsItem.titre || '';
             document.getElementById('news-contenu').value = newsItem.contenu || '';
             document.getElementById('news-lien').value = newsItem.lien || '';
+            applyStylesForFieldIds(NEWS_STYLE_FIELDS, newsItem.textStyles || {});
             
             // Afficher l'image si elle existe
             if (newsItem.image) {
@@ -2968,6 +3553,7 @@
             document.getElementById('activity-animateur').value = activity.animateur || '';
             document.getElementById('activity-debut').value = activity.debut || '';
             document.getElementById('activity-categories').value = activity.categories || '';
+            applyStylesForFieldIds(ACTIVITY_STYLE_FIELDS, activity.textStyles || {});
             
             const formContainer = document.getElementById('activity-form-container');
             
@@ -3071,11 +3657,14 @@
                     document.getElementById('tres-tel').value = data.tresoriere?.telephone || '';
                     document.getElementById('tresadj-nom').value = data.tresorierAdjoint?.nom || '';
                     document.getElementById('tresadj-tel').value = data.tresorierAdjoint?.telephone || '';
+                    applyStylesForFieldIds(BUREAU_STYLE_FIELDS, data.textStyles || {});
                 } else {
                     document.getElementById('bureau-display').innerHTML = '<p style="color: orange;">⚠️ Aucune donnée bureau trouvée. Utilisez le formulaire pour initialiser.</p>';
+                    resetStylesForFieldIds(BUREAU_STYLE_FIELDS);
                 }
             } catch (error) {
                 document.getElementById('bureau-display').innerHTML = '<p style="color: red;">❌ Erreur lors du chargement des données</p>';
+                resetStylesForFieldIds(BUREAU_STYLE_FIELDS);
                 console.error('Erreur:', error);
             }
         }
@@ -3148,7 +3737,11 @@
                 document.getElementById('document-type').value = data.type?.toLowerCase() || '';
                 document.getElementById('document-date').value = data.date?.toDate?.()?.toISOString().split('T')[0] || '';
                 document.getElementById('document-title').value = data.title || '';
-                document.getElementById('document-description').value = data.description || '';
+                const descriptionField = document.getElementById('document-description');
+                if (descriptionField) {
+                    descriptionField.value = data.description || '';
+                }
+                applyStylesForFieldIds(DOCUMENT_STYLE_FIELDS, data.textStyles || {});
                 
                 // Afficher le formulaire
                 document.getElementById('document-form-container').classList.remove('hidden');
@@ -3282,6 +3875,7 @@
         async function initializeAdmin() {
             currentUserSpan.textContent = currentUser.nom;
             currentSection = 'accueil'; // Définir la section par défaut
+            initializeRichTextEditors();
             
             // Sauvegarder les positions originales des formulaires
             originalNewsFormParent = document.getElementById('news-form-container')?.parentNode;
@@ -3323,7 +3917,7 @@
                 const form = document.getElementById(formId);
                 if (form) {
                     console.log('Formulaire trouvé:', formId);
-                    const inputs = form.querySelectorAll('input, textarea, select');
+                    const inputs = getTrackableInputs(form);
                     console.log(`Inputs trouvés dans ${formId}:`, inputs.length);
                     
                     inputs.forEach(input => {
@@ -3338,12 +3932,15 @@
                         console.log('Événements attachés à:', input.id || input.name || input.type);
                     });
                     // Ajouter gestionnaire de soumission spécifique
-                    form.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        console.log('Sauvegarde depuis formulaire:', formId);
-                        handleFormSubmit(formId);
-                        return false;
-                    });
+                    if (form.dataset.submitBound !== 'true') {
+                        form.addEventListener('submit', (e) => {
+                            e.preventDefault();
+                            console.log('Sauvegarde depuis formulaire:', formId);
+                            handleFormSubmit(formId);
+                            return false;
+                        });
+                        form.dataset.submitBound = 'true';
+                    }
                 } else {
                     console.log('Formulaire non trouvé:', formId);
                 }
@@ -3465,14 +4062,25 @@
         }
 
         // Event Listeners
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const username = document.getElementById('username').value.trim();
+            const username = normalizeLogin(document.getElementById('username').value.trim());
             const password = document.getElementById('password').value;
+
+            if (!authorizedUsersLoaded) {
+                await loadAuthorizedUsers();
+            }
+
+            const targetUser = authorizedUsers[username];
+            const isValid = targetUser ? await verifyUserPassword(targetUser, password) : false;
             
-            if (authorizedUsers[username] && authorizedUsers[username].password === password) {
-                currentUser = authorizedUsers[username];
+            if (isValid) {
+                currentUser = {
+                    nom: targetUser.nom,
+                    role: targetUser.role,
+                    id: targetUser.id
+                };
                 localStorage.setItem('fr-montaud-user', JSON.stringify(currentUser));
                 currentUserSpan.textContent = `${currentUser.nom} (${currentUser.role})`;
                 showStatus(loginStatus, 'success', `✅ Connexion réussie ! Bienvenue ${currentUser.nom}`);
@@ -3505,6 +4113,7 @@
             document.getElementById('news-form-container').classList.remove('hidden');
             document.getElementById('news-form').reset();
             document.getElementById('news-id').value = '';
+            resetStylesForFieldIds(NEWS_STYLE_FIELDS);
         });
 
         document.getElementById('cancel-news')?.addEventListener('click', () => {
@@ -3515,6 +4124,7 @@
             document.getElementById('activity-form-container').classList.remove('hidden');
             document.getElementById('activity-form').reset();
             document.getElementById('activity-id').value = '';
+            resetStylesForFieldIds(ACTIVITY_STYLE_FIELDS);
         });
 
         document.getElementById('cancel-activity')?.addEventListener('click', () => {
@@ -3526,6 +4136,7 @@
             document.getElementById('document-form').reset();
             document.getElementById('document-id').value = '';
             document.getElementById('document-file-info').classList.add('hidden');
+            resetStylesForFieldIds(DOCUMENT_STYLE_FIELDS);
         });
 
         document.getElementById('cancel-document')?.addEventListener('click', () => {
@@ -3620,8 +4231,10 @@
         });
 
         // Initialisation au chargement de la page
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             console.log('Page chargée, initialisation de la détection de changements');
+            await loadAuthorizedUsers();
+            initializeRichTextEditors();
             setupChangeDetection();
             
             // Charger les données existantes après connexion

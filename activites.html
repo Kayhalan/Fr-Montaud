@@ -183,7 +183,8 @@ Certificat médical requis</p>
           location: data.lieu || '',
           start: data.debut || '',
           detailUrl: data.detailUrl || '',
-          category: data.categories ? data.categories.split(', ').map(c => c.trim()) : []
+          category: data.categories ? data.categories.split(', ').map(c => c.trim()) : [],
+          textStyles: data.textStyles || {}
         });
       });
       

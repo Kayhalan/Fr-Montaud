@@ -76,6 +76,44 @@ function escapeHtml(value) {
     .replace(/'/g, '&#039;');
 }
 
+const activityTextStyleDefaults = {
+  fontFamily: 'inherit',
+  fontSize: 14,
+  color: '#2c3e50',
+  fontWeight: '400',
+  fontStyle: 'normal',
+  textDecoration: 'none',
+  textAlign: 'left'
+};
+
+function sanitizeActivityTextStyle(style = {}) {
+  const safe = {
+    fontFamily: String(style.fontFamily || activityTextStyleDefaults.fontFamily),
+    fontSize: Number.parseInt(style.fontSize, 10),
+    color: /^#[0-9a-fA-F]{6}$/.test(String(style.color || '')) ? String(style.color).toLowerCase() : activityTextStyleDefaults.color,
+    fontWeight: style.fontWeight === '700' ? '700' : '400',
+    fontStyle: style.fontStyle === 'italic' ? 'italic' : 'normal',
+    textDecoration: style.textDecoration === 'underline' ? 'underline' : 'none',
+    textAlign: ['left', 'center', 'right'].includes(style.textAlign) ? style.textAlign : 'left'
+  };
+
+  if (Number.isNaN(safe.fontSize)) {
+    safe.fontSize = activityTextStyleDefaults.fontSize;
+  }
+
+  safe.fontSize = Math.min(72, Math.max(10, safe.fontSize));
+  return safe;
+}
+
+function styleCssFromMap(stylesMap = {}, fieldKey, extra = '') {
+  if (!stylesMap || typeof stylesMap !== 'object' || !stylesMap[fieldKey]) {
+    return extra;
+  }
+
+  const safe = sanitizeActivityTextStyle(stylesMap[fieldKey]);
+  return `${extra}font-family:${safe.fontFamily};font-size:${safe.fontSize}px;color:${safe.color};font-weight:${safe.fontWeight};font-style:${safe.fontStyle};text-decoration:${safe.textDecoration};text-align:${safe.textAlign};`;
+}
+
 function normalizeActivityName(name) {
   return (name || '')
     .toLowerCase()
@@ -145,7 +183,8 @@ function getActivitiesData() {
       location: 'Ancienne Mairie',
       start: 'Septembre 2026',
       detailUrl: 'activites/bibliotheque.html',
-      category: ['enfants', 'ados', 'adultes', 'culture']
+      category: ['enfants', 'ados', 'adultes', 'culture'],
+      textStyles: {}
     },
     {
       name: 'Cafe citoyen',
@@ -159,7 +198,8 @@ function getActivitiesData() {
       location: 'Salle Mairie',
       start: '12/09/2026',
       detailUrl: 'activites/cafe-citoyen.html',
-      category: ['enfants', 'ados', 'adultes', 'culture']
+      category: ['enfants', 'ados', 'adultes', 'culture'],
+      textStyles: {}
     }
   ];
 
@@ -218,18 +258,19 @@ function renderActivitiesCards(category) {
   
   filtered.forEach(act => {
     const detailUrl = resolveActivityDetailUrl(act);
+    const textStyles = act.textStyles || {};
     const cardInner = `
       <div class="activity-card">
         <div class="activity-header">
-          <span class="activity-title">${escapeHtml(act.name)}</span>
-          <span class="activity-price">${escapeHtml(act.price)}</span>
+          <span class="activity-title" style="${styleCssFromMap(textStyles, 'activity-nom')}">${escapeHtml(act.name)}</span>
+          <span class="activity-price" style="${styleCssFromMap(textStyles, 'activity-prix')}">${escapeHtml(act.price)}</span>
         </div>
         <div class="activity-details">
-          <div class="detail-item"><span class="detail-icon">👥</span>${escapeHtml(act.public)}</div>
-          <div class="detail-item"><span class="detail-icon">📅</span>${escapeHtml(act.day)}</div>
-          <div class="detail-item"><span class="detail-icon">⏰</span>${escapeHtml(act.time)}</div>
-          <div class="detail-item"><span class="detail-icon">📍</span>${escapeHtml(act.location)}</div>
-          <div class="detail-item"><span class="detail-icon">📞</span>${escapeHtml(act.phone)}</div>
+          <div class="detail-item" style="${styleCssFromMap(textStyles, 'activity-public')}"><span class="detail-icon">👥</span>${escapeHtml(act.public)}</div>
+          <div class="detail-item" style="${styleCssFromMap(textStyles, 'activity-jour')}"><span class="detail-icon">📅</span>${escapeHtml(act.day)}</div>
+          <div class="detail-item" style="${styleCssFromMap(textStyles, 'activity-horaires')}"><span class="detail-icon">⏰</span>${escapeHtml(act.time)}</div>
+          <div class="detail-item" style="${styleCssFromMap(textStyles, 'activity-lieu')}"><span class="detail-icon">📍</span>${escapeHtml(act.location)}</div>
+          <div class="detail-item" style="${styleCssFromMap(textStyles, 'activity-telephone')}"><span class="detail-icon">📞</span>${escapeHtml(act.phone)}</div>
         </div>
       </div>
     `;
@@ -245,12 +286,13 @@ function renderActivitiesCards(category) {
 function renderCalendarActivityItem(act) {
   const detailUrl = resolveActivityDetailUrl(act);
   const locationClass = getCalendarLocationClass(act.location);
+  const textStyles = act.textStyles || {};
   const itemInner = `
     <article class="calendar-activity-item">
-      <div class="calendar-time">${escapeHtml(act.time || 'Horaire a confirmer')}</div>
-      <h3 class="calendar-activity-title">${escapeHtml(act.name)}</h3>
-      <p class="calendar-activity-meta">${escapeHtml(act.public || 'Public non renseigne')}</p>
-      <span class="calendar-location-badge ${locationClass}">${escapeHtml(act.location || 'Lieu non renseigne')}</span>
+      <div class="calendar-time" style="${styleCssFromMap(textStyles, 'activity-horaires')}">${escapeHtml(act.time || 'Horaire a confirmer')}</div>
+      <h3 class="calendar-activity-title" style="${styleCssFromMap(textStyles, 'activity-nom')}">${escapeHtml(act.name)}</h3>
+      <p class="calendar-activity-meta" style="${styleCssFromMap(textStyles, 'activity-public')}">${escapeHtml(act.public || 'Public non renseigne')}</p>
+      <span class="calendar-location-badge ${locationClass}" style="${styleCssFromMap(textStyles, 'activity-lieu')}">${escapeHtml(act.location || 'Lieu non renseigne')}</span>
     </article>
   `;
 

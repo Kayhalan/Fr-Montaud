@@ -429,6 +429,56 @@ Certificat médical requis</p>
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  const TEXT_STYLE_DEFAULTS = {
+    fontFamily: 'inherit',
+    fontSize: 14,
+    color: '#2c3e50',
+    fontWeight: '400',
+    fontStyle: 'normal',
+    textDecoration: 'none',
+    textAlign: 'left'
+  };
+
+  function sanitizeTextStyle(style = {}) {
+    const safe = {
+      fontFamily: String(style.fontFamily || TEXT_STYLE_DEFAULTS.fontFamily),
+      fontSize: Number.parseInt(style.fontSize, 10),
+      color: /^#[0-9a-fA-F]{6}$/.test(String(style.color || '')) ? String(style.color).toLowerCase() : TEXT_STYLE_DEFAULTS.color,
+      fontWeight: style.fontWeight === '700' ? '700' : '400',
+      fontStyle: style.fontStyle === 'italic' ? 'italic' : 'normal',
+      textDecoration: style.textDecoration === 'underline' ? 'underline' : 'none',
+      textAlign: ['left', 'center', 'right'].includes(style.textAlign) ? style.textAlign : 'left'
+    };
+
+    if (Number.isNaN(safe.fontSize)) {
+      safe.fontSize = TEXT_STYLE_DEFAULTS.fontSize;
+    }
+    safe.fontSize = Math.min(72, Math.max(10, safe.fontSize));
+    return safe;
+  }
+
+  function styleToInlineCss(style = {}, extra = '') {
+    if (!style || typeof style !== 'object' || Object.keys(style).length === 0) {
+      return extra || '';
+    }
+    const safe = sanitizeTextStyle(style);
+    return `${extra}font-family:${safe.fontFamily};font-size:${safe.fontSize}px;color:${safe.color};font-weight:${safe.fontWeight};font-style:${safe.fontStyle};text-decoration:${safe.textDecoration};text-align:${safe.textAlign};`;
+  }
+
+  function applyStyleToElement(element, style) {
+    if (!element || !style || typeof style !== 'object' || Object.keys(style).length === 0) {
+      return;
+    }
+    const safe = sanitizeTextStyle(style);
+    element.style.fontFamily = safe.fontFamily;
+    element.style.fontSize = `${safe.fontSize}px`;
+    element.style.color = safe.color;
+    element.style.fontWeight = safe.fontWeight;
+    element.style.fontStyle = safe.fontStyle;
+    element.style.textDecoration = safe.textDecoration;
+    element.style.textAlign = safe.textAlign;
+  }
+
   // Fonction pour charger les actualités dynamiques
   async function loadDynamicNews() {
     try {
@@ -463,6 +513,7 @@ Certificat médical requis</p>
         // Ajouter les actualités dynamiques
         newsSnap.forEach(doc => {
           const data = doc.data();
+          const textStyles = data.textStyles || {};
           const newsId = 'news-' + doc.id;
           const newsItem = document.createElement('div');
           newsItem.className = 'news-item-full';
@@ -509,12 +560,15 @@ Certificat médical requis</p>
               </div>
             </div>
           `;
+
+          const titleStyleCss = styleToInlineCss(textStyles['news-titre']);
+          const contentStyleCss = styleToInlineCss(textStyles['news-contenu'], 'white-space: pre-wrap;');
           
           newsItem.innerHTML = `
             <div class="news-content">
               ${imageHTML}
-              <h3>${data.titre}</h3>
-              <p style="white-space: pre-wrap;">${data.contenu}</p>
+              <h3 style="${titleStyleCss}">${data.titre}</h3>
+              <p style="${contentStyleCss}">${data.contenu}</p>
               ${linkHTML ? `<p>${linkHTML}</p>` : ''}
               <p><small>📅 Publié le ${dateFormatted} par ${data.auteur || 'Foyer Rural'}</small></p>
               ${shareButtonsHTML}
@@ -551,17 +605,21 @@ Certificat médical requis</p>
           const heroTitre = document.getElementById('hero-titre');
           const heroSoustitre = document.getElementById('hero-soustitre');
           const heroBouton = document.getElementById('hero-bouton');
+          const heroStyles = data.hero.styles || {};
           
           if (heroTitre && data.hero.titre) {
             heroTitre.textContent = data.hero.titre;
+            applyStyleToElement(heroTitre, heroStyles['hero-titre']);
             console.log('✅ Titre héro mis à jour:', data.hero.titre);
           }
           if (heroSoustitre && data.hero.soustitre) {
             heroSoustitre.textContent = data.hero.soustitre;
+            applyStyleToElement(heroSoustitre, heroStyles['hero-soustitre']);
             console.log('✅ Sous-titre héro mis à jour:', data.hero.soustitre);
           }
           if (heroBouton && data.hero.bouton) {
             heroBouton.textContent = data.hero.bouton;
+            applyStyleToElement(heroBouton, heroStyles['hero-bouton']);
             console.log('✅ Bouton héro mis à jour:', data.hero.bouton);
           }
         }
@@ -570,13 +628,16 @@ Certificat médical requis</p>
         if (data.banner) {
           const bannerTitre = document.getElementById('banner-titre');
           const bannerTexte = document.getElementById('banner-texte');
+          const bannerStyles = data.banner.styles || {};
           
           if (bannerTitre && data.banner.titre) {
             bannerTitre.textContent = data.banner.titre;
+            applyStyleToElement(bannerTitre, bannerStyles['banner-titre']);
             console.log('✅ Titre bannière mis à jour:', data.banner.titre);
           }
           if (bannerTexte && data.banner.texte) {
             bannerTexte.textContent = data.banner.texte;
+            applyStyleToElement(bannerTexte, bannerStyles['banner-texte']);
             console.log('✅ Texte bannière mis à jour:', data.banner.texte);
           }
         }
@@ -586,17 +647,21 @@ Certificat médical requis</p>
           const statActivites = document.getElementById('stat-activites');
           const statJours = document.getElementById('stat-jours');
           const statSalles = document.getElementById('stat-salles');
+          const statsStyles = data.stats.styles || {};
           
           if (statActivites && data.stats.activites) {
             statActivites.textContent = data.stats.activites;
+            applyStyleToElement(statActivites, statsStyles['stat-activites']);
             console.log('✅ Stat activités mise à jour:', data.stats.activites);
           }
           if (statJours && data.stats.jours) {
             statJours.textContent = data.stats.jours;
+            applyStyleToElement(statJours, statsStyles['stat-jours']);
             console.log('✅ Stat jours mise à jour:', data.stats.jours);
           }
           if (statSalles && data.stats.salles) {
             statSalles.textContent = data.stats.salles;
+            applyStyleToElement(statSalles, statsStyles['stat-salles']);
             console.log('✅ Stat salles mise à jour:', data.stats.salles);
           }
         }
