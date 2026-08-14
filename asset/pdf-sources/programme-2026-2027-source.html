@@ -114,22 +114,6 @@
       border-top: 1px solid #d6e3f0;
       padding-top: 6px;
     }
-    .print-footer {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-top: 1px solid #d6e3f0;
-      font-size: 9px;
-      color: #5a6f86;
-      display: flex;
-      justify-content: space-between;
-      padding-top: 4px;
-      background: #fff;
-    }
-    .page-num::after {
-      content: "Page " counter(page) " / " counter(pages);
-    }
   </style>
 </head>
 <body>
@@ -211,10 +195,5 @@
   <p class="footer">
     Foyer rural de Montaud - Place de l'Eglise - 34160 Montaud - www.foyer-rural-montaud.com - foyerrural.montaud@gmail.com
   </p>
-
-  <div class="print-footer">
-    <span>Foyer Rural de Montaud - Saison 2026-2027</span>
-    <span class="page-num"></span>
-  </div>
 </body>
 </html>
