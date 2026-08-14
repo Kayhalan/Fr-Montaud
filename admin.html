@@ -93,71 +93,77 @@
         }
 
         .field-style-editor {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid #dce5f0;
-            background: #f8fbff;
-        }
-
-        .field-style-editor-header {
+            margin-top: 6px;
+            padding: 6px;
+            border-radius: 8px;
+            border: 1px solid #d9e3ec;
+            background: #f7f9fc;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
-            font-size: 12px;
-            color: #48627b;
-            font-weight: 600;
-        }
-
-        .field-style-grid {
-            display: grid;
-            grid-template-columns: 1.3fr 90px 90px auto;
-            gap: 8px;
-            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
         }
 
         .field-style-editor select,
-        .field-style-editor input[type="number"],
         .field-style-editor input[type="color"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #c8d7e6;
-            border-radius: 8px;
+            height: 30px;
+            padding: 4px 8px;
+            border: 1px solid #c8d4df;
+            border-radius: 6px;
             font-size: 12px;
             background: #fff;
+        }
+
+        .field-style-editor .style-select-font {
+            min-width: 120px;
+            max-width: 160px;
+        }
+
+        .field-style-editor .style-select-size {
+            width: 64px;
+        }
+
+        .field-style-editor input[type="color"] {
+            width: 34px;
+            padding: 2px;
+            cursor: pointer;
         }
 
         .field-style-actions {
             display: inline-flex;
-            gap: 6px;
+            gap: 4px;
             align-items: center;
-            flex-wrap: wrap;
+        }
+
+        .style-separator {
+            width: 1px;
+            height: 20px;
+            background: #cfd9e3;
+            margin: 0 2px;
         }
 
         .style-btn {
-            border: 1px solid #b8c8d8;
-            border-radius: 7px;
+            border: 1px solid #c1ceda;
+            border-radius: 6px;
             background: #fff;
             color: #334a61;
-            padding: 6px 8px;
+            padding: 4px 7px;
             font-size: 12px;
             cursor: pointer;
-            min-width: 30px;
+            min-width: 28px;
+            height: 28px;
+            line-height: 1;
         }
 
         .style-btn.active {
-            background: #dff0ff;
+            background: #e4f1ff;
             border-color: #3498db;
             color: #0d4f82;
             font-weight: 700;
         }
 
         .style-btn-reset {
-            background: #fff7ea;
-            border-color: #e8c997;
-            color: #8a5c12;
-            padding: 6px 10px;
+            min-width: 34px;
         }
 
         .rich-text-target {
@@ -1328,19 +1334,30 @@
             const familySelect = editor.querySelector('[data-style-prop="fontFamily"]');
             const sizeInput = editor.querySelector('[data-style-prop="fontSize"]');
             const colorInput = editor.querySelector('[data-style-prop="color"]');
-            const alignSelect = editor.querySelector('[data-style-prop="textAlign"]');
             const boldButton = editor.querySelector('[data-style-toggle="bold"]');
             const italicButton = editor.querySelector('[data-style-toggle="italic"]');
             const underlineButton = editor.querySelector('[data-style-toggle="underline"]');
+            const alignButtons = Array.from(editor.querySelectorAll('[data-style-align]'));
 
             if (familySelect) familySelect.value = style.fontFamily;
-            if (sizeInput) sizeInput.value = style.fontSize;
+            if (sizeInput) {
+                const sizeValue = String(style.fontSize);
+                if (!Array.from(sizeInput.options).some((opt) => opt.value === sizeValue)) {
+                    const option = document.createElement('option');
+                    option.value = sizeValue;
+                    option.textContent = `${sizeValue}px`;
+                    sizeInput.appendChild(option);
+                }
+                sizeInput.value = sizeValue;
+            }
             if (colorInput) colorInput.value = style.color;
-            if (alignSelect) alignSelect.value = style.textAlign;
 
             if (boldButton) boldButton.classList.toggle('active', style.fontWeight === '700');
             if (italicButton) italicButton.classList.toggle('active', style.fontStyle === 'italic');
             if (underlineButton) underlineButton.classList.toggle('active', style.textDecoration === 'underline');
+            alignButtons.forEach((button) => {
+                button.classList.toggle('active', button.dataset.styleAlign === style.textAlign);
+            });
         }
 
         function triggerFieldChange(fieldId) {
@@ -1412,16 +1429,10 @@
             editor.className = 'field-style-editor';
             editor.dataset.styleEditorFor = field.id;
 
-            const header = document.createElement('div');
-            header.className = 'field-style-editor-header';
-            header.textContent = 'Personnalisation du texte';
-
-            const grid = document.createElement('div');
-            grid.className = 'field-style-grid';
-
             const familySelect = document.createElement('select');
             familySelect.dataset.richControl = 'true';
             familySelect.dataset.styleProp = 'fontFamily';
+            familySelect.className = 'style-select-font';
             FONT_FAMILY_OPTIONS.forEach((option) => {
                 const opt = document.createElement('option');
                 opt.value = option.value;
@@ -1429,20 +1440,26 @@
                 familySelect.appendChild(opt);
             });
 
-            const sizeInput = document.createElement('input');
-            sizeInput.type = 'number';
-            sizeInput.min = '10';
-            sizeInput.max = '72';
-            sizeInput.step = '1';
-            sizeInput.title = 'Taille du texte';
+            const sizeInput = document.createElement('select');
+            sizeInput.className = 'style-select-size';
+            sizeInput.title = 'Taille';
             sizeInput.dataset.richControl = 'true';
             sizeInput.dataset.styleProp = 'fontSize';
+            [12, 14, 16, 18, 20, 24, 28, 32, 40].forEach((sizeValue) => {
+                const option = document.createElement('option');
+                option.value = String(sizeValue);
+                option.textContent = `${sizeValue}px`;
+                sizeInput.appendChild(option);
+            });
 
             const colorInput = document.createElement('input');
             colorInput.type = 'color';
-            colorInput.title = 'Couleur du texte';
+            colorInput.title = 'Couleur';
             colorInput.dataset.richControl = 'true';
             colorInput.dataset.styleProp = 'color';
+
+            const firstSeparator = document.createElement('span');
+            firstSeparator.className = 'style-separator';
 
             const actions = document.createElement('div');
             actions.className = 'field-style-actions';
@@ -1471,23 +1488,39 @@
             underlineButton.dataset.richControl = 'true';
             underlineButton.dataset.styleToggle = 'underline';
 
-            const alignSelect = document.createElement('select');
-            alignSelect.dataset.richControl = 'true';
-            alignSelect.dataset.styleProp = 'textAlign';
-            [
-                { label: 'Gauche', value: 'left' },
-                { label: 'Centre', value: 'center' },
-                { label: 'Droite', value: 'right' }
-            ].forEach((option) => {
-                const opt = document.createElement('option');
-                opt.value = option.value;
-                opt.textContent = option.label;
-                alignSelect.appendChild(opt);
-            });
+            const secondSeparator = document.createElement('span');
+            secondSeparator.className = 'style-separator';
+
+            const alignActions = document.createElement('div');
+            alignActions.className = 'field-style-actions';
+
+            const alignLeftButton = document.createElement('button');
+            alignLeftButton.type = 'button';
+            alignLeftButton.textContent = 'L';
+            alignLeftButton.title = 'Aligner a gauche';
+            alignLeftButton.className = 'style-btn';
+            alignLeftButton.dataset.richControl = 'true';
+            alignLeftButton.dataset.styleAlign = 'left';
+
+            const alignCenterButton = document.createElement('button');
+            alignCenterButton.type = 'button';
+            alignCenterButton.textContent = 'C';
+            alignCenterButton.title = 'Centrer';
+            alignCenterButton.className = 'style-btn';
+            alignCenterButton.dataset.richControl = 'true';
+            alignCenterButton.dataset.styleAlign = 'center';
+
+            const alignRightButton = document.createElement('button');
+            alignRightButton.type = 'button';
+            alignRightButton.textContent = 'R';
+            alignRightButton.title = 'Aligner a droite';
+            alignRightButton.className = 'style-btn';
+            alignRightButton.dataset.richControl = 'true';
+            alignRightButton.dataset.styleAlign = 'right';
 
             const resetButton = document.createElement('button');
             resetButton.type = 'button';
-            resetButton.textContent = 'Reset';
+            resetButton.textContent = 'x';
             resetButton.title = 'Reinitialiser le style';
             resetButton.className = 'style-btn style-btn-reset';
             resetButton.dataset.richControl = 'true';
@@ -1496,31 +1529,30 @@
             actions.appendChild(boldButton);
             actions.appendChild(italicButton);
             actions.appendChild(underlineButton);
-            actions.appendChild(alignSelect);
+
+            alignActions.appendChild(alignLeftButton);
+            alignActions.appendChild(alignCenterButton);
+            alignActions.appendChild(alignRightButton);
+
+            editor.appendChild(familySelect);
+            editor.appendChild(sizeInput);
+            editor.appendChild(colorInput);
+            editor.appendChild(firstSeparator);
+            editor.appendChild(actions);
+            editor.appendChild(secondSeparator);
+            editor.appendChild(alignActions);
             actions.appendChild(resetButton);
-
-            grid.appendChild(familySelect);
-            grid.appendChild(sizeInput);
-            grid.appendChild(colorInput);
-            grid.appendChild(actions);
-
-            editor.appendChild(header);
-            editor.appendChild(grid);
 
             familySelect.addEventListener('change', () => {
                 setFieldStyle(field.id, { fontFamily: familySelect.value });
             });
 
-            sizeInput.addEventListener('input', () => {
+            sizeInput.addEventListener('change', () => {
                 setFieldStyle(field.id, { fontSize: clampStyleFontSize(sizeInput.value) });
             });
 
             colorInput.addEventListener('input', () => {
                 setFieldStyle(field.id, { color: colorInput.value });
-            });
-
-            alignSelect.addEventListener('change', () => {
-                setFieldStyle(field.id, { textAlign: alignSelect.value });
             });
 
             boldButton.addEventListener('click', () => {
@@ -1536,6 +1568,12 @@
             underlineButton.addEventListener('click', () => {
                 const current = getFieldStyle(field.id);
                 setFieldStyle(field.id, { textDecoration: current.textDecoration === 'underline' ? 'none' : 'underline' });
+            });
+
+            [alignLeftButton, alignCenterButton, alignRightButton].forEach((button) => {
+                button.addEventListener('click', () => {
+                    setFieldStyle(field.id, { textAlign: button.dataset.styleAlign });
+                });
             });
 
             resetButton.addEventListener('click', () => {
