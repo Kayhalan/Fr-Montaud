@@ -155,15 +155,50 @@
             line-height: 1;
         }
 
+        .style-btn-underline {
+            text-decoration: underline;
+            text-underline-offset: 1px;
+        }
+
+        .style-btn-align {
+            padding: 4px 6px;
+        }
+
+        .align-icon {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 2px;
+            width: 12px;
+        }
+
+        .align-icon-line {
+            height: 1.5px;
+            border-radius: 2px;
+            background: currentColor;
+            width: 12px;
+        }
+
+        .align-icon-line:nth-child(2) {
+            width: 9px;
+        }
+
+        .align-left .align-icon-line {
+            align-self: flex-start;
+        }
+
+        .align-center .align-icon-line {
+            align-self: center;
+        }
+
+        .align-right .align-icon-line {
+            align-self: flex-end;
+        }
+
         .style-btn.active {
             background: #e4f1ff;
             border-color: #3498db;
             color: #0d4f82;
             font-weight: 700;
-        }
-
-        .style-btn-reset {
-            min-width: 34px;
         }
 
         .rich-text-target {
@@ -1484,7 +1519,7 @@
             underlineButton.type = 'button';
             underlineButton.textContent = 'U';
             underlineButton.title = 'Souligne';
-            underlineButton.className = 'style-btn';
+            underlineButton.className = 'style-btn style-btn-underline';
             underlineButton.dataset.richControl = 'true';
             underlineButton.dataset.styleToggle = 'underline';
 
@@ -1496,35 +1531,39 @@
 
             const alignLeftButton = document.createElement('button');
             alignLeftButton.type = 'button';
-            alignLeftButton.textContent = 'L';
             alignLeftButton.title = 'Aligner a gauche';
-            alignLeftButton.className = 'style-btn';
+            alignLeftButton.className = 'style-btn style-btn-align';
             alignLeftButton.dataset.richControl = 'true';
             alignLeftButton.dataset.styleAlign = 'left';
 
             const alignCenterButton = document.createElement('button');
             alignCenterButton.type = 'button';
-            alignCenterButton.textContent = 'C';
             alignCenterButton.title = 'Centrer';
-            alignCenterButton.className = 'style-btn';
+            alignCenterButton.className = 'style-btn style-btn-align';
             alignCenterButton.dataset.richControl = 'true';
             alignCenterButton.dataset.styleAlign = 'center';
 
             const alignRightButton = document.createElement('button');
             alignRightButton.type = 'button';
-            alignRightButton.textContent = 'R';
             alignRightButton.title = 'Aligner a droite';
-            alignRightButton.className = 'style-btn';
+            alignRightButton.className = 'style-btn style-btn-align';
             alignRightButton.dataset.richControl = 'true';
             alignRightButton.dataset.styleAlign = 'right';
 
-            const resetButton = document.createElement('button');
-            resetButton.type = 'button';
-            resetButton.textContent = 'x';
-            resetButton.title = 'Reinitialiser le style';
-            resetButton.className = 'style-btn style-btn-reset';
-            resetButton.dataset.richControl = 'true';
-            resetButton.dataset.styleAction = 'reset';
+            function buildAlignIcon(type) {
+                const icon = document.createElement('span');
+                icon.className = `align-icon align-${type}`;
+                for (let i = 0; i < 3; i += 1) {
+                    const line = document.createElement('span');
+                    line.className = 'align-icon-line';
+                    icon.appendChild(line);
+                }
+                return icon;
+            }
+
+            alignLeftButton.appendChild(buildAlignIcon('left'));
+            alignCenterButton.appendChild(buildAlignIcon('center'));
+            alignRightButton.appendChild(buildAlignIcon('right'));
 
             actions.appendChild(boldButton);
             actions.appendChild(italicButton);
@@ -1541,7 +1580,6 @@
             editor.appendChild(actions);
             editor.appendChild(secondSeparator);
             editor.appendChild(alignActions);
-            actions.appendChild(resetButton);
 
             familySelect.addEventListener('change', () => {
                 setFieldStyle(field.id, { fontFamily: familySelect.value });
@@ -1572,12 +1610,11 @@
 
             [alignLeftButton, alignCenterButton, alignRightButton].forEach((button) => {
                 button.addEventListener('click', () => {
-                    setFieldStyle(field.id, { textAlign: button.dataset.styleAlign });
+                    const current = getFieldStyle(field.id);
+                    const target = button.dataset.styleAlign;
+                    const nextAlign = current.textAlign === target ? FIELD_STYLE_DEFAULTS.textAlign : target;
+                    setFieldStyle(field.id, { textAlign: nextAlign });
                 });
-            });
-
-            resetButton.addEventListener('click', () => {
-                resetFieldStyle(field.id);
             });
 
             return editor;
