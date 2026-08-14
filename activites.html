@@ -145,7 +145,7 @@ Certificat médical requis</p>
 <!-- Firebase SDK -->
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-  import { getFirestore, collection, getDocs, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+  import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
   // Configuration Firebase
   const firebaseConfig = {
@@ -164,12 +164,29 @@ Certificat médical requis</p>
   async function loadActivitiesFromFirebase() {
     try {
       const activitiesRef = collection(db, 'activites');
-      const activitiesQuery = query(activitiesRef, orderBy('nom', 'asc'));
-      const activitiesSnap = await getDocs(activitiesQuery);
+      const activitiesSnap = await getDocs(activitiesRef);
       
+      const rawActivities = [];
+      activitiesSnap.forEach(docSnap => {
+        const data = docSnap.data();
+        rawActivities.push({ id: docSnap.id, ...data });
+      });
+
+      rawActivities.sort((a, b) => {
+        const orderA = Number.isFinite(Number.parseInt(a?.ordre, 10)) ? Number.parseInt(a.ordre, 10) : Number.MAX_SAFE_INTEGER;
+        const orderB = Number.isFinite(Number.parseInt(b?.ordre, 10)) ? Number.parseInt(b.ordre, 10) : Number.MAX_SAFE_INTEGER;
+
+        if (orderA !== orderB) {
+          return orderA - orderB;
+        }
+
+        const nameA = String(a?.nom || '').toLowerCase();
+        const nameB = String(b?.nom || '').toLowerCase();
+        return nameA.localeCompare(nameB, 'fr');
+      });
+
       const firebaseActivities = [];
-      activitiesSnap.forEach(doc => {
-        const data = doc.data();
+      rawActivities.forEach((data) => {
         // Convertir les données Firebase au format attendu par main.js
         firebaseActivities.push({
           name: data.nom || '',
@@ -183,7 +200,8 @@ Certificat médical requis</p>
           location: data.lieu || '',
           start: data.debut || '',
           detailUrl: data.detailUrl || '',
-          category: data.categories ? data.categories.split(', ').map(c => c.trim()) : [],
+          category: data.categories ? data.categories.split(',').map(c => c.trim()).filter(Boolean) : [],
+          ordre: data.ordre,
           textStyles: data.textStyles || {}
         });
       });

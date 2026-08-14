@@ -536,6 +536,48 @@
             transform: rotate(5deg);
         }
 
+        .activity-drag-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .draggable-activity {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #27ae60;
+            cursor: move;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .draggable-activity:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .draggable-activity.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .activity-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .activity-actions .btn {
+            padding: 8px 12px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
         .drag-handle {
             font-size: 18px;
             color: #666;
@@ -1158,6 +1200,7 @@
         
         // Variable pour tracker les changements d'ordre des actualités
         let hasUnsavedNewsOrder = false;
+        let hasUnsavedActivityOrder = false;
 
         // Éléments DOM
         const loginSection = document.getElementById('login-section');
@@ -2463,6 +2506,10 @@
                 // Utiliser les valeurs existantes si les champs sont vides
                 const finalNom = nom || existingActivity.nom;
                 const finalPublic = publicCible || existingActivity.public;
+                const currentIndex = currentActivities.findIndex(act => act.id === activityId);
+                const safeExistingOrder = Number.isFinite(Number.parseInt(existingActivity.ordre, 10))
+                    ? Number.parseInt(existingActivity.ordre, 10)
+                    : (currentIndex >= 0 ? currentIndex : 0);
                 
                 if (!finalNom || !finalPublic) {
                     throw new Error('Le nom et le public sont obligatoires');
@@ -2480,6 +2527,7 @@
                     animateur: animateur !== undefined ? animateur : (existingActivity.animateur || ''),
                     debut: debut !== undefined ? debut : (existingActivity.debut || ''),
                     categories: categories !== undefined ? categories : (existingActivity.categories || ''),
+                    ordre: safeExistingOrder,
                     dateModification: new Date(),
                     textStyles: collectStylesForFieldIds(ACTIVITY_STYLE_FIELDS)
                 };
@@ -2495,6 +2543,10 @@
                 if (!nom || !publicCible) {
                     throw new Error('Le nom et le public sont obligatoires');
                 }
+                const nextOrder = currentActivities.reduce((maxOrder, activity) => {
+                    const parsedOrder = Number.parseInt(activity?.ordre, 10);
+                    return Number.isFinite(parsedOrder) ? Math.max(maxOrder, parsedOrder) : maxOrder;
+                }, -1) + 1;
                 
                 const activityData = {
                     nom: nom,
@@ -2508,6 +2560,7 @@
                     animateur: animateur || '',
                     debut: debut || '',
                     categories: categories || '',
+                    ordre: nextOrder,
                     textStyles: collectStylesForFieldIds(ACTIVITY_STYLE_FIELDS),
                     dateCreation: new Date()
                 };
@@ -3537,7 +3590,69 @@
             }
         }
 
-        // Chargement des activités
+        function sortActivitiesByDisplayOrder(activities = []) {
+            return [...activities].sort((a, b) => {
+                const orderA = Number.isFinite(Number.parseInt(a?.ordre, 10)) ? Number.parseInt(a.ordre, 10) : Number.MAX_SAFE_INTEGER;
+                const orderB = Number.isFinite(Number.parseInt(b?.ordre, 10)) ? Number.parseInt(b.ordre, 10) : Number.MAX_SAFE_INTEGER;
+
+                if (orderA !== orderB) {
+                    return orderA - orderB;
+                }
+
+                const nameA = String(a?.nom || '').toLowerCase();
+                const nameB = String(b?.nom || '').toLowerCase();
+                return nameA.localeCompare(nameB, 'fr');
+            });
+        }
+
+        function renderActivityCards() {
+            const container = document.getElementById('activities-list');
+            if (!container) return;
+
+            let html = '<h4>🏃 Activités du Foyer Rural (ordre d\'affichage du site)</h4>';
+            html += '<div class="activity-drag-container">';
+
+            currentActivities.forEach((activity, index) => {
+                html += `
+                    <div class="draggable-activity" draggable="true" data-activity-id="${activity.id}" data-index="${index}">
+                        <div class="drag-handle">⋮⋮</div>
+                        <div class="news-content">
+                            <h4>${activity.nom} - ${activity.public}</h4>
+                            <p><strong>Horaires:</strong> ${activity.jour} ${activity.horaires}</p>
+                            <p><strong>Lieu:</strong> ${activity.lieu} | <strong>Prix:</strong> ${activity.prix}</p>
+                            <p><strong>Responsable:</strong> ${activity.responsable} (${activity.telephone})</p>
+                            <p><strong>Animateur:</strong> ${activity.animateur}</p>
+                            <p><small style="color: #007bff;">📍 Position: ${index + 1}</small></p>
+                        </div>
+                        <div class="activity-actions">
+                            <button onclick="editActivity('${activity.id}')" class="btn btn-warning">✏️ Modifier</button>
+                            <button onclick="deleteActivity('${activity.id}')" class="btn btn-danger">🗑️ Supprimer</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            html += '<p style="text-align: center; color: #666; margin-top: 15px;">💡 Glissez-déposez les activités pour définir l\'ordre exact affiché sur le site</p>';
+            html += `
+                <div id="activity-order-controls" style="text-align: center; margin-top: 20px; ${!hasUnsavedActivityOrder ? 'display: none;' : ''}">
+                    <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <span style="color: #856404;">⚠️ <strong>Ordre des activités modifié (non sauvegardé)</strong></span>
+                        <p style="margin: 5px 0 0 0; font-size: 14px; color: #856404;">Cliquez sur "Sauvegarder" pour appliquer l\'ordre sur le site.</p>
+                    </div>
+                    <button onclick="saveActivitiesOrderManually()" class="btn" style="background: #28a745; color: white; margin-right: 10px;">
+                        💾 Sauvegarder l'ordre
+                    </button>
+                    <button onclick="cancelActivitiesOrderChanges()" class="btn" style="background: #6c757d; color: white;">
+                        ❌ Annuler
+                    </button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+            initializeActivitiesDragAndDrop();
+        }
+
         async function loadActivitiesContent() {
             const container = document.getElementById('activities-list');
             container.innerHTML = '<div class="loading">Chargement des activités</div>';
@@ -3547,50 +3662,100 @@
                 const activitiesSnap = await getDocs(activitiesRef);
                 
                 if (!activitiesSnap.empty) {
-                    currentActivities = [];
-                    
-                    // Collecter et trier les activités par ordre alphabétique
                     const activitiesArray = [];
-                    activitiesSnap.forEach(doc => {
-                        const data = doc.data();
-                        activitiesArray.push({ id: doc.id, ...data });
+                    activitiesSnap.forEach(docSnap => {
+                        const data = docSnap.data();
+                        activitiesArray.push({ id: docSnap.id, ...data });
                     });
-                    
-                    // Tri alphabétique par nom d'activité
-                    activitiesArray.sort((a, b) => {
-                        const nameA = a.nom?.toLowerCase() || '';
-                        const nameB = b.nom?.toLowerCase() || '';
-                        return nameA.localeCompare(nameB, 'fr');
-                    });
-                    
-                    currentActivities = activitiesArray;
-                    
-                    let html = '<h4>🏃 Activités du Foyer Rural (classées par ordre alphabétique)</h4>';
-                    
-                    activitiesArray.forEach(activity => {
-                        html += `
-                            <div class="activity-card">
-                                <h5>${activity.nom} - ${activity.public}</h5>
-                                <p><strong>Horaires:</strong> ${activity.jour} ${activity.horaires}</p>
-                                <p><strong>Lieu:</strong> ${activity.lieu} | <strong>Prix:</strong> ${activity.prix}</p>
-                                <p><strong>Responsable:</strong> ${activity.responsable} (${activity.telephone})</p>
-                                <p><strong>Animateur:</strong> ${activity.animateur}</p>
-                                <div>
-                                    <button onclick="editActivity('${activity.id}')" class="btn btn-warning">✏️ Modifier</button>
-                                    <button onclick="deleteActivity('${activity.id}')" class="btn btn-danger">🗑️ Supprimer</button>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    
-                    container.innerHTML = html;
+
+                    currentActivities = sortActivitiesByDisplayOrder(activitiesArray);
+                    hasUnsavedActivityOrder = false;
+                    renderActivityCards();
                 } else {
+                    currentActivities = [];
+                    hasUnsavedActivityOrder = false;
                     container.innerHTML = '<p>Aucune activité dans la base de données. Utilisez le bouton "Nouvelle Activité" pour en ajouter.</p>';
                 }
                 
             } catch (error) {
                 container.innerHTML = '<p style="color: red;">Erreur de chargement des activités</p>';
                 console.error('Erreur:', error);
+            }
+        }
+
+        function initializeActivitiesDragAndDrop() {
+            const draggableItems = document.querySelectorAll('.draggable-activity');
+            if (!draggableItems.length) return;
+
+            let draggedElement = null;
+            let draggedIndex = null;
+
+            draggableItems.forEach((item) => {
+                item.addEventListener('dragstart', (e) => {
+                    draggedElement = item;
+                    draggedIndex = Number.parseInt(item.dataset.index, 10);
+                    item.style.opacity = '0.5';
+                    item.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+
+                item.addEventListener('dragend', () => {
+                    item.style.opacity = '1';
+                    item.classList.remove('dragging');
+                    draggedElement = null;
+                    draggedIndex = null;
+                });
+
+                item.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                });
+
+                item.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    if (draggedElement && draggedElement !== item) {
+                        const dropIndex = Number.parseInt(item.dataset.index, 10);
+                        const draggedActivity = currentActivities[draggedIndex];
+                        currentActivities.splice(draggedIndex, 1);
+                        currentActivities.splice(dropIndex, 0, draggedActivity);
+
+                        currentActivities.forEach((activity, index) => {
+                            activity.ordre = index;
+                        });
+
+                        hasUnsavedActivityOrder = true;
+                        renderActivityCards();
+                    }
+                });
+            });
+        }
+
+        async function saveActivitiesOrder() {
+            const batch = writeBatch(db);
+            currentActivities.forEach((activity, index) => {
+                const activityRef = doc(db, 'activites', activity.id);
+                batch.update(activityRef, { ordre: index });
+            });
+            await batch.commit();
+        }
+
+        window.saveActivitiesOrderManually = async function() {
+            try {
+                await saveActivitiesOrder();
+                hasUnsavedActivityOrder = false;
+                renderActivityCards();
+                showNotification('Ordre des activités sauvegardé !', 'success');
+            } catch (error) {
+                console.error('Erreur sauvegarde ordre activités:', error);
+                showNotification('Erreur lors de la sauvegarde de l\'ordre des activités', 'error');
+            }
+        }
+
+        window.cancelActivitiesOrderChanges = function() {
+            if (confirm('Êtes-vous sûr de vouloir annuler les modifications d\'ordre des activités ?')) {
+                hasUnsavedActivityOrder = false;
+                loadActivitiesContent();
+                showNotification('Modifications d\'ordre des activités annulées', 'info');
             }
         }
 
@@ -3605,7 +3770,7 @@
             console.log('Données de l\'activité:', activity);
             
             // Trouver la carte DOM correspondante
-            const activityCards = document.querySelectorAll('.activity-card');
+            const activityCards = document.querySelectorAll('.draggable-activity');
             let targetCard = null;
             
             activityCards.forEach(card => {
