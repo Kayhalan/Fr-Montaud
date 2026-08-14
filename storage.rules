@@ -1,0 +1,30 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Règles pour les images des actualités
+    match /news/{allPaths=**} {
+      allow read, write: if true; // TEMPORAIRE - pour développement
+    }
+    
+    // Règles pour les images des activités
+    match /activities/{allPaths=**} {
+      allow read, write: if true; // TEMPORAIRE - pour développement
+    }
+    
+    // Règles pour les images de la galerie
+    match /gallery/{allPaths=**} {
+      allow read, write: if true; // TEMPORAIRE - pour développement
+    }
+    
+    // Règles pour les documents
+    match /documents/{allPaths=**} {
+      allow read, write: if true; // TEMPORAIRE - pour développement
+    }
+    
+    // Par défaut, lecture autorisée
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["https://foyer-rural-montaud.com", "https://www.foyer-rural-montaud.com", "https://frmontaud-09-25.web.app", "https://frmontaud-09-25.firebaseapp.com"],
+    "method": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    "maxAgeSeconds": 3600,
+    "responseHeader": ["Content-Type", "Authorization", "Content-Length", "User-Agent", "X-Requested-With"]
+  }
+]

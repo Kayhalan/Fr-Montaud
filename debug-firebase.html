@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Firebase - Foyer Rural</title>
+    <style>
+        body {
+            font-family: 'Consolas', monospace;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #fff;
+        }
+        .container {
+            background: #2d2d2d;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+        .btn {
+            background: #007acc;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-size: 16px;
+        }
+        .btn:hover { background: #005a9e; }
+        .btn-success { background: #28a745; }
+        .btn-danger { background: #dc3545; }
+        .btn-warning { background: #ffc107; color: #000; }
+        .log-area {
+            background: #000;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 6px;
+            height: 400px;
+            overflow-y: auto;
+            font-size: 12px;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+        .error { color: #ff4444; }
+        .success { color: #44ff44; }
+        .info { color: #4444ff; }
+        .warning { color: #ffff44; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Debug Firebase - Foyer Rural</h1>
+        <p>Script de diagnostic et initialisation avec logs détaillés</p>
+
+        <div>
+            <button id="test-connection" class="btn btn-warning">🔍 Tester la connexion Firebase</button>
+            <button id="check-permissions" class="btn btn-warning">🔐 Vérifier les permissions</button>
+            <button id="init-simple" class="btn btn-success">📝 Initialisation simple</button>
+            <button id="clear-logs" class="btn btn-danger">🗑️ Effacer logs</button>
+        </div>
+
+        <div id="logs" class="log-area">
+            <div>🚀 Prêt pour les tests Firebase...</div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+        import { getFirestore, doc, setDoc, collection, addDoc, serverTimestamp, connectFirestoreEmulator } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+        // Configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyC5nUayIeA8Dgx8loqZ1pyG5vei8PHWggU",
+            authDomain: "frmontaud-09-25.firebaseapp.com",
+            projectId: "frmontaud-09-25",
+            storageBucket: "frmontaud-09-25.firebasestorage.app",
+            messagingSenderId: "350075655257",
+            appId: "1:350075655257:web:84f8f375cf19b2610b0d48",
+            measurementId: "G-S7BKPP6F02"
+        };
+
+        let app, db;
+        const logsDiv = document.getElementById('logs');
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const div = document.createElement('div');
+            div.className = type;
+            div.innerHTML = `[${timestamp}] ${message}`;
+            logsDiv.appendChild(div);
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+            console.log(message);
+        }
+
+        function clearLogs() {
+            logsDiv.innerHTML = '<div>🗑️ Logs effacés...</div>';
+        }
+
+        // Tester la connexion Firebase
+        async function testConnection() {
+            log('🔍 Test de connexion Firebase...', 'info');
+            
+            try {
+                log('📱 Initialisation de l\'app Firebase...', 'info');
+                app = initializeApp(firebaseConfig);
+                log('✅ App Firebase initialisée avec succès', 'success');
+
+                log('🔥 Connexion à Firestore...', 'info');
+                db = getFirestore(app);
+                log('✅ Firestore connecté avec succès', 'success');
+
+                log('📋 Configuration utilisée:', 'info');
+                log(`   - Project ID: ${firebaseConfig.projectId}`, 'info');
+                log(`   - Auth Domain: ${firebaseConfig.authDomain}`, 'info');
+
+                return true;
+            } catch (error) {
+                log(`❌ Erreur de connexion: ${error.message}`, 'error');
+                log(`   Stack: ${error.stack}`, 'error');
+                return false;
+            }
+        }
+
+        // Vérifier les permissions Firestore
+        async function checkPermissions() {
+            if (!db) {
+                log('❌ Database non initialisée. Lancez d\'abord le test de connexion.', 'error');
+                return;
+            }
+
+            log('🔐 Vérification des permissions Firestore...', 'info');
+
+            try {
+                // Test d'écriture simple
+                log('✍️ Test d\'écriture dans la collection "test"...', 'info');
+                const testRef = doc(db, 'test', 'permission-test');
+                await setDoc(testRef, {
+                    message: 'Test de permissions',
+                    timestamp: serverTimestamp(),
+                    created: new Date().toISOString()
+                });
+                log('✅ Écriture réussie ! Permissions OK', 'success');
+
+                // Test d'écriture dans bureau
+                log('✍️ Test d\'écriture dans la collection "bureau"...', 'info');
+                const bureauRef = doc(db, 'bureau', 'test');
+                await setDoc(bureauRef, {
+                    message: 'Test de permissions bureau',
+                    timestamp: serverTimestamp()
+                });
+                log('✅ Écriture dans "bureau" réussie !', 'success');
+
+            } catch (error) {
+                log(`❌ Erreur de permissions: ${error.message}`, 'error');
+                log(`   Code d'erreur: ${error.code}`, 'error');
+                
+                if (error.code === 'permission-denied') {
+                    log('🔒 Problème de règles Firestore. Vérifiez firestore.rules', 'warning');
+                }
+            }
+        }
+
+        // Initialisation simple avec une seule donnée
+        async function initSimple() {
+            if (!db) {
+                const connected = await testConnection();
+                if (!connected) {
+                    log('❌ Impossible de se connecter à Firebase', 'error');
+                    return;
+                }
+            }
+
+            log('📝 Initialisation simple d\'une donnée bureau...', 'info');
+
+            try {
+                const bureauData = {
+                    president: {
+                        nom: "Jonathan DRAY",
+                        telephone: "06 12 34 56 78"
+                    },
+                    secretaire: {
+                        nom: "Marianne COMBESCURE", 
+                        telephone: "06 98 76 54 32"
+                    },
+                    lastUpdated: serverTimestamp(),
+                    updatedBy: "Script de debug",
+                    created: new Date().toISOString()
+                };
+
+                log('💾 Sauvegarde des données bureau...', 'info');
+                await setDoc(doc(db, 'bureau', 'current'), bureauData);
+                log('✅ Bureau sauvegardé avec succès !', 'success');
+
+                log('📰 Ajout d\'une actualité test...', 'info');
+                const newsData = {
+                    titre: "Test d'actualité depuis le script debug",
+                    contenu: "Ceci est un test pour vérifier que l'ajout d'actualités fonctionne.",
+                    datePublication: serverTimestamp(),
+                    auteur: "Script de debug",
+                    publie: true,
+                    created: new Date().toISOString()
+                };
+
+                await addDoc(collection(db, 'actualites'), newsData);
+                log('✅ Actualité ajoutée avec succès !', 'success');
+
+                log('🏃 Ajout d\'une activité test...', 'info');
+                const activityData = {
+                    nom: "Activité Test",
+                    public: "Tout public",
+                    jour: "Test",
+                    horaires: "Test",
+                    prix: "Test",
+                    responsable: "Test",
+                    telephone: "Test",
+                    animateur: "Test",
+                    lieu: "Test",
+                    debut: "Test",
+                    categories: ["test"],
+                    createdAt: serverTimestamp(),
+                    createdBy: "Script de debug",
+                    actif: true,
+                    created: new Date().toISOString()
+                };
+
+                await addDoc(collection(db, 'activites'), activityData);
+                log('✅ Activité ajoutée avec succès !', 'success');
+
+                log('🎉 Initialisation simple terminée ! Vérifiez Firebase Console.', 'success');
+
+            } catch (error) {
+                log(`❌ Erreur lors de l'initialisation: ${error.message}`, 'error');
+                log(`   Code: ${error.code}`, 'error');
+                log(`   Stack: ${error.stack}`, 'error');
+                
+                if (error.code === 'permission-denied') {
+                    log('🔒 Problème de règles Firestore !', 'warning');
+                    log('📝 Vérifiez que firestore.rules permet les écritures', 'warning');
+                }
+            }
+        }
+
+        // Event listeners
+        document.getElementById('test-connection').addEventListener('click', testConnection);
+        document.getElementById('check-permissions').addEventListener('click', checkPermissions);
+        document.getElementById('init-simple').addEventListener('click', initSimple);
+        document.getElementById('clear-logs').addEventListener('click', clearLogs);
+
+        // Test automatique au chargement
+        window.addEventListener('load', async () => {
+            log('🚀 Chargement du script de debug...', 'info');
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            testConnection();
+        });
+    </script>
+</body>
+</html>

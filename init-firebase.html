@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initialisation Firebase - Foyer Rural</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-size: 16px;
+        }
+        .btn:hover { background: #2980b9; }
+        .btn-success { background: #27ae60; }
+        .btn-warning { background: #f39c12; }
+        .status {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            display: none;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Initialisation Firebase</h1>
+        <p>Ce script va peupler Firebase avec les données existantes du site :</p>
+        
+        <ul>
+            <li>✅ Configuration du bureau</li>
+            <li>📰 Actualités de la page d'accueil</li>
+            <li>🏠 Contenus de la page d'accueil</li>
+            <li>🏃 Migration des activités depuis activities.js</li>
+        </ul>
+
+        <div class="status" id="status"></div>
+
+        <button id="init-bureau" class="btn btn-success">👥 Initialiser le Bureau</button>
+        <button id="init-homepage" class="btn btn-success">🏠 Initialiser l'Accueil</button>
+        <button id="init-news" class="btn btn-warning">📰 Migrer les Actualités</button>
+        <button id="init-activities" class="btn btn-warning">🏃 Migrer les Activités</button>
+        
+        <hr style="margin: 30px 0;">
+        
+        <button id="init-all" class="btn" style="background: #e74c3c; font-size: 18px;">🔥 TOUT INITIALISER</button>
+        
+        <div id="results" style="margin-top: 20px;"></div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+        import { getFirestore, doc, setDoc, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+        // Configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyC5nUayIeA8Dgx8loqZ1pyG5vei8PHWggU",
+            authDomain: "frmontaud-09-25.firebaseapp.com",
+            projectId: "frmontaud-09-25",
+            storageBucket: "frmontaud-09-25.firebasestorage.app",
+            messagingSenderId: "350075655257",
+            appId: "1:350075655257:web:84f8f375cf19b2610b0d48",
+            measurementId: "G-S7BKPP6F02"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Fonctions utilitaires
+        function showStatus(type, message) {
+            const status = document.getElementById('status');
+            status.className = `status ${type}`;
+            status.textContent = message;
+            status.style.display = 'block';
+            
+            if (type === 'success') {
+                setTimeout(() => status.style.display = 'none', 5000);
+            }
+        }
+
+        function addResult(title, data) {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.innerHTML = `<h3>${title}</h3><pre>${JSON.stringify(data, null, 2)}</pre>`;
+            results.appendChild(div);
+        }
+
+        // 1. Initialiser le bureau
+        async function initBureau() {
+            showStatus('info', '👥 Initialisation du bureau...');
+            
+            const bureauData = {
+                president: {
+                    nom: "Jonathan DRAY",
+                    telephone: "06 12 34 56 78"
+                },
+                vicePresident: {
+                    nom: "Michel NACACHIAN",
+                    telephone: "06 12 54 48 35"
+                },
+                secretaire: {
+                    nom: "Marianne COMBESCURE",
+                    telephone: "06 98 76 54 32"
+                },
+                secretaireAdjoint: {
+                    nom: "",
+                    telephone: ""
+                },
+                tresoriere: {
+                    nom: "Alice HEITZMANN",
+                    telephone: "06 73 09 12 68"
+                },
+                tresorierAdjoint: {
+                    nom: "",
+                    telephone: ""
+                },
+                lastUpdated: serverTimestamp(),
+                updatedBy: "Script d'initialisation"
+            };
+
+            try {
+                await setDoc(doc(db, 'bureau', 'current'), bureauData);
+                showStatus('success', '✅ Bureau initialisé avec succès !');
+                addResult('Bureau', bureauData);
+            } catch (error) {
+                showStatus('error', '❌ Erreur : ' + error.message);
+                console.error(error);
+            }
+        }
+
+        // 2. Initialiser la page d'accueil
+        async function initHomepage() {
+            showStatus('info', '🏠 Initialisation de la page d\'accueil...');
+            
+            const homepageData = {
+                hero: {
+                    titre: "Bienvenue au Foyer Rural de Montaud",
+                    soustitre: "Découvrez nos 24 activités pour la saison 2025-2026",
+                    bouton: "Découvrir nos activités"
+                },
+                banner: {
+                    titre: "🎉 Inscriptions Ouvertes - Saison 2025-2026",
+                    texte: "Les activités débutent à partir du 8 septembre 2025"
+                },
+                stats: {
+                    activites: 24,
+                    jours: "7/7",
+                    salles: 3
+                },
+                lastUpdated: serverTimestamp(),
+                updatedBy: "Script d'initialisation"
+            };
+
+            try {
+                await setDoc(doc(db, 'contenus', 'homepage'), homepageData);
+                
+                // Ajouter les activités phares
+                const featuredActivities = [
+                    {
+                        titre: "🎭 Arts & Culture",
+                        description: "Théâtre pour enfants et adultes, arts plastiques, percussions... Exprimez votre créativité !",
+                        lien: "activites.html?filter=culture",
+                        ordre: 1
+                    },
+                    {
+                        titre: "🏃‍♀️ Sport & Bien-être",
+                        description: "Badminton, boxe, gym, yoga, pilates, zumba... Restez en forme avec nos cours variés !",
+                        lien: "activites.html?filter=sport",
+                        ordre: 2
+                    },
+                    {
+                        titre: "👶 Enfants, Ados, Adultes",
+                        description: "Éveil corporel, judo, break dance, théâtre... Des activités adaptées à chaque âge !",
+                        lien: "activites.html",
+                        ordre: 3
+                    },
+                    {
+                        titre: "🌳 Activités Extérieures",
+                        description: "Randonnée, VTT, pétanque, marche... Profitez du grand air et de la nature !",
+                        lien: "activites.html",
+                        ordre: 4
+                    },
+                    {
+                        titre: "🥳 Les évènements",
+                        description: "Spectacles, animations, découverte, repas, ... Des moments conviviaux qui nous rapprochent !",
+                        lien: "evenements.html",
+                        ordre: 5
+                    },
+                    {
+                        titre: "☕ Mont-Ô Café",
+                        description: "Gratuit et ouvert à tous le Samedi 9h30 - 13h00 à la Mairie. Un espace d'échange et de débat citoyen autour d'un café.",
+                        lien: "activites/cafe-citoyen.html",
+                        ordre: 6
+                    }
+                ];
+
+                for (const activity of featuredActivities) {
+                    await addDoc(collection(db, 'contenus-homepage'), {
+                        ...activity,
+                        createdAt: serverTimestamp(),
+                        createdBy: "Script d'initialisation"
+                    });
+                }
+
+                showStatus('success', '✅ Page d\'accueil initialisée avec succès !');
+                addResult('Page d\'accueil', { homepage: homepageData, featured: featuredActivities });
+            } catch (error) {
+                showStatus('error', '❌ Erreur : ' + error.message);
+                console.error(error);
+            }
+        }
+
+        // 3. Migrer les actualités
+        async function initNews() {
+            showStatus('info', '📰 Migration des actualités...');
+            
+            const newsData = [
+                {
+                    titre: "🎉 Soirée Guinguette - 27 septembre 2025",
+                    contenu: `Samedi 27 septembre 2025 - Place de Montlaur à Montaud
+
+Le Foyer Rural de Montaud organise en inter-associations avec l'APE et le Comité des fêtes une Soirée Guinguette avec la participation du Cellier du Val des Pins.
+
+Programme de la soirée :
+• 🎺 19h : Fanfare du FR de Montaud
+• 🎵 20h : Groupe musical 45 Tours
+
+Restauration sur place :
+• 🍕 Food truck : Pizzas sur place ou à emporter
+• 🥪 Sandwiches gastronomiques
+• 🍰 Desserts
+• 🍷 Boissons : assurées par le Comité des fêtes et le Cellier
+
+🚗 Parking : Rue de Montlaur
+Une soirée conviviale à ne pas manquer !`,
+                    lien: "guinguette.html",
+                    image: "asset/guinguette.png",
+                    priorite: "haute"
+                },
+                {
+                    titre: "📅 Assemblée Générale - 13 septembre 2025",
+                    contenu: `Samedi 13 septembre 2025 à 14h - Salle Pierre Combettes
+
+L'Assemblée Générale du Foyer Rural de Montaud aura lieu le samedi 13 septembre 2025 à 14h en salle Pierre Combettes.
+
+Au programme :
+• 🔍 Bilan de la saison 2024-2025 : retour sur nos activités, événements et réalisations
+• 💰 Rapport financier : présentation des comptes et budget prévisionnel
+• 🎯 Projets 2025-2026 : découvrez nos nouvelles activités et événements à venir
+• 🗳️ Élections : renouvellement du conseil d'administration
+• 💬 Échanges et propositions : vos idées pour enrichir la vie associative
+
+Tous les adhérents sont invités à participer. Un pot de l'amitié sera offert à l'issue de la réunion pour échanger dans la convivialité !`,
+                    priorite: "normale"
+                },
+                {
+                    titre: "🎨 Arts Plastiques - Créativité à l'honneur",
+                    contenu: `Découvrez notre activité Arts Plastiques ! Un espace dédié à la créativité où petits et grands peuvent s'exprimer librement.
+
+Au programme : Peinture, dessin, sculpture, collage, techniques mixtes... Dans une ambiance conviviale et bienveillante, laissez libre cours à votre imagination !
+
+Que vous soyez débutant ou confirmé, nos animateurs vous accompagnent dans vos créations artistiques.`,
+                    lien: "activites/arts-plastiques.html",
+                    image: "asset/affiche arts plastiques_page-0001.jpg",
+                    priorite: "normale"
+                },
+                {
+                    titre: "🥋 Le Judo fait son grand retour !",
+                    contenu: `Grande nouveauté 2025-2026 ! Le judo fait son retour au Foyer Rural de Montaud.
+
+Art martial traditionnel japonais et sport olympique, le judo développe à la fois la force physique, la souplesse, l'équilibre mental et les valeurs de respect.
+
+Ouvert à tous les âges - de l'éveil judo pour les plus petits aux cours adultes. Encadrement par un professeur diplômé.`,
+                    lien: "activites/judo.html",
+                    image: "asset/Judo.jpg",
+                    priorite: "normale"
+                },
+                {
+                    titre: "🎯 Inscriptions Ouvertes pour la Saison 2025-2026 !",
+                    contenu: `Les inscriptions sont ouvertes depuis le 1er septembre 2025
+
+Démarrage des activités : Lundi 8 septembre 2025
+
+Ne tardez plus à vous inscrire ! Avec plus de 20 activités proposées, il y en a pour tous les goûts et tous les âges.
+
+Rendez-vous sur notre page Tarifs & Inscriptions pour toutes les informations pratiques.`,
+                    lien: "tarifs.html",
+                    priorite: "urgente"
+                }
+            ];
+
+            try {
+                for (const news of newsData) {
+                    await addDoc(collection(db, 'actualites'), {
+                        ...news,
+                        datePublication: serverTimestamp(),
+                        auteur: "Script d'initialisation",
+                        publie: true,
+                        categorie: "info"
+                    });
+                }
+
+                showStatus('success', '✅ Actualités migrées avec succès !');
+                addResult('Actualités', newsData);
+            } catch (error) {
+                showStatus('error', '❌ Erreur : ' + error.message);
+                console.error(error);
+            }
+        }
+
+        // 4. Migrer les activités
+        async function initActivities() {
+            showStatus('info', '🏃 Migration des activités...');
+            
+            const activitiesData = [
+                {
+                    nom: "Arts plastiques",
+                    public: "Enfants (+7 ans)",
+                    jour: "Mercredi",
+                    horaires: "10h00–11h30",
+                    prix: "210 € + adhésion",
+                    responsable: "Virginie FLEURY",
+                    telephone: "06 85 59 80 46",
+                    animateur: "Virginie FLEURY",
+                    lieu: "Salle PC bas",
+                    debut: "10/09/2025",
+                    categories: ["enfants", "culture"]
+                },
+                {
+                    nom: "Badminton",
+                    public: "Ados/Adultes",
+                    jour: "Lundi",
+                    horaires: "19h00–20h30",
+                    prix: "30 € + adhésion",
+                    responsable: "Valérie REIMUND / Sophie BUSSIERE",
+                    telephone: "06 16 12 08 08 / 06 09 88 06 23",
+                    animateur: "Valérie REIMUND / Sophie BUSSIERE",
+                    lieu: "Grange Robert",
+                    debut: "08/09/2025",
+                    categories: ["ados", "adultes", "sport"]
+                },
+                {
+                    nom: "Yoga",
+                    public: "Adultes",
+                    jour: "Jeudi",
+                    horaires: "18h30–19h30",
+                    prix: "180 € + adhésion",
+                    responsable: "Francine CROULLEBOIS",
+                    telephone: "06 09 75 06 07",
+                    animateur: "Elisabeth MAITRE",
+                    lieu: "Salle PC haut",
+                    debut: "11/09/2025",
+                    categories: ["adultes", "sport"]
+                },
+                {
+                    nom: "Théâtre",
+                    public: "Adultes",
+                    jour: "Jeudi",
+                    horaires: "19h30–21h30",
+                    prix: "210 € + adhésion",
+                    responsable: "Michel NACACHIAN",
+                    telephone: "06 12 54 48 35",
+                    animateur: "Bernard GUILLERMO",
+                    lieu: "Salle PC haut",
+                    debut: "10/09/2025",
+                    categories: ["adultes", "culture"]
+                },
+                {
+                    nom: "Zumba",
+                    public: "Ados/Adultes",
+                    jour: "Lundi",
+                    horaires: "18h30–19h30",
+                    prix: "160 € + adhésion",
+                    responsable: "Alice HEITZMANN",
+                    telephone: "06 73 09 12 68",
+                    animateur: "Jean Philippe TRAN",
+                    lieu: "Salle PC haut",
+                    debut: "08/09/2025",
+                    categories: ["ados", "adultes", "sport"]
+                }
+            ];
+
+            try {
+                for (const activity of activitiesData) {
+                    await addDoc(collection(db, 'activites'), {
+                        ...activity,
+                        createdAt: serverTimestamp(),
+                        createdBy: "Script d'initialisation",
+                        actif: true
+                    });
+                }
+
+                showStatus('success', '✅ Activités migrées avec succès !');
+                addResult('Activités', activitiesData);
+            } catch (error) {
+                showStatus('error', '❌ Erreur : ' + error.message);
+                console.error(error);
+            }
+        }
+
+        // Initialiser tout
+        async function initAll() {
+            if (!confirm('Voulez-vous vraiment initialiser toutes les données Firebase ? Cette action va créer de nombreux documents.')) {
+                return;
+            }
+
+            showStatus('info', '🚀 Initialisation complète en cours...');
+            
+            try {
+                await initBureau();
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                await initHomepage();
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                await initNews();
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                await initActivities();
+                
+                showStatus('success', '🎉 Initialisation complète terminée ! Vous pouvez maintenant utiliser l\'interface admin.');
+            } catch (error) {
+                showStatus('error', '❌ Erreur lors de l\'initialisation complète : ' + error.message);
+            }
+        }
+
+        // Event listeners
+        document.getElementById('init-bureau').addEventListener('click', initBureau);
+        document.getElementById('init-homepage').addEventListener('click', initHomepage);
+        document.getElementById('init-news').addEventListener('click', initNews);
+        document.getElementById('init-activities').addEventListener('click', initActivities);
+        document.getElementById('init-all').addEventListener('click', initAll);
+    </script>
+</body>
+</html>

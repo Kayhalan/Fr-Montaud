@@ -1,0 +1,3642 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS - Foyer Rural de Montaud</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            transition: margin-right 0.3s ease;
+        }
+        .admin-container.preview-open {
+            margin-right: 60%;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .login-section, .admin-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus, 
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            background: white;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60, #219a52);
+        }
+
+        .btn-success:hover {
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .btn-warning:hover {
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .status {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .status.success {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .tabs-container {
+            margin-bottom: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid transparent;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Styles pour l'aperçu et les modifications */
+        .preview-panel {
+            position: fixed;
+            top: 0;
+            right: -60%;
+            width: 60%;
+            height: 100vh;
+            background: #f8f9fa;
+            border-left: 2px solid #007bff;
+            z-index: 1000;
+            overflow-y: auto;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        }
+        .preview-panel.active {
+            right: 0;
+        }
+        .preview-header {
+            background: #007bff;
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .preview-content {
+            padding: 0;
+            height: calc(100vh - 70px);
+        }
+        .preview-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .preview-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .preview-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            font-size: 18px;
+            color: #666;
+        }
+        
+        /* Indicateur de modifications */
+        .has-changes::after {
+            content: "●";
+            color: #dc3545;
+            font-size: 20px;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+        .changes-indicator {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+            color: #856404;
+            font-weight: 600;
+        }
+
+        .section-header {
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section-header h3 {
+            color: #2c3e50;
+            font-size: 1.8em;
+        }
+
+        .content-item {
+            background: rgba(248, 249, 250, 0.8);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+        }
+
+        .content-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .content-preview {
+            background: rgba(230, 236, 240, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 13px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .file-upload-container {
+            border: 2px dashed #3498db;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            background: rgba(52, 152, 219, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-container:hover {
+            background: rgba(52, 152, 219, 0.1);
+            border-color: #2980b9;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-upload-label {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .image-preview {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #27ae60;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #e74c3c;
+        }
+
+        /* Styles pour le drag & drop des actualités */
+        .news-drag-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .draggable-news {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #e74c3c;
+            cursor: move;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .draggable-news:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .draggable-news.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .drag-handle {
+            font-size: 18px;
+            color: #666;
+            font-weight: bold;
+            cursor: grab;
+            user-select: none;
+            min-width: 20px;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+
+        .news-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .news-content h4 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 16px;
+        }
+
+        .news-content p {
+            margin: 5px 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .news-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .news-actions .btn {
+            padding: 8px 12px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .login-info {
+            background: rgba(23, 162, 184, 0.1);
+            border-left: 4px solid #17a2b8;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .user-info {
+            background: rgba(40, 167, 69, 0.1);
+            border-left: 4px solid #28a745;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .actions-bar {
+            background: rgba(248, 249, 250, 0.9);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .tabs {
+                justify-content: center;
+            }
+            
+            .tab {
+                font-size: 14px;
+                padding: 12px 20px;
+            }
+            
+            .actions-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+
+        .loading::after {
+            content: "...";
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { content: "..."; }
+            33% { content: "."; }
+            66% { content: ".."; }
+            100% { content: "..."; }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="header">
+            <h1>🎯 CMS - Foyer Rural de Montaud</h1>
+            <p>Système de gestion de contenu complet pour votre site web</p>
+        </div>
+
+        <!-- Section de connexion -->
+        <div id="login-section" class="login-section">
+            <div class="section-header">
+                <h3>🔐 Authentification</h3>
+            </div>
+            <p>Connectez-vous avec vos identifiants pour accéder au système de gestion.</p>
+            
+            <form id="login-form">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="username">Identifiant :</label>
+                        <input type="text" id="username" required placeholder="Votre prénom">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe :</label>
+                        <input type="password" id="password" required placeholder="Mot de passe">
+                    </div>
+                </div>
+                <button type="submit" class="btn">Se connecter</button>
+            </form>
+            
+            <div id="login-status" class="status hidden"></div>
+            
+        </div>
+
+        <!-- Panel d'administration -->
+        <div id="admin-panel" class="admin-panel hidden">
+            <div class="actions-bar">
+                <div class="user-info">
+                    <strong>👋 Connecté(e) en tant que : <span id="current-user"></span></strong>
+                </div>
+                <div>
+                    <button id="preview-btn" class="btn" style="background: linear-gradient(135deg, #17a2b8, #138496);">👁️ Aperçu Temps Réel</button>
+                    <button id="refresh-btn" class="btn btn-warning">🔄 Recharger</button>
+                    <button id="logout-btn" class="btn btn-danger">🚪 Déconnexion</button>
+                </div>
+            </div>
+
+            <!-- Navigation par onglets -->
+            <div class="tabs-container">
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('accueil')">🏠 Accueil</button>
+                    <button class="tab" onclick="switchTab('actualites')">📰 Actualités</button>
+                    <button class="tab" onclick="switchTab('activites')">🏃 Activités</button>
+                    <button class="tab" onclick="switchTab('bureau')">👥 Bureau</button>
+                    <button class="tab" onclick="switchTab('documents')">� Documents CA/AG</button>
+                </div>
+            </div>
+
+            <!-- Contenu Page d'Accueil -->
+            <div id="accueil" class="tab-content active">
+                <div class="section-header">
+                    <h3>🏠 Gestion de la Page d'Accueil</h3>
+                </div>
+
+                <!-- Section Héro -->
+                <div class="content-item">
+                    <h4>🎯 Section Héro (En-tête principal)</h4>
+                    <form id="hero-form">
+                        <div class="form-group">
+                            <label>Titre principal :</label>
+                            <input type="text" id="hero-titre" placeholder="Bienvenue au Foyer Rural de Montaud">
+                        </div>
+                        <div class="form-group">
+                            <label>Sous-titre :</label>
+                            <input type="text" id="hero-soustitre" placeholder="Découvrez nos 24 activités...">
+                        </div>
+                        <div class="form-group">
+                            <label>Texte du bouton :</label>
+                            <input type="text" id="hero-bouton" placeholder="Découvrir nos activités">
+                        </div>
+                        <button type="submit" class="btn btn-success">💾 Sauvegarder</button>
+                    </form>
+                </div>
+
+                <!-- Bannière d'alerte -->
+                <div class="content-item">
+                    <h4>🚨 Bannière d'Information</h4>
+                    <form id="banner-form">
+                        <div class="form-group">
+                            <label>Titre de la bannière :</label>
+                            <input type="text" id="banner-titre" placeholder="🎉 Inscriptions Ouvertes...">
+                        </div>
+                        <div class="form-group">
+                            <label>Texte de la bannière :</label>
+                            <textarea id="banner-texte" rows="3" placeholder="Les activités débutent..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">💾 Sauvegarder</button>
+                    </form>
+                </div>
+
+                <!-- Statistiques -->
+                <div class="content-item">
+                    <h4>📊 Statistiques du Site</h4>
+                    <form id="stats-form">
+                        <div class="grid-3">
+                            <div class="form-group">
+                                <label>Nombre d'activités :</label>
+                                <input type="number" id="stat-activites" placeholder="24">
+                            </div>
+                            <div class="form-group">
+                                <label>Jours d'activités :</label>
+                                <input type="text" id="stat-jours" placeholder="7/7">
+                            </div>
+                            <div class="form-group">
+                                <label>Salles disponibles :</label>
+                                <input type="number" id="stat-salles" placeholder="3">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">💾 Sauvegarder</button>
+                    </form>
+                </div>
+
+                <!-- Cartes d'activités phares -->
+                <div class="content-item">
+                    <h4>⭐ Activités Phares (6 cartes)</h4>
+                    <div id="featured-activities">
+                        <div class="loading">Chargement des activités phares</div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <button id="add-featured" class="btn btn-success">➕ Ajouter une Carte</button>
+                        <button id="preview-featured" class="btn" style="background: linear-gradient(135deg, #17a2b8, #138496);">👁️ Aperçu Activités</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu Actualités -->
+            <div id="actualites" class="tab-content">
+                <div class="section-header">
+                    <h3>📰 Gestion des Actualités</h3>
+                </div>
+
+                <div class="actions-bar">
+                    <h4>Actualités publiées sur la page d'accueil</h4>
+                    <div>
+                        <button id="add-news" class="btn btn-success">➕ Nouvelle Actualité</button>
+                    </div>
+                </div>
+
+                <!-- Formulaire nouvelle actualité -->
+                <div id="news-form-container" class="content-item hidden">
+                    <h4>✍️ Créer/Modifier une Actualité</h4>
+                    <form id="news-form">
+                        <input type="hidden" id="news-id">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Titre :</label>
+                                <input type="text" id="news-titre" required placeholder="Titre de l'actualité">
+                            </div>
+                            <div class="form-group">
+                                <label>Lien (optionnel) :</label>
+                                <input type="url" id="news-lien" placeholder="https://...">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Contenu :</label>
+                            <textarea id="news-contenu" rows="6" required placeholder="Contenu de l'actualité..."></textarea>
+                        </div>
+
+                        <div class="file-upload-container">
+                            <input type="file" id="news-image" accept="image/*">
+                            <label for="news-image" class="file-upload-label">📸 Choisir une image</label>
+                            <p>Formats supportés : JPG, PNG, GIF (max 5MB)</p>
+                            <img id="news-image-preview" class="image-preview hidden">
+                        </div>
+
+                        <div class="grid-2">
+                            <button type="submit" class="btn btn-success">💾 Publier</button>
+                            <button type="button" id="cancel-news" class="btn" style="background: #6c757d;">❌ Annuler</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Liste des actualités -->
+                <div id="news-list">
+                    <div class="loading">Chargement des actualités</div>
+                </div>
+            </div>
+
+            <!-- Contenu Activités -->
+            <div id="activites" class="tab-content">
+                <div class="section-header">
+                    <h3>🏃 Gestion des Activités</h3>
+                </div>
+
+                <div class="actions-bar">
+                    <div>
+                        <h4>Activités du Foyer Rural</h4>
+                        <p>Gérez les activités de la base de données et les pages individuelles</p>
+                    </div>
+                    <div>
+                        <button id="add-activity" class="btn btn-success">➕ Nouvelle Activité</button>
+                    </div>
+                </div>
+
+                <!-- Formulaire activité -->
+                <div id="activity-form-container" class="content-item hidden">
+                    <h4>🎯 Créer/Modifier une Activité</h4>
+                    <form id="activity-form">
+                        <input type="hidden" id="activity-id">
+                        
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Nom de l'activité :</label>
+                                <input type="text" id="activity-nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Public :</label>
+                                <input type="text" id="activity-public" required>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Jour :</label>
+                                <input type="text" id="activity-jour" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Horaires :</label>
+                                <input type="text" id="activity-horaires" required>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Prix :</label>
+                                <input type="text" id="activity-prix" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Lieu :</label>
+                                <input type="text" id="activity-lieu" required>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Responsable :</label>
+                                <input type="text" id="activity-responsable" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Téléphone :</label>
+                                <input type="tel" id="activity-telephone" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Animateur :</label>
+                            <input type="text" id="activity-animateur" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date de début :</label>
+                            <input type="text" id="activity-debut" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Catégories (séparer par des virgules) :</label>
+                            <input type="text" id="activity-categories" placeholder="sport, adultes, enfants">
+                        </div>
+
+                        <div class="grid-2">
+                            <button type="submit" class="btn btn-success">💾 Sauvegarder</button>
+                            <button type="button" id="cancel-activity" class="btn" style="background: #6c757d;">❌ Annuler</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Liste des activités -->
+                <div id="activities-list">
+                    <div class="loading">Chargement des activités</div>
+                </div>
+            </div>
+
+            <!-- Contenu Bureau -->
+            <div id="bureau" class="tab-content">
+                <div class="section-header">
+                    <h3>👥 Gestion du Bureau</h3>
+                </div>
+
+                <div id="current-bureau" class="content-item">
+                    <h4>📋 Composition actuelle du bureau :</h4>
+                    <div id="bureau-display" class="loading">Chargement des données du bureau...</div>
+                </div>
+                
+                <div class="content-item">
+                    <h4>✏️ Modifier les informations du bureau</h4>
+                    <form id="bureau-form">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Président - Nom complet :</label>
+                                <input type="text" id="president-nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Président - Téléphone :</label>
+                                <input type="tel" id="president-tel" required>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Vice-Président - Nom :</label>
+                                <input type="text" id="vp-nom">
+                            </div>
+                            <div class="form-group">
+                                <label>Vice-Président - Téléphone :</label>
+                                <input type="tel" id="vp-tel">
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Secrétaire - Nom :</label>
+                                <input type="text" id="sec-nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Secrétaire - Téléphone :</label>
+                                <input type="tel" id="sec-tel" required>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Secrétaire Adjoint - Nom :</label>
+                                <input type="text" id="secadj-nom">
+                            </div>
+                            <div class="form-group">
+                                <label>Secrétaire Adjoint - Téléphone :</label>
+                                <input type="tel" id="secadj-tel">
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Trésorière - Nom :</label>
+                                <input type="text" id="tres-nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Trésorière - Téléphone :</label>
+                                <input type="tel" id="tres-tel" required>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Trésorier Adjoint - Nom :</label>
+                                <input type="text" id="tresadj-nom">
+                            </div>
+                            <div class="form-group">
+                                <label>Trésorier Adjoint - Téléphone :</label>
+                                <input type="tel" id="tresadj-tel">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">💾 Sauvegarder le Bureau</button>
+                    </form>
+                    <div id="bureau-status" class="status hidden"></div>
+                </div>
+            </div>
+
+            <!-- Contenu Documents CA/AG -->
+            <div id="documents" class="tab-content">
+                <div class="section-header">
+                    <h3>� Gestion des Documents CA/AG</h3>
+                </div>
+
+                <div class="actions-bar">
+                    <div>
+                        <h4>Documents Conseil d'Administration et Assemblées Générales</h4>
+                        <p>Téléchargez les PV des réunions CA et AG. Ils seront automatiquement classés par date.</p>
+                    </div>
+                    <button id="add-document" class="btn btn-success">➕ Nouveau Document</button>
+                </div>
+
+                <!-- Formulaire nouveau document -->
+                <div id="document-form-container" class="content-item hidden">
+                    <h4>📎 Ajouter un Document CA/AG</h4>
+                    <form id="document-form">
+                        <input type="hidden" id="document-id">
+                        
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Type de document :</label>
+                                <select id="document-type" required>
+                                    <option value="">-- Choisir --</option>
+                                    <option value="ca">Conseil d'Administration (CA)</option>
+                                    <option value="ag">Assemblée Générale (AG)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Date de la réunion :</label>
+                                <input type="date" id="document-date" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Titre du document :</label>
+                            <input type="text" id="document-title" required placeholder="Ex: PV CA du 15 septembre 2025">
+                        </div>
+
+                        <div class="file-upload-container">
+                            <input type="file" id="document-file" accept=".pdf,.doc,.docx" required>
+                            <label for="document-file" class="file-upload-label">📎 Choisir le fichier PDF</label>
+                            <p>Formats supportés : PDF, DOC, DOCX (max 10MB)</p>
+                            <div id="document-file-info" class="hidden" style="margin-top: 10px; padding: 10px; background: #e8f5e8; border-radius: 6px;">
+                                <strong>Fichier sélectionné :</strong> <span id="selected-file-name"></span>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <button type="submit" class="btn btn-success">📄 Publier le Document</button>
+                            <button type="button" id="cancel-document" class="btn" style="background: #6c757d;">❌ Annuler</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Liste des documents -->
+                <div id="documents-list">
+                    <div class="loading">Chargement des documents</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panneau d'aperçu en temps réel -->
+    <div id="preview-panel" class="preview-panel">
+        <div class="preview-header">
+            <h3>Aperçu en temps réel</h3>
+            <button class="preview-close" onclick="closePreview()">&times;</button>
+        </div>
+        <div id="preview-content" class="preview-content">
+            <p>Sélectionnez une section pour voir l'aperçu...</p>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, updateDoc, deleteDoc, serverTimestamp, query, orderBy, writeBatch } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+        import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
+
+        // Configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyC5nUayIeA8Dgx8loqZ1pyG5vei8PHWggU",
+            authDomain: "frmontaud-09-25.firebaseapp.com",
+            projectId: "frmontaud-09-25",
+            storageBucket: "frmontaud-09-25.firebasestorage.app",
+            messagingSenderId: "350075655257",
+            appId: "1:350075655257:web:84f8f375cf19b2610b0d48",
+            measurementId: "G-S7BKPP6F02"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // Variables globales
+        let currentUser = null;
+        let currentActivities = [];
+        let currentNews = [];
+        let currentSection = 'accueil';
+        let originalFormData = {};
+        
+        // Variable pour tracker les changements d'ordre des actualités
+        let hasUnsavedNewsOrder = false;
+
+        // Éléments DOM
+        const loginSection = document.getElementById('login-section');
+        const adminPanel = document.getElementById('admin-panel');
+        const loginForm = document.getElementById('login-form');
+        const logoutBtn = document.getElementById('logout-btn');
+        const refreshBtn = document.getElementById('refresh-btn');
+        const previewBtn = document.getElementById('preview-btn');
+        const loginStatus = document.getElementById('login-status');
+        const currentUserSpan = document.getElementById('current-user');
+
+        // Fonctions utilitaires
+        function showStatus(element, type, message, duration = 5000) {
+            element.className = `status ${type}`;
+            element.textContent = message;
+            element.classList.remove('hidden');
+            setTimeout(() => element.classList.add('hidden'), duration);
+        }
+
+        function showAdminPanel() {
+            loginSection.classList.add('hidden');
+            adminPanel.classList.remove('hidden');
+            initializeAdmin();
+        }
+
+        function hideAdminPanel() {
+            loginSection.classList.remove('hidden');
+            adminPanel.classList.add('hidden');
+            currentUser = null;
+        }
+
+        // Gestion des onglets
+        function switchTab(tabName) {
+            performTabSwitch(tabName);
+        }
+        
+        function performTabSwitch(tabName) {
+            console.log('Changement vers l\'onglet:', tabName);
+            
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            const targetContent = document.getElementById(tabName);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+            
+            // Trouver l'onglet correspondant et l'activer
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                const tabText = tab.textContent.toLowerCase().trim();
+                if ((tabName === 'accueil' && tabText.includes('accueil')) ||
+                    (tabName === 'actualites' && tabText.includes('actualités')) ||
+                    (tabName === 'activites' && tabText.includes('activités')) ||
+                    (tabName === 'bureau' && tabText.includes('bureau')) ||
+                    (tabName === 'documents' && tabText.includes('documents'))) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            currentSection = tabName;
+            updateChangesIndicator();
+            
+            console.log('Section actuelle mise à jour:', currentSection);
+            
+            // Mettre à jour l'aperçu si ouvert
+            if (document.getElementById('preview-panel').classList.contains('active')) {
+                console.log('Mise à jour de l\'aperçu pour la nouvelle section');
+                loadRealTimePreview();
+            }
+            
+            // Réinitialiser les données de formulaire originales
+            setTimeout(() => {
+                captureOriginalFormData();
+            }, 100);
+            
+            // Charger le contenu spécifique à l'onglet
+            loadTabContent(tabName);
+            
+            // Reconfigurer la détection de changements pour le nouvel onglet
+            setTimeout(() => {
+                setupChangeDetection();
+            }, 200);
+        }
+
+        // Gestion de l'aperçu en temps réel
+        function togglePreview() {
+            const previewPanel = document.getElementById('preview-panel');
+            if (previewPanel.classList.contains('active')) {
+                closePreview();
+            } else {
+                openPreview();
+            }
+        }
+
+        function openPreview() {
+            const previewPanel = document.getElementById('preview-panel');
+            const adminContainer = document.querySelector('.admin-container');
+            
+            previewPanel.classList.add('active');
+            adminContainer.classList.add('preview-open');
+            
+            loadRealTimePreview();
+        }
+
+        function closePreview() {
+            const previewPanel = document.getElementById('preview-panel');
+            const adminContainer = document.querySelector('.admin-container');
+            
+            previewPanel.classList.remove('active');
+            adminContainer.classList.remove('preview-open');
+        }
+
+        async function loadRealTimePreview() {
+            const previewContent = document.getElementById('preview-content');
+            previewContent.innerHTML = '<div class="loading">Chargement de l\'aperçu...</div>';
+            
+            console.log('🔍 Debug loadRealTimePreview - currentSection:', currentSection);
+            
+            try {
+                // Utiliser l'URL Firebase pour éviter les problèmes de redirection
+                const baseUrl = 'https://frmontaud-09-25.web.app';
+                let pageUrl = '';
+                
+                // Déterminer quelle page charger selon la section avec URLs absolues
+                switch(currentSection) {
+                    case 'actualites':
+                        pageUrl = `${baseUrl}`;
+                        break;
+                    case 'activites':
+                        pageUrl = `${baseUrl}/activites.html`;
+                        break;
+                    case 'bureau':
+                        pageUrl = `${baseUrl}/association.html`;
+                        break;
+                    case 'documents':
+                        pageUrl = `${baseUrl}/association.html`;
+                        break;
+                    default:
+                        pageUrl = `${baseUrl}`;
+                }
+                
+                console.log('🌍 Chargement de la page:', pageUrl, 'pour la section:', currentSection);
+                
+                // Créer un iframe pour l'aperçu
+                const iframe = document.createElement('iframe');
+                iframe.style.cssText = 'width: 100%; height: 100%; border: none;';
+                
+                previewContent.innerHTML = '';
+                previewContent.appendChild(iframe);
+                
+                // Charger directement la page dans l'iframe
+                console.log('🔗 Chargement direct de la page dans l\'iframe...');
+                iframe.src = pageUrl + '?_t=' + Date.now(); // Timestamp pour éviter le cache
+                
+                // Attendre que l'iframe soit complètement chargée
+                iframe.onload = () => {
+                    try {
+                        console.log('✅ Page chargée dans l\'iframe');
+                        
+                        // Attendre un peu plus pour s'assurer que tous les scripts sont chargés
+                        setTimeout(() => {
+                            applyLiveChangesToPreview(iframe);
+                            setupLivePreviewUpdates(iframe);
+                            
+                            // Ajouter un message informatif
+                            showPreviewMessage('📋 Aperçu de la page en temps réel. Les modifications s\'afficheront après sauvegarde.', 'info');
+                        }, 2000);
+                    } catch (error) {
+                        console.error('Erreur lors du chargement de l\'iframe:', error);
+                    }
+                };
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement de l\'aperçu:', error);
+                previewContent.innerHTML = `
+                    <div style="color: #dc3545; padding: 20px; text-align: center;">
+                        <h3>❌ Erreur lors du chargement de l'aperçu</h3>
+                        <p>Impossible de charger la page ${currentSection}</p>
+                        <p><small>Erreur: ${error.message}</small></p>
+                        <button onclick="loadRealTimePreview()" style="padding: 10px 20px; margin-top: 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            🔄 Réessayer
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Fonction pour rafraîchir l'aperçu (reload l'iframe)
+        function refreshPreview() {
+            const previewPanel = document.getElementById('preview-panel');
+            if (previewPanel.classList.contains('active')) {
+                console.log('🔄 Rafraîchissement de l\'aperçu en cours...');
+                loadRealTimePreview();
+            }
+        }
+
+        // Fonction pour afficher des messages dans l'aperçu
+        function showPreviewMessage(message, type = 'info') {
+            const previewContent = document.getElementById('preview-content');
+            if (!previewContent) return;
+            
+            const colors = {
+                'info': '#17a2b8',
+                'warning': '#ffc107', 
+                'error': '#dc3545',
+                'success': '#28a745'
+            };
+            
+            const messageHtml = `
+                <div style="background: ${colors[type] || colors.info}; color: white; padding: 15px; margin: 10px; border-radius: 5px; text-align: center;">
+                    <strong>ℹ️ ${message}</strong>
+                </div>
+            `;
+            
+            // Ajouter le message au début du contenu d'aperçu
+            if (previewContent.firstChild) {
+                previewContent.insertAdjacentHTML('afterbegin', messageHtml);
+            } else {
+                previewContent.innerHTML = messageHtml;
+            }
+        }
+
+        function applyLiveChangesToPreview(iframe) {
+            console.log('Application des changements à l\'aperçu pour:', currentSection);
+            
+            // Au lieu d'essayer d'accéder au contenu de l'iframe (cross-origin),
+            // créons un overlay avec les modifications
+            createPreviewOverlay(iframe);
+        }
+
+        function createPreviewOverlay(iframe) {
+            // Supprimer l'ancien overlay s'il existe
+            const existingOverlay = iframe.parentElement.querySelector('.preview-overlay');
+            if (existingOverlay) {
+                existingOverlay.remove();
+            }
+
+            // Créer un overlay pour afficher les modifications
+            const overlay = document.createElement('div');
+            overlay.className = 'preview-overlay';
+            overlay.style.cssText = `
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: rgba(0, 123, 255, 0.9);
+                color: white;
+                padding: 10px;
+                border-radius: 0 0 0 10px;
+                font-size: 12px;
+                z-index: 1000;
+                max-width: 250px;
+                pointer-events: none;
+            `;
+
+            let overlayContent = '<strong>📝 Modifications en cours:</strong><br>';
+            let hasModifications = false;
+
+            // Afficher les modifications selon la section
+            switch(currentSection) {
+                case 'accueil':
+                    const heroTitre = document.getElementById('hero-titre')?.value?.trim();
+                    const heroSoustitre = document.getElementById('hero-soustitre')?.value?.trim();
+                    const heroButton = document.getElementById('hero-bouton')?.value?.trim();
+                    
+                    if (heroTitre) {
+                        overlayContent += `• Titre héro: "${heroTitre}"<br>`;
+                        hasModifications = true;
+                    }
+                    if (heroSoustitre) {
+                        overlayContent += `• Sous-titre: "${heroSoustitre}"<br>`;
+                        hasModifications = true;
+                    }
+                    if (heroButton) {
+                        overlayContent += `• Bouton: "${heroButton}"<br>`;
+                        hasModifications = true;
+                    }
+                    break;
+
+                case 'actualites':
+                    const newsTitre = document.getElementById('news-titre')?.value?.trim();
+                    const newsContenu = document.getElementById('news-contenu')?.value?.trim();
+                    const newsImage = document.getElementById('news-image')?.files[0];
+                    
+                    if (newsTitre || newsContenu || newsImage) {
+                        overlayContent += `• Actualité en cours d'édition<br>`;
+                        if (newsTitre) overlayContent += `  - Titre: "${newsTitre.substring(0, 30)}..."<br>`;
+                        if (newsImage) overlayContent += `  - Image: ${newsImage.name}<br>`;
+                        hasModifications = true;
+                    }
+                    break;
+            }
+
+            if (hasModifications) {
+                overlay.innerHTML = overlayContent;
+                iframe.parentElement.style.position = 'relative';
+                iframe.parentElement.appendChild(overlay);
+                
+                console.log('✅ Overlay de prévisualisation créé');
+            }
+        }
+
+        function applyAccueilChangesToPreview(iframeDoc) {
+            console.log('Application des changements page d\'accueil');
+            
+            // Supprimer les anciens aperçus
+            iframeDoc.querySelectorAll('[data-preview="true"]').forEach(el => el.remove());
+            
+            // Section Héro
+            const heroTitle = document.getElementById('hero-titre')?.value?.trim();
+            const heroSubtitle = document.getElementById('hero-soustitre')?.value?.trim();
+            const heroButton = document.getElementById('hero-bouton')?.value?.trim();
+            
+            console.log('Valeurs des champs héro:', { heroTitle, heroSubtitle, heroButton });
+            
+            if (heroTitle || heroSubtitle || heroButton) {
+                const heroSection = iframeDoc.querySelector('.hero, .hero-section, .bienvenue-section, h1') || iframeDoc.body;
+                
+                let previewHTML = `
+                    <div data-preview="true" style="background: #fff3cd; border: 2px dashed #ffc107; border-radius: 10px; padding: 20px; margin: 20px 0; text-align: center;">
+                        <div style="background: #17a2b8; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; margin-bottom: 15px; display: inline-block;">
+                            ⏱️ APERÇU SECTION HÉRO - Non publié
+                        </div>
+                `;
+                
+                if (heroTitle) {
+                    previewHTML += `<h1 style="color: #2c3e50; font-size: 2.5em; margin: 15px 0;">${heroTitle}</h1>`;
+                }
+                if (heroSubtitle) {
+                    previewHTML += `<p style="color: #666; font-size: 1.2em; margin: 10px 0;">${heroSubtitle}</p>`;
+                }
+                if (heroButton) {
+                    previewHTML += `<button style="background: #007bff; color: white; padding: 15px 30px; border: none; border-radius: 25px; font-size: 16px; margin: 20px 0;">${heroButton}</button>`;
+                }
+                
+                previewHTML += `</div>`;
+                heroSection.insertAdjacentHTML('afterbegin', previewHTML);
+                console.log('Aperçu section héro inséré');
+            }
+            
+            // Bannière d'information
+            const bannerTitle = document.getElementById('banner-titre')?.value?.trim();
+            const bannerText = document.getElementById('banner-texte')?.value?.trim();
+            
+            if (bannerTitle || bannerText) {
+                const bannerSection = iframeDoc.querySelector('.banner, .alert-banner, .info-banner') || iframeDoc.body;
+                
+                const previewHTML = `
+                    <div data-preview="true" style="background: #fff3cd; border: 2px dashed #ffc107; border-radius: 10px; padding: 20px; margin: 20px 0;">
+                        <div style="background: #17a2b8; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; margin-bottom: 15px; display: inline-block;">
+                            ⏱️ APERÇU BANNIÈRE - Non publié
+                        </div>
+                        ${bannerTitle ? `<h3 style="color: #2c3e50; margin: 10px 0;">${bannerTitle}</h3>` : ''}
+                        ${bannerText ? `<p style="line-height: 1.6; color: #555;">${bannerText}</p>` : ''}
+                    </div>
+                `;
+                
+                bannerSection.insertAdjacentHTML('afterbegin', previewHTML);
+                console.log('Aperçu bannière inséré');
+            }
+            
+            // Statistiques
+            const statsActivities = document.getElementById('stat-activites')?.value?.trim();
+            const statsJours = document.getElementById('stat-jours')?.value?.trim();
+            const statsSalles = document.getElementById('stat-salles')?.value?.trim();
+            
+            if (statsActivities || statsJours || statsSalles) {
+                // Chercher la section des statistiques existantes dans la page
+                const statsSection = iframeDoc.querySelector('.stats-container, .numbers-section, .statistics') || 
+                                   iframeDoc.querySelector('[class*="stat"]') ||
+                                   iframeDoc.querySelector('.cards-grid') ||
+                                   iframeDoc.querySelector('main');
+                
+                const previewHTML = `
+                    <div data-preview="true" style="background: #fff3cd; border: 2px dashed #ffc107; border-radius: 10px; padding: 20px; margin: 20px 0; position: relative; z-index: 999;">
+                        <div style="background: #17a2b8; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; margin-bottom: 15px; display: inline-block;">
+                            ⏱️ APERÇU STATISTIQUES - Non publié
+                        </div>
+                        <div style="display: flex; justify-content: space-around; text-align: center; flex-wrap: wrap; gap: 20px;">
+                            ${statsActivities ? `<div style="margin: 10px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"><h2 style="color: #007bff; font-size: 3em; margin: 0;">${statsActivities}</h2><p style="margin: 5px 0 0 0;">Activités proposées</p></div>` : ''}
+                            ${statsJours ? `<div style="margin: 10px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"><h2 style="color: #007bff; font-size: 3em; margin: 0;">${statsJours}</h2><p style="margin: 5px 0 0 0;">Jours d'activités</p></div>` : ''}
+                            ${statsSalles ? `<div style="margin: 10px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"><h2 style="color: #007bff; font-size: 3em; margin: 0;">${statsSalles}</h2><p style="margin: 5px 0 0 0;">Salles disponibles</p></div>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                // Insérer avant les statistiques existantes au lieu d'au début de body
+                if (statsSection && statsSection !== iframeDoc.body) {
+                    statsSection.insertAdjacentHTML('beforebegin', previewHTML);
+                } else {
+                    // Si on ne trouve pas de section spécifique, l'insérer dans une zone appropriée
+                    const insertionPoint = iframeDoc.querySelector('.hero, .bienvenue-section, h1')?.parentElement || iframeDoc.body;
+                    insertionPoint.insertAdjacentHTML('beforeend', previewHTML);
+                }
+                console.log('Aperçu statistiques inséré');
+            }
+            
+            // Aperçu des activités phares (simulé)
+            const activitiesSection = iframeDoc.querySelector('.activities-section, .cards-grid, main') || iframeDoc.body;
+            if (currentActivities && currentActivities.length > 0) {
+                // Prendre les 6 premières activités comme activités phares
+                const featuredActivities = currentActivities.slice(0, 6);
+                
+                let activitiesPreviewHTML = `
+                    <div data-preview="true" style="background: #fff3cd; border: 2px dashed #ffc107; border-radius: 10px; padding: 20px; margin: 20px 0;">
+                        <div style="background: #17a2b8; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; margin-bottom: 15px; display: inline-block;">
+                            ⏱️ APERÇU ACTIVITÉS PHARES - Non publié
+                        </div>
+                        <h3 style="text-align: center; margin-bottom: 20px;">Nos Activités Phares</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                `;
+                
+                featuredActivities.forEach(activity => {
+                    activitiesPreviewHTML += `
+                        <div style="background: white; border-radius: 10px; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <h4 style="color: #2c3e50; margin: 0 0 10px 0;">${activity.nom}</h4>
+                            <p style="color: #666; margin: 5px 0; font-size: 14px;">${activity.description?.substring(0, 100) || 'Description à venir'}...</p>
+                            ${activity.horaires ? `<p style="margin: 5px 0; font-size: 13px;"><strong>Horaires:</strong> ${activity.horaires}</p>` : ''}
+                            ${activity.lieu ? `<p style="margin: 5px 0; font-size: 13px;"><strong>Lieu:</strong> ${activity.lieu}</p>` : ''}
+                        </div>
+                    `;
+                });
+                
+                activitiesPreviewHTML += `</div></div>`;
+                
+                activitiesSection.insertAdjacentHTML('beforeend', activitiesPreviewHTML);
+                console.log('Aperçu activités phares inséré');
+            }
+        }
+
+        function applyBureauChangesToPreview(iframeDoc) {
+            console.log('Application des changements bureau');
+            
+            const bureauSection = iframeDoc.querySelector('#bureau-dynamic, #bureau-static, .bureau-list, .bureau-section');
+            
+            if (bureauSection) {
+                // Récupérer les valeurs actuelles du formulaire
+                const getData = (id) => document.getElementById(id)?.value?.trim() || '';
+                
+                const president = getData('president-nom');
+                const presidentTel = getData('president-tel');
+                const vp = getData('vp-nom');
+                const vpTel = getData('vp-tel');
+                const sec = getData('sec-nom');
+                const secTel = getData('sec-tel');
+                const secAdj = getData('secadj-nom');
+                const secAdjTel = getData('secadj-tel');
+                const tres = getData('tres-nom');
+                const tresTel = getData('tres-tel');
+                const tresAdj = getData('tresadj-nom');
+                const tresAdjTel = getData('tresadj-tel');
+                
+                if (president || vp || sec || tres) {
+                    const formatPhone = (phone) => phone ? ` – <a href="tel:+33${phone.replace(/\s/g, '')}">${phone}</a>` : '';
+                    
+                    const previewHTML = `
+                        <div data-preview="true" style="background: #fff3cd; border: 2px dashed #ffc107; border-radius: 10px; padding: 20px; margin: 20px 0;">
+                            <div style="background: #17a2b8; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; margin-bottom: 15px; display: inline-block;">
+                                ⏱️ APERÇU BUREAU - Non publié
+                            </div>
+                            <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                                ${president ? `<li><strong>Président :</strong> ${president}${formatPhone(presidentTel)}</li>` : ''}
+                                ${vp ? `<li><strong>Vice-Président :</strong> ${vp}${formatPhone(vpTel)}</li>` : ''}
+                                ${sec ? `<li><strong>Secrétaire :</strong> ${sec}${formatPhone(secTel)}</li>` : ''}
+                                ${secAdj ? `<li><strong>Secrétaire adjointe :</strong> ${secAdj}${formatPhone(secAdjTel)}</li>` : ''}
+                                ${tres ? `<li><strong>Trésorière :</strong> ${tres}${formatPhone(tresTel)}</li>` : ''}
+                                ${tresAdj ? `<li><strong>Trésorier adjoint :</strong> ${tresAdj}${formatPhone(tresAdjTel)}</li>` : ''}
+                            </ul>
+                        </div>
+                    `;
+                    
+                    bureauSection.insertAdjacentHTML('afterbegin', previewHTML);
+                    console.log('Aperçu bureau inséré');
+                }
+            } else {
+                console.log('Section bureau non trouvée dans l\'aperçu');
+            }
+        }
+
+        function applyNewsChangesToPreview(iframeDoc) {
+            console.log('Application des changements actualités');
+            
+            const newsSection = iframeDoc.querySelector('.hero-section, .news-section, main') || iframeDoc.body;
+            const titre = document.getElementById('news-titre')?.value?.trim() || '';
+            const contenu = document.getElementById('news-contenu')?.value?.trim() || '';
+            const lien = document.getElementById('news-lien')?.value?.trim() || '';
+            const imageFile = document.getElementById('news-image')?.files[0];
+            
+            console.log('📝 Données aperçu actualité:', { titre, contenu, lien, hasImage: !!imageFile });
+            
+            if (titre || contenu || imageFile) {
+                let imageHTML = '';
+                if (imageFile) {
+                    try {
+                        const imageUrl = URL.createObjectURL(imageFile);
+                        imageHTML = `<img src="${imageUrl}" alt="${titre}" style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 10px; margin: 15px 0;">`;
+                        console.log('🖼️ Image aperçu créée');
+                    } catch (error) {
+                        console.error('Erreur création URL image:', error);
+                    }
+                }
+                
+                let lienHTML = '';
+                if (lien) {
+                    lienHTML = `<p style="margin-top: 15px;"><a href="${lien}" target="_blank" style="color: #007bff; text-decoration: none;">🔗 En savoir plus</a></p>`;
+                }
+                
+                const previewHTML = `
+                    <div data-preview="true" style="background: #fff3cd; border: 2px dashed #ffc107; border-radius: 10px; padding: 20px; margin: 20px;">
+                        <div style="background: #17a2b8; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; margin-bottom: 15px; display: inline-block;">
+                            ⏱️ APERÇU ACTUALITÉ - Non publié
+                        </div>
+                        <h3 style="color: #2c3e50; margin: 10px 0;">${titre || 'Nouvelle actualité'}</h3>
+                        ${imageHTML}
+                        <p style="line-height: 1.6; color: #555; white-space: pre-wrap;">${contenu || 'Contenu de l\'actualité...'}</p>
+                        ${lienHTML}
+                        <p style="font-size: 12px; color: #888; margin-top: 15px;">📅 Publié le ${new Date().toLocaleDateString('fr-FR')}</p>
+                    </div>
+                `;
+                
+                newsSection.insertAdjacentHTML('afterbegin', previewHTML);
+                console.log('✅ Aperçu actualité inséré dans la prévisualisation');
+            }
+        }
+
+        function applyActivityChangesToPreview(iframeDoc) {
+            console.log('Application des changements activités avec indicateur visuel');
+            
+            // Ajouter l'indicateur de modifications non sauvegardées d'abord
+            addUnsavedIndicatorToPreview(iframeDoc);
+            
+            // Récupérer l'ID de l'activité en cours de modification
+            const activityId = document.getElementById('activity-id')?.value;
+            const nom = document.getElementById('activity-nom')?.value?.trim() || '';
+            const publicCible = document.getElementById('activity-public')?.value?.trim() || '';
+            const jour = document.getElementById('activity-jour')?.value?.trim() || '';
+            const horaires = document.getElementById('activity-horaires')?.value?.trim() || '';
+            const prix = document.getElementById('activity-prix')?.value?.trim() || '';
+            const lieu = document.getElementById('activity-lieu')?.value?.trim() || '';
+            const responsable = document.getElementById('activity-responsable')?.value?.trim() || '';
+            const animateur = document.getElementById('activity-animateur')?.value?.trim() || '';
+            
+            if (nom || publicCible || jour) {
+                const previewHTML = `
+                    <div data-preview="true" class="activity-card" style="background: #fff3cd; border: 2px dashed #ffc107; border-radius: 10px; padding: 20px; margin: 20px 0; position: relative;">
+                        <div style="background: #17a2b8; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; margin-bottom: 15px; display: inline-block;">
+                            ⏱️ APERÇU ACTIVITÉ - Modifications non sauvegardées
+                        </div>
+                        <div class="activity-header">
+                            <span class="activity-title">${nom || 'Nouvelle activité'}</span>
+                            <span class="activity-price">${prix || 'Prix à définir'}</span>
+                        </div>
+                        <div class="activity-details">
+                            ${publicCible ? `<div class="detail-item"><span class="detail-icon">👥</span>${publicCible}</div>` : ''}
+                            ${jour ? `<div class="detail-item"><span class="detail-icon">📅</span>${jour}</div>` : ''}
+                            ${horaires ? `<div class="detail-item"><span class="detail-icon">⏰</span>${horaires}</div>` : ''}
+                            ${lieu ? `<div class="detail-item"><span class="detail-icon">📍</span>${lieu}</div>` : ''}
+                            ${responsable ? `<div class="detail-item"><span class="detail-icon">👤</span>Responsable: ${responsable}</div>` : ''}
+                            ${animateur ? `<div class="detail-item"><span class="detail-icon">🎭</span>Animateur: ${animateur}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                // Si on modifie une activité existante, chercher sa carte correspondante
+                if (activityId && nom) {
+                    // Chercher la carte d'activité correspondante par son nom
+                    const existingCards = iframeDoc.querySelectorAll('.activity-card');
+                    let targetCard = null;
+                    
+                    existingCards.forEach(card => {
+                        const cardTitle = card.querySelector('.activity-title')?.textContent?.trim();
+                        if (cardTitle && cardTitle.includes(nom.split(' ')[0])) { // Recherche partielle
+                            targetCard = card;
+                        }
+                    });
+                    
+                    if (targetCard) {
+                        // Insérer l'aperçu juste avant la carte existante
+                        targetCard.insertAdjacentHTML('beforebegin', previewHTML);
+                        console.log('Aperçu activité inséré avant la carte existante');
+                    } else {
+                        // Fallback : insérer au début du conteneur
+                        const activitiesContainer = iframeDoc.querySelector('.activities-grid, #activities-container') || iframeDoc.body;
+                        activitiesContainer.insertAdjacentHTML('afterbegin', previewHTML);
+                        console.log('Aperçu activité inséré au début (activité non trouvée)');
+                    }
+                } else {
+                    // Nouvelle activité : insérer au début
+                    const activitiesContainer = iframeDoc.querySelector('.activities-grid, #activities-container') || iframeDoc.body;
+                    activitiesContainer.insertAdjacentHTML('afterbegin', previewHTML);
+                    console.log('Aperçu nouvelle activité inséré au début');
+                }
+            }
+            
+            // PAS de rechargement automatique - seulement lors de la sauvegarde
+        }
+
+        // Fonction pour recharger l'aperçu des activités
+        function reloadActivitiesPreview() {
+            const iframe = document.querySelector('#admin-preview iframe');
+            if (iframe && currentSection === 'activites') {
+                console.log('🔄 Rechargement de l\'aperçu activites.html');
+                iframe.src = 'activites.html?_t=' + Date.now(); // Ajout d'un timestamp pour forcer le rechargement
+            }
+        }
+
+        function applyDocumentsChangesToPreview(iframeDoc) {
+            console.log('Application des changements documents');
+            
+            const documentsSection = iframeDoc.querySelector('.ag-section, .ca-section, .documents-section') || iframeDoc.body;
+            const title = document.getElementById('document-title')?.value?.trim() || '';
+            const type = document.getElementById('document-type')?.value || '';
+            const date = document.getElementById('document-date')?.value || '';
+            const description = document.getElementById('document-description')?.value?.trim() || '';
+            const file = document.getElementById('document-file')?.files[0];
+            
+            if (title || type || date) {
+                const typeLabel = type === 'CA' ? 'Conseil d\'Administration' : 'Assemblée Générale';
+                const dateFormatted = date ? new Date(date).toLocaleDateString('fr-FR') : 'Non définie';
+                
+                const previewHTML = `
+                    <div data-preview="true" style="background: #fff3cd; border: 2px dashed #ffc107; border-radius: 10px; padding: 20px; margin: 20px 0;">
+                        <div style="background: #17a2b8; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; margin-bottom: 15px; display: inline-block;">
+                            ⏱️ APERÇU DOCUMENT - Non publié
+                        </div>
+                        <h4>${title || 'Nouveau document'}</h4>
+                        ${type ? `<p><strong>Type :</strong> ${typeLabel}</p>` : ''}
+                        ${date ? `<p><strong>Date :</strong> ${dateFormatted}</p>` : ''}
+                        ${description ? `<p><strong>Description :</strong> ${description}</p>` : ''}
+                        ${file ? `<p><strong>Fichier :</strong> ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</p>` : ''}
+                    </div>
+                `;
+                
+                documentsSection.insertAdjacentHTML('afterbegin', previewHTML);
+                console.log('Aperçu document inséré');
+            }
+        }
+
+        function addUnsavedIndicatorToPreview(iframeDoc) {
+            const indicator = iframeDoc.createElement('div');
+            indicator.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #dc3545;
+                color: white;
+                padding: 10px 15px;
+                border-radius: 5px;
+                font-weight: bold;
+                z-index: 9999;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            `;
+            indicator.textContent = '⚠️ Modifications non sauvegardées';
+            iframeDoc.body.appendChild(indicator);
+        }
+
+        function setupLivePreviewUpdates(iframe) {
+            const currentForm = getCurrentForm();
+            if (currentForm) {
+                const inputs = currentForm.querySelectorAll('input, textarea, select');
+                inputs.forEach(input => {
+                    input.addEventListener('input', () => {
+                        setTimeout(() => applyLiveChangesToPreview(iframe), 100);
+                    });
+                    input.addEventListener('change', () => {
+                        setTimeout(() => applyLiveChangesToPreview(iframe), 100);
+                    });
+                });
+            }
+        }
+
+        function updatePreviewContent() {
+            console.log('Mise à jour de l\'aperçu...');
+            const iframe = document.querySelector('#preview-content iframe');
+            if (iframe) {
+                console.log('iframe trouvé, application des changements');
+                try {
+                    applyLiveChangesToPreview(iframe);
+                } catch (error) {
+                    console.error('Erreur lors de la mise à jour de l\'aperçu:', error);
+                }
+            } else {
+                console.log('Pas d\'iframe d\'aperçu trouvé');
+            }
+        }
+
+
+
+        // Fonctions de sauvegarde spécifiques
+        async function saveNewsData() {
+            const form = document.getElementById('news-form');
+            if (!form) return;
+            
+            console.log('🔄 Début sauvegarde des données actualité...');
+            
+            const newsId = document.getElementById('news-id')?.value;
+            const titre = document.getElementById('news-titre')?.value?.trim();
+            const contenu = document.getElementById('news-contenu')?.value?.trim();
+            const lien = document.getElementById('news-lien')?.value?.trim();
+            const imageFile = document.getElementById('news-image')?.files[0];
+            
+            console.log('📝 Données actualité à sauvegarder:', { newsId, titre, contenu, lien, hasImage: !!imageFile });
+            
+            if (!titre || !contenu) {
+                throw new Error('Veuillez remplir au minimum le titre et le contenu');
+            }
+            
+            const newsData = {
+                titre: titre,
+                contenu: contenu,
+                lien: lien || null,
+                datePublication: newsId ? null : new Date(), // Ne pas modifier la date de publication lors d'une modification
+                statut: 'publié',
+                auteur: currentUser.nom || 'Admin'
+            };
+            
+            // Gestion de l'image si fournie
+            if (imageFile) {
+                console.log('📸 Traitement de l\'image...', imageFile.name);
+                try {
+                    // Upload vers Firebase Storage
+                    const imageUrl = await uploadFile(imageFile, 'news');
+                    newsData.image = imageUrl;
+                    console.log('✅ Image uploadée:', imageUrl);
+                } catch (uploadError) {
+                    console.error('❌ Erreur upload image:', uploadError);
+                    // En cas d'erreur, continuer sans image plutôt que d'interrompre la sauvegarde
+                    console.log('⚠️ Poursuite de la sauvegarde sans image');
+                }
+            }
+            
+            console.log('🔗 Base de données connectée:', !!db);
+            
+            if (newsId) {
+                // Modification d'une actualité existante
+                console.log('✏️ Modification de l\'actualité existante:', newsId);
+                
+                // Trouver l'actualité existante pour préserver son ordre
+                const existingNews = currentNews.find(news => news.id === newsId);
+                
+                const updateData = {
+                    titre: titre,
+                    contenu: contenu,
+                    lien: lien || null,
+                    ordre: existingNews?.ordre || 0, // Préserver l'ordre existant
+                    dateModification: new Date()
+                };
+                
+                // Ajouter l'image si elle a été uploadée
+                if (newsData.image) {
+                    updateData.image = newsData.image;
+                }
+                
+                // Ne pas écraser la date de publication existante
+                if (existingNews?.datePublication) {
+                    updateData.datePublication = existingNews.datePublication;
+                }
+                
+                console.log('📄 Données à mettre à jour:', updateData);
+                
+                const newsRef = doc(db, 'actualites', newsId);
+                await updateDoc(newsRef, updateData);
+                console.log('✅ Actualité modifiée avec succès !');
+                showNotification('Actualité modifiée avec succès!', 'success');
+            } else {
+                // Création d'une nouvelle actualité
+                console.log('➕ Création d\'une nouvelle actualité');
+                
+                // Incrémenter l'ordre de toutes les actualités existantes pour faire de la place en première position
+                if (currentNews.length > 0) {
+                    console.log('📝 Mise à jour de l\'ordre des actualités existantes...');
+                    const batch = writeBatch(db);
+                    currentNews.forEach(news => {
+                        const newsRef = doc(db, 'actualites', news.id);
+                        batch.update(newsRef, { ordre: (news.ordre || 0) + 1 });
+                    });
+                    await batch.commit();
+                    console.log('✅ Ordre des actualités existantes mis à jour');
+                }
+                
+                newsData.datePublication = new Date(); // S'assurer que la date est définie pour les nouvelles actualités
+                newsData.ordre = 0; // Ajouter en première position
+                
+                const newsRef = collection(db, 'actualites');
+                const docRef = await addDoc(newsRef, newsData);
+                console.log('✅ Nouvelle actualité créée avec ID:', docRef.id, 'et ordre:', newsData.ordre);
+                showNotification('Actualité créée avec succès!', 'success');
+            }
+            
+            // Réinitialiser le formulaire et masquer le conteneur
+            form.reset();
+            document.getElementById('news-image-preview').classList.add('hidden');
+            hideAndRestoreForm('news-form-container', originalNewsFormParent);
+            
+            // Recharger la liste
+            console.log('🔄 Rechargement de la liste des actualités...');
+            loadNewsContent();
+            
+            // Rafraîchir l'aperçu si ouvert
+            refreshPreview();
+        }
+
+        async function saveActivityData() {
+            const form = document.getElementById('activity-form');
+            if (!form) return;
+            
+            console.log('🔄 Début sauvegarde des données activité...');
+            
+            const activityId = document.getElementById('activity-id')?.value;
+            const nom = document.getElementById('activity-nom')?.value?.trim();
+            const publicCible = document.getElementById('activity-public')?.value?.trim();
+            const jour = document.getElementById('activity-jour')?.value?.trim();
+            const horaires = document.getElementById('activity-horaires')?.value?.trim();
+            const prix = document.getElementById('activity-prix')?.value?.trim();
+            const lieu = document.getElementById('activity-lieu')?.value?.trim();
+            const responsable = document.getElementById('activity-responsable')?.value?.trim();
+            const telephone = document.getElementById('activity-telephone')?.value?.trim();
+            const animateur = document.getElementById('activity-animateur')?.value?.trim();
+            const debut = document.getElementById('activity-debut')?.value?.trim();
+            const categories = document.getElementById('activity-categories')?.value?.trim();
+            
+            console.log('📝 Données activité à sauvegarder:', { activityId, nom, publicCible, jour, horaires, prix, lieu, responsable, telephone, animateur, debut, categories });
+            
+            // Pour une modification, on vérifie seulement si les champs principaux existent
+            if (activityId) {
+                // Modification : récupérer l'activité existante pour compléter les champs manquants
+                const existingActivity = currentActivities.find(act => act.id === activityId);
+                if (!existingActivity) {
+                    throw new Error('Activité introuvable');
+                }
+                
+                // Utiliser les valeurs existantes si les champs sont vides
+                const finalNom = nom || existingActivity.nom;
+                const finalPublic = publicCible || existingActivity.public;
+                
+                if (!finalNom || !finalPublic) {
+                    throw new Error('Le nom et le public sont obligatoires');
+                }
+                
+                const activityData = {
+                    nom: finalNom,
+                    public: finalPublic,
+                    jour: jour !== undefined ? jour : (existingActivity.jour || ''),
+                    horaires: horaires !== undefined ? horaires : (existingActivity.horaires || ''),
+                    prix: prix !== undefined ? prix : (existingActivity.prix || ''),
+                    lieu: lieu !== undefined ? lieu : (existingActivity.lieu || ''),
+                    responsable: responsable !== undefined ? responsable : (existingActivity.responsable || ''),
+                    telephone: telephone !== undefined ? telephone : (existingActivity.telephone || ''),
+                    animateur: animateur !== undefined ? animateur : (existingActivity.animateur || ''),
+                    debut: debut !== undefined ? debut : (existingActivity.debut || ''),
+                    categories: categories !== undefined ? categories : (existingActivity.categories || ''),
+                    dateModification: new Date()
+                };
+                
+                console.log('🔗 Base de données connectée:', !!db);
+                console.log('✏️ Modification de l\'activité existante:', activityId);
+                const activityRef = doc(db, 'activites', activityId);
+                await updateDoc(activityRef, activityData);
+                console.log('✅ Activité modifiée avec succès !');
+                showNotification('Activité modifiée avec succès!', 'success');
+            } else {
+                // Création : tous les champs obligatoires doivent être fournis
+                if (!nom || !publicCible) {
+                    throw new Error('Le nom et le public sont obligatoires');
+                }
+                
+                const activityData = {
+                    nom: nom,
+                    public: publicCible,
+                    jour: jour || '',
+                    horaires: horaires || '',
+                    prix: prix || '',
+                    lieu: lieu || '',
+                    responsable: responsable || '',
+                    telephone: telephone || '',
+                    animateur: animateur || '',
+                    debut: debut || '',
+                    categories: categories || '',
+                    dateCreation: new Date()
+                };
+                
+                console.log('➕ Création d\'une nouvelle activité');
+                const activitiesRef = collection(db, 'activites');
+                const docRef = await addDoc(activitiesRef, activityData);
+                console.log('✅ Nouvelle activité créée avec ID:', docRef.id);
+                showNotification('Activité créée avec succès!', 'success');
+            }
+            
+            // Réinitialiser le formulaire et masquer le conteneur
+            form.reset();
+            hideAndRestoreForm('activity-form-container', originalActivityFormParent);
+            
+            // Recharger la liste
+            console.log('🔄 Rechargement de la liste des activités...');
+            loadActivitiesContent();
+            
+            // Recharger l'aperçu si actif
+            reloadActivitiesPreview();
+        }
+
+        async function saveBureauData() {
+            const form = document.getElementById('bureau-form');
+            if (!form) return;
+            
+            // Récupérer les données de chaque membre du bureau
+            const presidentNom = document.getElementById('president-nom')?.value?.trim();
+            const presidentTel = document.getElementById('president-tel')?.value?.trim();
+            const vpNom = document.getElementById('vp-nom')?.value?.trim();
+            const vpTel = document.getElementById('vp-tel')?.value?.trim();
+            const secNom = document.getElementById('sec-nom')?.value?.trim();
+            const secTel = document.getElementById('sec-tel')?.value?.trim();
+            const secadjNom = document.getElementById('secadj-nom')?.value?.trim();
+            const secadjTel = document.getElementById('secadj-tel')?.value?.trim();
+            const tresNom = document.getElementById('tres-nom')?.value?.trim();
+            const tresTel = document.getElementById('tres-tel')?.value?.trim();
+            const tresadjNom = document.getElementById('tresadj-nom')?.value?.trim();
+            const tresadjTel = document.getElementById('tresadj-tel')?.value?.trim();
+            
+            // Valider les champs obligatoires (Président, Secrétaire, Trésorière)
+            if (!presidentNom || !presidentTel) {
+                throw new Error('Le nom et téléphone du Président sont obligatoires');
+            }
+            if (!secNom || !secTel) {
+                throw new Error('Le nom et téléphone du Secrétaire sont obligatoires');
+            }
+            if (!tresNom || !tresTel) {
+                throw new Error('Le nom et téléphone de la Trésorière sont obligatoires');
+            }
+            
+            // Sauvegarder les données dans Firestore
+            const bureauData = {
+                president: {
+                    nom: presidentNom,
+                    telephone: presidentTel
+                },
+                vicePresident: {
+                    nom: vpNom || '',
+                    telephone: vpTel || ''
+                },
+                secretaire: {
+                    nom: secNom,
+                    telephone: secTel
+                },
+                secretaireAdjoint: {
+                    nom: secadjNom || '',
+                    telephone: secadjTel || ''
+                },
+                tresoriere: {
+                    nom: tresNom,
+                    telephone: tresTel
+                },
+                tresorierAdjoint: {
+                    nom: tresadjNom || '',
+                    telephone: tresadjTel || ''
+                },
+                lastUpdated: new Date()
+            };
+            
+            const bureauRef = doc(db, 'bureau', 'current');
+            await setDoc(bureauRef, bureauData);
+            
+            // Recharger l'affichage
+            loadBureauContent();
+        }
+
+        async function saveDocumentData() {
+            const form = document.getElementById('document-form');
+            if (!form) return;
+            
+            console.log('🔄 Début sauvegarde des données document...');
+            
+            const documentId = document.getElementById('document-id')?.value;
+            const type = document.getElementById('document-type')?.value?.trim();
+            const date = document.getElementById('document-date')?.value;
+            const title = document.getElementById('document-title')?.value?.trim();
+            const description = document.getElementById('document-description')?.value?.trim();
+            const fileInput = document.getElementById('document-file');
+            const file = fileInput?.files[0];
+            
+            console.log('📝 Données document à sauvegarder:', { documentId, type, title, date, description, hasFile: !!file });
+            
+            if (!type || !title || !date) {
+                throw new Error('Le type, le titre et la date sont obligatoires');
+            }
+            
+            if (!file && !documentId) {
+                throw new Error('Un fichier est obligatoire pour un nouveau document');
+            }
+            
+            const documentData = {
+                type: type.toUpperCase(), // CA ou AG en majuscules
+                title: title,
+                date: new Date(date),
+                description: description || '',
+                dateModification: new Date()
+            };
+            
+            // Gestion du fichier si fourni
+            if (file) {
+                console.log('📎 Traitement du fichier...', file.name);
+                try {
+                    // Upload vers Firebase Storage
+                    const fileUrl = await uploadFile(file, 'documents');
+                    documentData.fileUrl = fileUrl;
+                    documentData.fileName = file.name;
+                    console.log('✅ Fichier uploadé:', fileUrl);
+                } catch (uploadError) {
+                    console.error('❌ Erreur upload fichier:', uploadError);
+                    console.log('⚠️ Poursuite de la sauvegarde sans fichier');
+                }
+            }
+            
+            console.log('🔗 Base de données connectée:', !!db);
+            
+            if (documentId) {
+                // Modification d'un document existant
+                console.log('✏️ Modification du document existant:', documentId);
+                const docRef = doc(db, 'documents', documentId);
+                await updateDoc(docRef, documentData);
+                console.log('✅ Document modifié avec succès !');
+                showNotification('Document modifié avec succès!', 'success');
+            } else {
+                // Création d'un nouveau document
+                console.log('➕ Création d\'un nouveau document');
+                documentData.dateAjout = new Date();
+                
+                const documentsRef = collection(db, 'documents');
+                const docRef = await addDoc(documentsRef, documentData);
+                console.log('✅ Nouveau document créé avec ID:', docRef.id);
+                showNotification('Document créé avec succès!', 'success');
+            }
+            
+            // Réinitialiser le formulaire et masquer le conteneur
+            form.reset();
+            document.getElementById('document-file-info').classList.add('hidden');
+            document.getElementById('document-form-container').classList.add('hidden');
+            
+            // Recharger la liste
+            console.log('🔄 Rechargement de la liste des documents...');
+            loadDocumentsContent();
+            
+            // Rafraîchir l'aperçu si ouvert
+            refreshPreview();
+        }
+
+        async function saveAccueilData() {
+            console.log('Sauvegarde des données de la page d\'accueil...');
+            
+            // Récupérer les données des différents formulaires de l'accueil
+            const heroData = {
+                titre: document.getElementById('hero-titre')?.value?.trim() || '',
+                soustitre: document.getElementById('hero-soustitre')?.value?.trim() || '',
+                bouton: document.getElementById('hero-bouton')?.value?.trim() || ''
+            };
+            
+            const bannerData = {
+                titre: document.getElementById('banner-titre')?.value?.trim() || '',
+                texte: document.getElementById('banner-texte')?.value?.trim() || ''
+            };
+            
+            const statsData = {
+                activites: document.getElementById('stat-activites')?.value?.trim() || '',
+                jours: document.getElementById('stat-jours')?.value?.trim() || '',
+                salles: document.getElementById('stat-salles')?.value?.trim() || ''
+            };
+            
+            // Sauvegarder dans Firestore
+            try {
+                const accueilRef = doc(db, 'contenu', 'accueil');
+                await setDoc(accueilRef, {
+                    hero: heroData,
+                    banner: bannerData,
+                    stats: statsData,
+                    dateModification: new Date()
+                }, { merge: true });
+                
+                console.log('Données de l\'accueil sauvegardées avec succès');
+                
+                // Réinitialiser les formulaires après sauvegarde
+                document.getElementById('hero-form')?.reset();
+                document.getElementById('banner-form')?.reset();
+                document.getElementById('stats-form')?.reset();
+                
+            } catch (error) {
+                console.error('Erreur lors de la sauvegarde de l\'accueil:', error);
+                throw error;
+            }
+        }
+
+        // Fonctions de sauvegarde individuelles
+        async function saveHeroData() {
+            console.log('🔄 Début sauvegarde des données héro...');
+            try {
+                const heroData = {
+                    titre: document.getElementById('hero-titre')?.value?.trim() || '',
+                    soustitre: document.getElementById('hero-soustitre')?.value?.trim() || '',
+                    bouton: document.getElementById('hero-bouton')?.value?.trim() || ''
+                };
+                
+                console.log('📝 Données à sauvegarder:', heroData);
+                console.log('🔗 Base de données connectée:', !!db);
+
+                const accueilRef = doc(db, 'contenu', 'accueil');
+                console.log('📄 Référence document créée:', accueilRef.path);
+                
+                await setDoc(accueilRef, {
+                    hero: heroData,
+                    dateModification: new Date()
+                }, { merge: true });
+                
+                console.log('✅ Sauvegarde Firebase réussie !');
+                showNotification('Section Héro sauvegardée avec succès !', 'success');
+                
+            } catch (error) {
+                console.error('❌ Erreur lors de la sauvegarde héro:', error);
+                showNotification('Erreur de sauvegarde: ' + error.message, 'error');
+                throw error;
+            }
+        }
+
+        async function saveBannerData() {
+            console.log('Sauvegarde des données bannière...');
+            const bannerData = {
+                titre: document.getElementById('banner-titre')?.value?.trim() || '',
+                texte: document.getElementById('banner-texte')?.value?.trim() || ''
+            };
+
+            const accueilRef = doc(db, 'contenu', 'accueil');
+            await setDoc(accueilRef, {
+                banner: bannerData,
+                dateModification: new Date()
+            }, { merge: true });
+
+            showNotification('Bannière sauvegardée avec succès !', 'success');
+            console.log('Données bannière sauvegardées:', bannerData);
+        }
+
+        async function saveStatsData() {
+            console.log('Sauvegarde des statistiques...');
+            const statsData = {
+                activites: document.getElementById('stat-activites')?.value?.trim() || '',
+                jours: document.getElementById('stat-jours')?.value?.trim() || '',
+                salles: document.getElementById('stat-salles')?.value?.trim() || ''
+            };
+
+            const accueilRef = doc(db, 'contenu', 'accueil');
+            await setDoc(accueilRef, {
+                stats: statsData,
+                dateModification: new Date()
+            }, { merge: true });
+
+            showNotification('Statistiques sauvegardées avec succès !', 'success');
+            console.log('Statistiques sauvegardées:', statsData);
+        }
+
+        // Fonction pour mettre à jour l'aperçu des activités phares
+        function updateFeaturedActivitiesPreview() {
+            const iframe = document.querySelector('#preview-content iframe');
+            if (iframe) {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    // Supprimer les anciens aperçus
+                    iframeDoc.querySelectorAll('[data-preview="true"]').forEach(el => el.remove());
+                    
+                    // Appliquer l'aperçu des activités phares seulement
+                    if (currentActivities && currentActivities.length > 0) {
+                        const activitiesSection = iframeDoc.querySelector('.activities-section, .cards-grid, main') || iframeDoc.body;
+                        const featuredActivities = currentActivities.slice(0, 6);
+                        
+                        let activitiesPreviewHTML = `
+                            <div data-preview="true" style="background: #fff3cd; border: 2px dashed #ffc107; border-radius: 10px; padding: 20px; margin: 20px 0; position: relative; z-index: 999;">
+                                <div style="background: #17a2b8; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; margin-bottom: 15px; display: inline-block;">
+                                    ⏱️ APERÇU ACTIVITÉS PHARES - Non publié
+                                </div>
+                                <h3 style="text-align: center; margin-bottom: 20px; color: #2c3e50;">Nos Activités Phares</h3>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                        `;
+                        
+                        featuredActivities.forEach(activity => {
+                            activitiesPreviewHTML += `
+                                <div style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left: 4px solid #27ae60; transition: transform 0.3s ease;">
+                                    <h4 style="color: #2c3e50; margin: 0 0 12px 0; font-size: 1.2em;">${activity.nom}</h4>
+                                    <p style="color: #666; margin: 8px 0; font-size: 14px; line-height: 1.5;">${(activity.description || 'Description à venir').substring(0, 120)}${activity.description && activity.description.length > 120 ? '...' : ''}</p>
+                                    ${activity.horaires ? `<p style="margin: 8px 0; font-size: 13px; color: #555;"><strong>📅 Horaires:</strong> ${activity.horaires}</p>` : ''}
+                                    ${activity.lieu ? `<p style="margin: 8px 0; font-size: 13px; color: #555;"><strong>📍 Lieu:</strong> ${activity.lieu}</p>` : ''}
+                                    ${activity.tarif ? `<p style="margin: 8px 0; font-size: 13px; color: #555;"><strong>💰 Tarif:</strong> ${activity.tarif}</p>` : ''}
+                                    <div style="margin-top: 15px;">
+                                        <span style="background: #007bff; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: bold;">En savoir plus →</span>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        
+                        activitiesPreviewHTML += `</div></div>`;
+                        
+                        activitiesSection.insertAdjacentHTML('beforeend', activitiesPreviewHTML);
+                        console.log('Aperçu activités phares mis à jour');
+                        showNotification('Aperçu des activités phares mis à jour!', 'success');
+                    } else {
+                        showNotification('Aucune activité à afficher dans l\'aperçu', 'warning');
+                    }
+                } catch (error) {
+                    console.error('Erreur lors de la mise à jour de l\'aperçu:', error);
+                    showNotification('Erreur lors de la mise à jour de l\'aperçu', 'error');
+                }
+            } else {
+                showNotification('Veuillez d\'abord ouvrir l\'aperçu temps réel', 'warning');
+            }
+        }
+
+        // Fonction pour charger les données existantes de la page d'accueil
+        async function loadAccueilData() {
+            console.log('🔄 Chargement des données de la page d\'accueil...');
+            try {
+                const accueilRef = doc(db, 'contenu', 'accueil');
+                const docSnap = await getDoc(accueilRef);
+                
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    console.log('✅ Données chargées:', data);
+                    
+                    // Pré-remplir les formulaires avec les données existantes
+                    if (data.hero) {
+                        document.getElementById('hero-titre').value = data.hero.titre || '';
+                        document.getElementById('hero-soustitre').value = data.hero.soustitre || '';
+                        document.getElementById('hero-bouton').value = data.hero.bouton || '';
+                    }
+                    
+                    if (data.banner) {
+                        document.getElementById('banner-titre').value = data.banner.titre || '';
+                        document.getElementById('banner-texte').value = data.banner.texte || '';
+                    }
+                    
+                    if (data.stats) {
+                        document.getElementById('stat-activites').value = data.stats.activites || '';
+                        document.getElementById('stat-jours').value = data.stats.jours || '';
+                        document.getElementById('stat-salles').value = data.stats.salles || '';
+                    }
+                    
+                    console.log('✅ Formulaires pré-remplis avec les données sauvegardées');
+                } else {
+                    console.log('ℹ️ Aucune donnée existante trouvée pour la page d\'accueil');
+                }
+            } catch (error) {
+                console.error('❌ Erreur lors du chargement des données:', error);
+            }
+        }
+
+        window.closePreview = function() {
+            closePreview();
+        }
+
+        window.loadRealTimePreview = function() {
+            loadRealTimePreview();
+        }
+
+        function captureOriginalFormData() {
+            originalFormData = {};
+            const currentForm = getCurrentForm();
+            if (currentForm) {
+                console.log('Capture des données originales pour:', currentSection);
+                const inputs = currentForm.querySelectorAll('input, textarea, select');
+                inputs.forEach(input => {
+                    const key = input.name || input.id;
+                    const value = input.type === 'file' ? '' : input.value;
+                    originalFormData[key] = value;
+                });
+                console.log('Données capturées:', Object.keys(originalFormData).length, 'champs');
+            } else {
+                console.log('Aucun formulaire à capturer pour:', currentSection);
+            }
+        }
+
+        function restoreOriginalFormData() {
+            const currentForm = getCurrentForm();
+            if (currentForm && originalFormData) {
+                const inputs = currentForm.querySelectorAll('input, textarea, select');
+                inputs.forEach(input => {
+                    const key = input.name || input.id;
+                    if (originalFormData[key] !== undefined) {
+                        input.value = originalFormData[key];
+                    }
+                });
+            }
+        }
+
+        function getCurrentForm() {
+            switch(currentSection) {
+                case 'bureau':
+                    return document.getElementById('bureau-form');
+                case 'actualites':
+                    return document.getElementById('news-form');
+                case 'activites':
+                    return document.getElementById('activity-form');
+                case 'documents':
+                    return document.getElementById('document-form');
+                default:
+                    return null;
+            }
+        }
+
+        function detectChanges() {
+            const currentForm = getCurrentForm();
+            if (!currentForm) {
+                console.log('Aucun formulaire trouvé pour la section:', currentSection);
+                return;
+            }
+
+            const inputs = currentForm.querySelectorAll('input, textarea, select');
+            let hasChanges = false;
+            let changeDetails = [];
+            
+            inputs.forEach(input => {
+                const key = input.name || input.id;
+                const currentValue = input.type === 'file' ? 
+                    (input.files.length > 0 ? input.files[0].name : '') : 
+                    input.value;
+                const originalValue = originalFormData[key] || '';
+                
+                if (currentValue !== originalValue) {
+                    hasChanges = true;
+                    changeDetails.push(`${key}: "${originalValue}" → "${currentValue}"`);
+                }
+            });
+            
+            updateChangesIndicator();
+            
+            if (hasChanges) {
+                console.log('Changements détectés:', changeDetails);
+            }
+        }
+
+        function updateChangesIndicator() {
+            const currentTab = document.querySelector(`.tab.active`);
+            if (currentTab) {
+                // Toujours laisser l'onglet comme modifié pour la prévisualisation
+                currentTab.classList.add('has-changes');
+            }
+        }
+            
+        // Chargement du contenu par onglet
+        async function loadTabContent(tabName) {
+            switch(tabName) {
+                case 'accueil':
+                    await loadHomepageContent();
+                    break;
+                case 'actualites':
+                    await loadNewsContent();
+                    break;
+                case 'activites':
+                    await loadActivitiesContent();
+                    break;
+                case 'bureau':
+                    await loadBureauContent();
+                    break;
+                case 'documents':
+                    await loadDocumentsContent();
+                    break;
+            }
+        }
+
+        // Upload de fichiers
+        async function uploadFile(file, folder) {
+            const fileName = `${Date.now()}_${file.name}`;
+            const storageRef = ref(storage, `${folder}/${fileName}`);
+            
+            try {
+                const snapshot = await uploadBytes(storageRef, file);
+                const url = await getDownloadURL(snapshot.ref);
+                return url;
+            } catch (error) {
+                console.error('Erreur upload:', error);
+                throw error;
+            }
+        }
+
+        // Chargement du contenu de la page d'accueil
+        async function loadHomepageContent() {
+            try {
+                // Charger les données de la page d'accueil depuis Firestore
+                const homepageRef = doc(db, 'contenus', 'homepage');
+                const homepageSnap = await getDoc(homepageRef);
+                
+                if (homepageSnap.exists()) {
+                    const data = homepageSnap.data();
+                    
+                    // Pré-remplir les formulaires
+                    document.getElementById('hero-titre').value = data.hero?.titre || '';
+                    document.getElementById('hero-soustitre').value = data.hero?.soustitre || '';
+                    document.getElementById('hero-bouton').value = data.hero?.bouton || '';
+                    
+                    document.getElementById('banner-titre').value = data.banner?.titre || '';
+                    document.getElementById('banner-texte').value = data.banner?.texte || '';
+                    
+                    document.getElementById('stat-activites').value = data.stats?.activites || '';
+                    document.getElementById('stat-jours').value = data.stats?.jours || '';
+                    document.getElementById('stat-salles').value = data.stats?.salles || '';
+                }
+                
+                // Charger les activités phares
+                loadFeaturedActivities();
+                
+            } catch (error) {
+                console.error('Erreur chargement homepage:', error);
+            }
+        }
+
+        // Chargement des activités phares
+        async function loadFeaturedActivities() {
+            const container = document.getElementById('featured-activities');
+            container.innerHTML = '<div class="loading">Chargement des activités phares</div>';
+            
+            try {
+                const featuredRef = collection(db, 'contenus-homepage');
+                const featuredSnap = await getDocs(query(featuredRef, orderBy('ordre')));
+                
+                if (!featuredSnap.empty) {
+                    let html = '';
+                    featuredSnap.forEach(doc => {
+                        const data = doc.data();
+                        html += `
+                            <div class="content-item">
+                                <h5>${data.titre}</h5>
+                                <p>${data.description}</p>
+                                <p><strong>Lien:</strong> ${data.lien || 'Aucun'}</p>
+                                <button onclick="editFeaturedActivity('${doc.id}')" class="btn">✏️ Modifier</button>
+                                <button onclick="deleteFeaturedActivity('${doc.id}')" class="btn btn-danger">🗑️ Supprimer</button>
+                            </div>
+                        `;
+                    });
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<p>Aucune activité phare configurée.</p>';
+                }
+            } catch (error) {
+                container.innerHTML = '<p style="color: red;">Erreur de chargement des activités phares</p>';
+                console.error('Erreur:', error);
+            }
+        }
+
+        // Fonctions pour gérer les activités phares
+        window.editFeaturedActivity = async function(id) {
+            console.log('Modification de l\'activité phare:', id);
+            try {
+                // Récupérer les données de l'activité phare
+                const activityRef = doc(db, 'contenus-homepage', id);
+                const activitySnap = await getDoc(activityRef);
+                
+                if (activitySnap.exists()) {
+                    const data = activitySnap.data();
+                    
+                    // Créer et afficher un modal ou formulaire d'édition
+                    const editForm = `
+                        <div id="edit-featured-modal" style="
+                            position: fixed; 
+                            top: 0; left: 0; 
+                            width: 100%; height: 100%; 
+                            background: rgba(0,0,0,0.5); 
+                            z-index: 3000; 
+                            display: flex; 
+                            align-items: center; 
+                            justify-content: center;
+                        ">
+                            <div style="
+                                background: white; 
+                                border-radius: 15px; 
+                                padding: 30px; 
+                                max-width: 500px; 
+                                width: 90%;
+                                max-height: 80vh;
+                                overflow-y: auto;
+                            ">
+                                <h3>✏️ Modifier l'activité phare</h3>
+                                <form id="featured-edit-form">
+                                    <div class="form-group">
+                                        <label>Titre :</label>
+                                        <input type="text" id="featured-title" value="${data.titre || ''}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Description :</label>
+                                        <textarea id="featured-description" rows="4" required>${data.description || ''}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Lien :</label>
+                                        <input type="text" id="featured-link" value="${data.lien || ''}" placeholder="URL vers la page de l'activité">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ordre d'affichage :</label>
+                                        <input type="number" id="featured-order" value="${data.ordre || 1}" min="1" max="6">
+                                    </div>
+                                    <div style="margin-top: 20px;">
+                                        <button type="submit" class="btn btn-success">💾 Sauvegarder</button>
+                                        <button type="button" onclick="closeFeaturedModal()" class="btn btn-secondary">❌ Annuler</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.body.insertAdjacentHTML('beforeend', editForm);
+                    
+                    // Gestionnaire de soumission du formulaire
+                    document.getElementById('featured-edit-form').addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        
+                        const updatedData = {
+                            titre: document.getElementById('featured-title').value.trim(),
+                            description: document.getElementById('featured-description').value.trim(),
+                            lien: document.getElementById('featured-link').value.trim(),
+                            ordre: parseInt(document.getElementById('featured-order').value) || 1,
+                            dateModification: new Date()
+                        };
+                        
+                        try {
+                            await updateDoc(activityRef, updatedData);
+                            showNotification('Activité phare modifiée avec succès!', 'success');
+                            closeFeaturedModal();
+                            loadFeaturedActivities(); // Recharger la liste
+                        } catch (error) {
+                            console.error('Erreur lors de la modification:', error);
+                            showNotification('Erreur lors de la modification: ' + error.message, 'error');
+                        }
+                    });
+                    
+                } else {
+                    showNotification('Activité phare introuvable', 'error');
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement:', error);
+                showNotification('Erreur lors du chargement: ' + error.message, 'error');
+            }
+        }
+
+        // Fonction pour fermer le modal
+        window.closeFeaturedModal = function() {
+            const modal = document.getElementById('edit-featured-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        window.deleteFeaturedActivity = async function(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette activité phare ?')) {
+                try {
+                    await deleteDoc(doc(db, 'contenus-homepage', id));
+                    showNotification('Activité phare supprimée avec succès!', 'success');
+                    loadFeaturedActivities(); // Recharger la liste
+                } catch (error) {
+                    console.error('Erreur lors de la suppression:', error);
+                    showNotification('Erreur lors de la suppression: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // Chargement des actualités
+        async function loadNewsContent() {
+            const container = document.getElementById('news-list');
+            container.innerHTML = '<div class="loading">Chargement des actualités</div>';
+            
+            try {
+                const newsRef = collection(db, 'actualites');
+                // Trier d'abord par ordre personnalisé, puis par date de publication
+                const newsSnap = await getDocs(query(newsRef, orderBy('ordre', 'asc'), orderBy('datePublication', 'desc')));
+                
+                if (!newsSnap.empty) {
+                    currentNews = [];
+                    
+                    newsSnap.forEach(doc => {
+                        const data = doc.data();
+                        currentNews.push({ id: doc.id, ...data });
+                    });
+                    
+                    renderNewsCards();
+                } else {
+                    container.innerHTML = '<p>Aucune actualité publiée.</p>';
+                }
+            } catch (error) {
+                // Si l'erreur est due au champ 'ordre' manquant, on trie par date
+                console.log('Tri par date (champ ordre non disponible)');
+                try {
+                    const newsRef = collection(db, 'actualites');
+                    const newsSnap = await getDocs(query(newsRef, orderBy('datePublication', 'desc')));
+                    
+                    if (!newsSnap.empty) {
+                        currentNews = [];
+                        
+                        newsSnap.forEach((doc, index) => {
+                            const data = doc.data();
+                            currentNews.push({ id: doc.id, ...data, ordre: index });
+                        });
+                        
+                        renderNewsCards();
+                        
+                        // Mettre à jour le champ ordre dans Firestore pour les actualités existantes
+                        await updateNewsOrder();
+                    } else {
+                        container.innerHTML = '<p>Aucune actualité publiée.</p>';
+                    }
+                } catch (secondError) {
+                    container.innerHTML = '<p style="color: red;">Erreur de chargement des actualités</p>';
+                    console.error('Erreur:', secondError);
+                }
+            }
+        }
+
+        // Fonction pour rendre les cartes d'actualités avec drag & drop
+        function renderNewsCards() {
+            const container = document.getElementById('news-list');
+            let html = '<div class="news-drag-container">';
+            
+            currentNews.forEach((newsItem, index) => {
+                html += `
+                    <div class="news-card draggable-news" draggable="true" data-news-id="${newsItem.id}" data-index="${index}">
+                        <div class="drag-handle">⋮⋮</div>
+                        <div class="news-content">
+                            <h4>${newsItem.titre}</h4>
+                            <p>${newsItem.contenu?.substring(0, 150)}...</p>
+                            ${newsItem.image ? `<img src="${newsItem.image}" class="image-preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" onload="this.nextElementSibling.style.display='none';">
+                            <div class="image-error" style="display: none; background: #f8f9fa; border: 1px solid #dee2e6; padding: 10px; text-align: center; border-radius: 5px; color: #6c757d; font-size: 12px;">📷 Image non disponible</div>` : ''}
+                            <p><small>📅 ${newsItem.datePublication?.toDate?.()?.toLocaleDateString() || 'Date inconnue'} par ${newsItem.auteur}</small></p>
+                            <p><small style="color: #007bff;">📍 Position: ${index + 1}</small></p>
+                        </div>
+                        <div class="news-actions">
+                            <button onclick="editNews('${newsItem.id}')" class="btn btn-warning">✏️ Modifier</button>
+                            <button onclick="deleteNews('${newsItem.id}')" class="btn btn-danger">🗑️ Supprimer</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            html += '<p style="text-align: center; color: #666; margin-top: 15px;">💡 Glissez-déposez les actualités pour changer leur ordre d\'affichage</p>';
+            
+            // Ajouter le bouton de sauvegarde de l'ordre
+            html += `
+                <div id="news-order-controls" style="text-align: center; margin-top: 20px; ${!hasUnsavedNewsOrder ? 'display: none;' : ''}">
+                    <div id="unsaved-order-indicator" style="background: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <span style="color: #856404;">⚠️ <strong>Modifications non sauvegardées</strong></span>
+                        <p style="margin: 5px 0 0 0; font-size: 14px; color: #856404;">L'ordre des actualités a été modifié. Cliquez sur "Sauvegarder" pour appliquer les changements.</p>
+                    </div>
+                    <button id="save-news-order-btn" onclick="saveNewsOrderManually()" class="btn" style="background: #28a745; color: white; margin-right: 10px;">
+                        💾 Sauvegarder l'ordre
+                    </button>
+                    <button id="cancel-news-order-btn" onclick="cancelNewsOrderChanges()" class="btn" style="background: #6c757d; color: white;">
+                        ❌ Annuler
+                    </button>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            
+            // Initialiser le drag & drop
+            initializeDragAndDrop();
+        }
+
+        // Fonction pour mettre à jour l'ordre des actualités existantes
+        async function updateNewsOrder() {
+            console.log('🔄 Mise à jour de l\'ordre des actualités existantes...');
+            
+            const batch = writeBatch(db);
+            
+            currentNews.forEach((newsItem, index) => {
+                const newsRef = doc(db, 'actualites', newsItem.id);
+                batch.update(newsRef, { ordre: index });
+            });
+            
+            try {
+                await batch.commit();
+                console.log('✅ Ordre des actualités mis à jour');
+            } catch (error) {
+                console.error('❌ Erreur lors de la mise à jour de l\'ordre:', error);
+            }
+        }
+
+        // Fonctions pour gérer les actualités
+        window.editNews = function(id) {
+            console.log('Modification de l\'actualité:', id);
+            
+            // Trouver l'actualité dans currentNews
+            const newsItem = currentNews.find(news => news.id === id);
+            if (!newsItem) return;
+            
+            // Trouver la carte DOM correspondante
+            const newsCards = document.querySelectorAll('.draggable-news');
+            let targetCard = null;
+            
+            newsCards.forEach(card => {
+                const cardButton = card.querySelector('button[onclick*="editNews(\'' + id + '\')"]');
+                if (cardButton) {
+                    targetCard = card;
+                }
+            });
+            
+            // Pré-remplir le formulaire avec les bons IDs
+            document.getElementById('news-id').value = id;
+            document.getElementById('news-titre').value = newsItem.titre || '';
+            document.getElementById('news-contenu').value = newsItem.contenu || '';
+            document.getElementById('news-lien').value = newsItem.lien || '';
+            
+            // Afficher l'image si elle existe
+            if (newsItem.image) {
+                const preview = document.getElementById('news-image-preview');
+                preview.src = newsItem.image;
+                preview.classList.remove('hidden');
+            }
+            
+            const formContainer = document.getElementById('news-form-container');
+            
+            if (targetCard) {
+                // Déplacer le formulaire juste après la carte concernée
+                targetCard.parentNode.insertBefore(formContainer, targetCard.nextSibling);
+                console.log('Formulaire actualité déplacé à côté de la carte');
+            }
+            
+            // Afficher le formulaire
+            formContainer.classList.remove('hidden');
+            
+            // Scroll jusqu'au formulaire
+            setTimeout(() => {
+                formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+            
+            console.log('Formulaire actualité affiché pour modification');
+        }
+
+        window.deleteNews = async function(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette actualité ?')) {
+                try {
+                    await deleteDoc(doc(db, 'actualites', id));
+                    showNotification('Actualité supprimée avec succès!', 'success');
+                    loadNewsContent(); // Recharger la liste
+                } catch (error) {
+                    console.error('Erreur lors de la suppression:', error);
+                    showNotification('Erreur lors de la suppression: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // Fonction pour initialiser le drag & drop
+        function initializeDragAndDrop() {
+            const draggableItems = document.querySelectorAll('.draggable-news');
+            const container = document.querySelector('.news-drag-container');
+            
+            if (!container) return;
+            
+            let draggedElement = null;
+            let draggedIndex = null;
+            
+            draggableItems.forEach(item => {
+                // Drag start
+                item.addEventListener('dragstart', (e) => {
+                    draggedElement = item;
+                    draggedIndex = parseInt(item.dataset.index);
+                    item.style.opacity = '0.5';
+                    e.dataTransfer.effectAllowed = 'move';
+                    console.log('🔄 Début du drag:', draggedIndex);
+                });
+                
+                // Drag end
+                item.addEventListener('dragend', (e) => {
+                    item.style.opacity = '1';
+                    draggedElement = null;
+                    draggedIndex = null;
+                });
+                
+                // Drag over
+                item.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                });
+                
+                // Drop
+                item.addEventListener('drop', async (e) => {
+                    e.preventDefault();
+                    
+                    if (draggedElement && draggedElement !== item) {
+                        const dropIndex = parseInt(item.dataset.index);
+                        console.log('📍 Drop sur index:', dropIndex, 'depuis:', draggedIndex);
+                        
+                        // Réorganiser le tableau currentNews
+                        const draggedNews = currentNews[draggedIndex];
+                        currentNews.splice(draggedIndex, 1);
+                        currentNews.splice(dropIndex, 0, draggedNews);
+                        
+                        // Mettre à jour les indices
+                        currentNews.forEach((news, index) => {
+                            news.ordre = index;
+                        });
+                        
+                        // Marquer qu'il y a des changements non sauvegardés
+                        hasUnsavedNewsOrder = true;
+                        
+                        // Re-render les cartes
+                        renderNewsCards();
+                        
+                        console.log('✅ Ordre modifié localement (non sauvegardé)');
+                    }
+                });
+            });
+        }
+
+        // Fonction pour sauvegarder l'ordre dans Firebase
+        async function saveNewsOrder() {
+            console.log('💾 Sauvegarde de l\'ordre des actualités...');
+            
+            const batch = writeBatch(db);
+            
+            currentNews.forEach((newsItem, index) => {
+                const newsRef = doc(db, 'actualites', newsItem.id);
+                batch.update(newsRef, { ordre: index });
+            });
+            
+            try {
+                await batch.commit();
+                console.log('✅ Ordre sauvegardé dans Firebase');
+            } catch (error) {
+                console.error('❌ Erreur lors de la sauvegarde de l\'ordre:', error);
+                showNotification('Erreur lors de la sauvegarde de l\'ordre', 'error');
+            }
+        }
+
+        // Fonctions pour la sauvegarde manuelle de l'ordre
+        window.saveNewsOrderManually = async function() {
+            try {
+                await saveNewsOrder();
+                hasUnsavedNewsOrder = false;
+                hideUnsavedOrderIndicator();
+                showNotification('Ordre des actualités sauvegardé !', 'success');
+            } catch (error) {
+                console.error('Erreur lors de la sauvegarde:', error);
+                showNotification('Erreur lors de la sauvegarde de l\'ordre', 'error');
+            }
+        }
+
+        window.cancelNewsOrderChanges = function() {
+            if (confirm('Êtes-vous sûr de vouloir annuler les modifications d\'ordre ?')) {
+                hasUnsavedNewsOrder = false;
+                hideUnsavedOrderIndicator();
+                loadNewsContent(); // Recharger l'ordre original depuis Firebase
+                showNotification('Modifications d\'ordre annulées', 'info');
+            }
+        }
+
+        function showUnsavedOrderIndicator() {
+            const controls = document.getElementById('news-order-controls');
+            if (controls) {
+                controls.style.display = 'block';
+            }
+        }
+
+        function hideUnsavedOrderIndicator() {
+            const controls = document.getElementById('news-order-controls');
+            if (controls) {
+                controls.style.display = 'none';
+            }
+        }
+
+        // Chargement des activités
+        async function loadActivitiesContent() {
+            const container = document.getElementById('activities-list');
+            container.innerHTML = '<div class="loading">Chargement des activités</div>';
+            
+            try {
+                const activitiesRef = collection(db, 'activites');
+                const activitiesSnap = await getDocs(activitiesRef);
+                
+                if (!activitiesSnap.empty) {
+                    currentActivities = [];
+                    
+                    // Collecter et trier les activités par ordre alphabétique
+                    const activitiesArray = [];
+                    activitiesSnap.forEach(doc => {
+                        const data = doc.data();
+                        activitiesArray.push({ id: doc.id, ...data });
+                    });
+                    
+                    // Tri alphabétique par nom d'activité
+                    activitiesArray.sort((a, b) => {
+                        const nameA = a.nom?.toLowerCase() || '';
+                        const nameB = b.nom?.toLowerCase() || '';
+                        return nameA.localeCompare(nameB, 'fr');
+                    });
+                    
+                    currentActivities = activitiesArray;
+                    
+                    let html = '<h4>🏃 Activités du Foyer Rural (classées par ordre alphabétique)</h4>';
+                    
+                    activitiesArray.forEach(activity => {
+                        html += `
+                            <div class="activity-card">
+                                <h5>${activity.nom} - ${activity.public}</h5>
+                                <p><strong>Horaires:</strong> ${activity.jour} ${activity.horaires}</p>
+                                <p><strong>Lieu:</strong> ${activity.lieu} | <strong>Prix:</strong> ${activity.prix}</p>
+                                <p><strong>Responsable:</strong> ${activity.responsable} (${activity.telephone})</p>
+                                <p><strong>Animateur:</strong> ${activity.animateur}</p>
+                                <div>
+                                    <button onclick="editActivity('${activity.id}')" class="btn btn-warning">✏️ Modifier</button>
+                                    <button onclick="deleteActivity('${activity.id}')" class="btn btn-danger">🗑️ Supprimer</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<p>Aucune activité dans la base de données. Utilisez le bouton "Nouvelle Activité" pour en ajouter.</p>';
+                }
+                
+            } catch (error) {
+                container.innerHTML = '<p style="color: red;">Erreur de chargement des activités</p>';
+                console.error('Erreur:', error);
+            }
+        }
+
+        // Fonctions pour gérer les activités
+        window.editActivity = function(id) {
+            console.log('Modification de l\'activité:', id);
+            
+            // Trouver l'activité dans currentActivities
+            const activity = currentActivities.find(act => act.id === id);
+            if (!activity) return;
+            
+            console.log('Données de l\'activité:', activity);
+            
+            // Trouver la carte DOM correspondante
+            const activityCards = document.querySelectorAll('.activity-card');
+            let targetCard = null;
+            
+            activityCards.forEach(card => {
+                const cardButton = card.querySelector('button[onclick*="editActivity(\'' + id + '\')"]');
+                if (cardButton) {
+                    targetCard = card;
+                }
+            });
+            
+            // Pré-remplir le formulaire avec les bons IDs
+            document.getElementById('activity-id').value = id;
+            document.getElementById('activity-nom').value = activity.nom || '';
+            document.getElementById('activity-public').value = activity.public || '';
+            document.getElementById('activity-jour').value = activity.jour || '';
+            document.getElementById('activity-horaires').value = activity.horaires || '';
+            document.getElementById('activity-prix').value = activity.prix || '';
+            document.getElementById('activity-lieu').value = activity.lieu || '';
+            document.getElementById('activity-responsable').value = activity.responsable || '';
+            document.getElementById('activity-telephone').value = activity.telephone || '';
+            document.getElementById('activity-animateur').value = activity.animateur || '';
+            document.getElementById('activity-debut').value = activity.debut || '';
+            document.getElementById('activity-categories').value = activity.categories || '';
+            
+            const formContainer = document.getElementById('activity-form-container');
+            
+            if (targetCard) {
+                // Déplacer le formulaire juste après la carte concernée
+                targetCard.parentNode.insertBefore(formContainer, targetCard.nextSibling);
+                console.log('Formulaire activité déplacé à côté de la carte');
+            }
+            
+            // Afficher le formulaire
+            formContainer.classList.remove('hidden');
+            
+            // Scroll jusqu'au formulaire
+            setTimeout(() => {
+                formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        window.deleteActivity = async function(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette activité ?')) {
+                try {
+                    await deleteDoc(doc(db, 'activites', id));
+                    showNotification('Activité supprimée avec succès!', 'success');
+                    loadActivitiesContent(); // Recharger la liste
+                } catch (error) {
+                    console.error('Erreur lors de la suppression:', error);
+                    showNotification('Erreur lors de la suppression: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // Fonction pour nettoyer les activités défectueuses (accessible globalement)
+        window.cleanupActivities = async function() {
+            try {
+                const activitiesRef = collection(db, 'activites');
+                const activitiesSnap = await getDocs(activitiesRef);
+                
+                const batch = writeBatch(db);
+                let cleanupCount = 0;
+                
+                activitiesSnap.forEach(docSnap => {
+                    const data = docSnap.data();
+                    
+                    // Vérifier si l'activité a des valeurs "undefined" ou manquantes
+                    if (data.nom === 'undefined' || !data.nom || data.nom.trim() === '') {
+                        // Supprimer les activités défectueuses
+                        batch.delete(docSnap.ref);
+                        cleanupCount++;
+                        console.log('Suppression activité défectueuse:', docSnap.id);
+                    }
+                });
+                
+                if (cleanupCount > 0) {
+                    await batch.commit();
+                    console.log(`${cleanupCount} activités défectueuses supprimées`);
+                    showNotification(`${cleanupCount} activités défectueuses supprimées`, 'success');
+                    
+                    // Recharger la liste
+                    await loadActivitiesContent();
+                } else {
+                    showNotification('Aucune activité défectueuse trouvée', 'info');
+                }
+                
+            } catch (error) {
+                console.error('Erreur lors du nettoyage:', error);
+                showNotification('Erreur lors du nettoyage: ' + error.message, 'error');
+            }
+        }
+
+        // Chargement du bureau
+        async function loadBureauContent() {
+            try {
+                const bureauRef = doc(db, 'bureau', 'current');
+                const bureauSnap = await getDoc(bureauRef);
+                
+                if (bureauSnap.exists()) {
+                    const data = bureauSnap.data();
+                    
+                    document.getElementById('bureau-display').innerHTML = `
+                        <div style="background: #e8f5e8; padding: 15px; border-radius: 8px;">
+                            <p><strong>Président:</strong> ${data.president?.nom || 'Non défini'} - ${data.president?.telephone || 'N/A'}</p>
+                            <p><strong>Vice-Président:</strong> ${data.vicePresident?.nom || 'Non défini'} - ${data.vicePresident?.telephone || 'N/A'}</p>
+                            <p><strong>Secrétaire:</strong> ${data.secretaire?.nom || 'Non défini'} - ${data.secretaire?.telephone || 'N/A'}</p>
+                            <p><strong>Secrétaire Adjoint:</strong> ${data.secretaireAdjoint?.nom || 'Non défini'} - ${data.secretaireAdjoint?.telephone || 'N/A'}</p>
+                            <p><strong>Trésorière:</strong> ${data.tresoriere?.nom || 'Non défini'} - ${data.tresoriere?.telephone || 'N/A'}</p>
+                            <p><strong>Trésorier Adjoint:</strong> ${data.tresorierAdjoint?.nom || 'Non défini'} - ${data.tresorierAdjoint?.telephone || 'N/A'}</p>
+                            <small style="color: #666;">Dernière mise à jour: ${data.lastUpdated?.toDate?.()?.toLocaleDateString() || 'Inconnue'}</small>
+                        </div>
+                    `;
+                    
+                    // Pré-remplir le formulaire
+                    document.getElementById('president-nom').value = data.president?.nom || '';
+                    document.getElementById('president-tel').value = data.president?.telephone || '';
+                    document.getElementById('vp-nom').value = data.vicePresident?.nom || '';
+                    document.getElementById('vp-tel').value = data.vicePresident?.telephone || '';
+                    document.getElementById('sec-nom').value = data.secretaire?.nom || '';
+                    document.getElementById('sec-tel').value = data.secretaire?.telephone || '';
+                    document.getElementById('secadj-nom').value = data.secretaireAdjoint?.nom || '';
+                    document.getElementById('secadj-tel').value = data.secretaireAdjoint?.telephone || '';
+                    document.getElementById('tres-nom').value = data.tresoriere?.nom || '';
+                    document.getElementById('tres-tel').value = data.tresoriere?.telephone || '';
+                    document.getElementById('tresadj-nom').value = data.tresorierAdjoint?.nom || '';
+                    document.getElementById('tresadj-tel').value = data.tresorierAdjoint?.telephone || '';
+                } else {
+                    document.getElementById('bureau-display').innerHTML = '<p style="color: orange;">⚠️ Aucune donnée bureau trouvée. Utilisez le formulaire pour initialiser.</p>';
+                }
+            } catch (error) {
+                document.getElementById('bureau-display').innerHTML = '<p style="color: red;">❌ Erreur lors du chargement des données</p>';
+                console.error('Erreur:', error);
+            }
+        }
+
+        // Chargement des documents CA/AG
+        async function loadDocumentsContent() {
+            const container = document.getElementById('documents-list');
+            container.innerHTML = '<div class="loading">Chargement des documents</div>';
+            
+            try {
+                const documentsRef = collection(db, 'documents');
+                const documentsSnap = await getDocs(query(documentsRef, orderBy('date', 'desc')));
+                
+                if (!documentsSnap.empty) {
+                    let html = '<h4>📄 Documents disponibles (classés par date décroissante)</h4>';
+                    
+                    documentsSnap.forEach(doc => {
+                        const data = doc.data();
+                        const typeLabels = {
+                            'ca': '📋 Conseil d\'Administration',
+                            'ag': '👥 Assemblée Générale',
+                            'ago': '👥 AG Ordinaire',
+                            'age': '👥 AG Extraordinaire'
+                        };
+                        
+                        html += `
+                            <div class="content-item" style="border-left-color: ${data.type === 'ca' ? '#3498db' : '#e74c3c'};">
+                                <h5>${typeLabels[data.type] || data.type.toUpperCase()} - ${data.title}</h5>
+                                <p><strong>Date de la réunion:</strong> ${data.dateReunion?.toDate?.()?.toLocaleDateString() || 'Date inconnue'}</p>
+                                ${data.description ? `<p><strong>Description:</strong> ${data.description}</p>` : ''}
+                                <p><strong>Fichier:</strong> ${data.fileName} (${(data.fileSize / 1024 / 1024).toFixed(2)} MB)</p>
+                                <div>
+                                    <button onclick="window.open('${data.fileUrl}', '_blank')" class="btn" style="background: #17a2b8;">👁️ Ouvrir</button>
+                                    <button onclick="editDocument('${doc.id}')" class="btn btn-warning">✏️ Modifier</button>
+                                    <button onclick="deleteDocument('${doc.id}')" class="btn btn-danger">🗑️ Supprimer</button>
+                                </div>
+                                <small style="color: #666;">Ajouté le ${data.uploadedAt?.toDate?.()?.toLocaleDateString() || 'Date inconnue'} par ${data.uploadedBy}</small>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<p>Aucun document CA/AG publié. Utilisez le bouton "Nouveau Document" pour en ajouter.</p>';
+                }
+                
+            } catch (error) {
+                console.error('Erreur de chargement des documents:', error);
+                container.innerHTML = '<p style="color: red;">❌ Erreur de chargement des documents</p>';
+            }
+        }
+
+        // Fonctions pour gérer les documents
+        window.editDocument = async function(id) {
+            console.log('Modification du document:', id);
+            
+            try {
+                const docRef = doc(db, 'documents', id);
+                const docSnap = await getDoc(docRef);
+                
+                if (!docSnap.exists()) {
+                    console.error('Document non trouvé');
+                    return;
+                }
+                
+                const data = docSnap.data();
+                
+                // Pré-remplir le formulaire
+                document.getElementById('document-id').value = id;
+                document.getElementById('document-type').value = data.type?.toLowerCase() || '';
+                document.getElementById('document-date').value = data.date?.toDate?.()?.toISOString().split('T')[0] || '';
+                document.getElementById('document-title').value = data.title || '';
+                document.getElementById('document-description').value = data.description || '';
+                
+                // Afficher le formulaire
+                document.getElementById('document-form-container').classList.remove('hidden');
+                
+                // Scroll jusqu'au formulaire
+                setTimeout(() => {
+                    document.getElementById('document-form-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+                
+                console.log('Formulaire document affiché pour modification');
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement du document:', error);
+                showNotification('Erreur lors du chargement du document', 'error');
+            }
+        }
+
+        window.deleteDocument = async function(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce document ?')) {
+                try {
+                    await deleteDoc(doc(db, 'documents', id));
+                    showNotification('Document supprimé avec succès!', 'success');
+                    loadDocumentsContent(); // Recharger la liste
+                    refreshPreview(); // Rafraîchir l'aperçu
+                } catch (error) {
+                    console.error('Erreur lors de la suppression:', error);
+                    showNotification('Erreur lors de la suppression', 'error');
+                }
+            }
+        }
+
+        // Migration complète des activités depuis activities.js (accessible globalement)
+        window.migrateActivitiesFromJS = async function() {
+            if (!confirm('🔄 MIGRATION COMPLÈTE\n\nCette action va :\n1. Supprimer TOUTES les activités existantes\n2. Importer toutes les activités depuis activities.js\n\nÊtes-vous sûr de vouloir continuer ?')) {
+                return;
+            }
+            
+            try {
+                showNotification('🔄 Début de la migration des activités...', 'info');
+                
+                // Étape 1: Nettoyer toutes les activités existantes
+                console.log('Nettoyage des activités existantes...');
+                const activitiesRef = collection(db, 'activites');
+                const activitiesSnap = await getDocs(activitiesRef);
+                
+                if (!activitiesSnap.empty) {
+                    const batch = writeBatch(db);
+                    activitiesSnap.forEach(docSnap => {
+                        batch.delete(docSnap.ref);
+                    });
+                    await batch.commit();
+                    console.log(`${activitiesSnap.size} activités existantes supprimées`);
+                    showNotification(`🗑️ ${activitiesSnap.size} activités existantes supprimées`, 'info');
+                }
+                
+                // Étape 2: Charger les données depuis activities.js
+                console.log('Chargement des données depuis activities.js...');
+                const response = await fetch('./js/activities.js');
+                const jsContent = await response.text();
+                
+                // Extraire le tableau des activités du fichier JS
+                const activitiesMatch = jsContent.match(/const activities = \[([\s\S]*?)\];/);
+                if (!activitiesMatch) {
+                    throw new Error('Impossible de parser le fichier activities.js');
+                }
+                
+                // Parser le JSON des activités
+                let activitiesData;
+                try {
+                    // Nettoyer le contenu et l'évaluer comme JavaScript
+                    const activitiesContent = '[' + activitiesMatch[1] + ']';
+                    activitiesData = eval('(' + activitiesContent + ')');
+                } catch (parseError) {
+                    console.error('Erreur de parsing:', parseError);
+                    throw new Error('Impossible de parser les données des activités');
+                }
+                
+                console.log(`Trouvé ${activitiesData.length} activités à importer`);
+                showNotification(`📊 ${activitiesData.length} activités trouvées, import en cours...`, 'info');
+                
+                // Étape 3: Importer chaque activité avec le bon mapping des champs
+                let importCount = 0;
+                const batchSize = 10; // Traiter par lots pour éviter les timeouts
+                
+                for (let i = 0; i < activitiesData.length; i += batchSize) {
+                    const batch = writeBatch(db);
+                    const batchActivities = activitiesData.slice(i, i + batchSize);
+                    
+                    for (const activity of batchActivities) {
+                        // Mapping des champs activities.js -> Firestore
+                        const activityData = {
+                            nom: activity.name || '',
+                            public: activity.public || '',
+                            jour: activity.day || '',
+                            horaires: activity.time || '',
+                            prix: activity.price || '',
+                            responsable: activity.referent || '',
+                            telephone: activity.phone || '',
+                            animateur: activity.animator || '',
+                            lieu: activity.location || '',
+                            debut: activity.start || '',
+                            categories: Array.isArray(activity.category) ? activity.category.join(', ') : (activity.category || ''),
+                            detailUrl: activity.detailUrl || '',
+                            dateCreation: new Date(),
+                            dateMigration: new Date(),
+                            source: 'migration_activities_js'
+                        };
+                        
+                        const docRef = doc(collection(db, 'activites'));
+                        batch.set(docRef, activityData);
+                        importCount++;
+                    }
+                    
+                    await batch.commit();
+                    showNotification(`🔄 ${importCount}/${activitiesData.length} activités importées...`, 'info');
+                }
+                
+                console.log(`Migration terminée: ${importCount} activités importées`);
+                showNotification(`✅ Migration réussie ! ${importCount} activités importées depuis activities.js`, 'success');
+                
+                // Recharger la liste des activités
+                await loadActivitiesContent();
+                
+            } catch (error) {
+                console.error('Erreur lors de la migration:', error);
+                showNotification('❌ Erreur lors de la migration: ' + error.message, 'error');
+            }
+        }
+
+        // Initialisation de l'admin
+        async function initializeAdmin() {
+            currentUserSpan.textContent = currentUser.nom;
+            currentSection = 'accueil'; // Définir la section par défaut
+            
+            // Sauvegarder les positions originales des formulaires
+            originalNewsFormParent = document.getElementById('news-form-container')?.parentNode;
+            originalActivityFormParent = document.getElementById('activity-form-container')?.parentNode;
+            
+            // Ajouter les gestionnaires d'événements pour les boutons d'annulation
+            document.getElementById('cancel-news')?.addEventListener('click', () => {
+                hideAndRestoreForm('news-form-container', originalNewsFormParent);
+            });
+            
+            document.getElementById('cancel-activity')?.addEventListener('click', () => {
+                hideAndRestoreForm('activity-form-container', originalActivityFormParent);
+            });
+            
+            // Charger les données de la page d'accueil existantes
+            await loadAccueilData();
+            
+            await loadHomepageContent();
+            await loadNewsContent();
+            await loadActivitiesContent();
+            await loadBureauContent();
+            await loadDocumentsContent();
+            
+            // Capturer les données initiales et configurer la détection
+            setTimeout(() => {
+                captureOriginalFormData();
+                setupChangeDetection();
+                
+                console.log('Admin initialisé, section:', currentSection);
+            }, 500);
+        }
+        
+        function setupChangeDetection() {
+            console.log('Configuration de la détection de changements...');
+            
+            // Détecter les changements sur tous les formulaires
+            const forms = ['hero-form', 'banner-form', 'stats-form', 'news-form', 'activity-form', 'bureau-form', 'document-form'];
+            forms.forEach(formId => {
+                const form = document.getElementById(formId);
+                if (form) {
+                    console.log('Formulaire trouvé:', formId);
+                    const inputs = form.querySelectorAll('input, textarea, select');
+                    console.log(`Inputs trouvés dans ${formId}:`, inputs.length);
+                    
+                    inputs.forEach(input => {
+                        // Enlever les anciens événements pour éviter les duplications
+                        input.removeEventListener('input', handleInputChange);
+                        input.removeEventListener('change', handleInputChange);
+                        
+                        // Ajouter les nouveaux événements
+                        input.addEventListener('input', handleInputChange);
+                        input.addEventListener('change', handleInputChange);
+                        
+                        console.log('Événements attachés à:', input.id || input.name || input.type);
+                    });
+                    // Ajouter gestionnaire de soumission spécifique
+                    form.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        console.log('Sauvegarde depuis formulaire:', formId);
+                        handleFormSubmit(formId);
+                        return false;
+                    });
+                } else {
+                    console.log('Formulaire non trouvé:', formId);
+                }
+            });
+            
+            // Remplacer les événements onclick des onglets
+            document.querySelectorAll('.tab').forEach(tab => {
+                const originalOnclick = tab.getAttribute('onclick');
+                if (originalOnclick) {
+                    const tabName = originalOnclick.match(/switchTab\('(\w+)'\)/)?.[1];
+                    tab.removeAttribute('onclick');
+                    tab.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (tabName) {
+                            switchTab(tabName);
+                        }
+                    });
+                }
+            });
+            
+            console.log('Détection de changements configurée');
+        }
+
+        // Gestion des soumissions de formulaires
+        // Variable pour empêcher les soumissions multiples
+        let isSubmitting = false;
+
+        async function handleFormSubmit(formId) {
+            console.log('Traitement de la soumission pour:', formId);
+            
+            // Protection contre les double-clics et soumissions multiples
+            if (isSubmitting) {
+                console.log('⚠️ Soumission en cours, requête ignorée');
+                return;
+            }
+            
+            isSubmitting = true;
+            
+            // Désactiver le bouton de soumission
+            const form = document.getElementById(formId);
+            const submitButton = form?.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton?.textContent;
+            
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = '⏳ Sauvegarde en cours...';
+            }
+            
+            try {
+                switch(formId) {
+                    case 'hero-form':
+                        await saveHeroData();
+                        break;
+                    case 'banner-form':
+                        await saveBannerData();
+                        break;
+                    case 'stats-form':
+                        await saveStatsData();
+                        break;
+                    case 'news-form':
+                        await saveNewsData();
+                        break;
+                    case 'activity-form':
+                        await saveActivityData();
+                        break;
+                    case 'bureau-form':
+                        await saveBureauData();
+                        break;
+                    case 'document-form':
+                        await saveDocumentData();
+                        break;
+                    default:
+                        console.log('Formulaire non reconnu:', formId);
+                        return;
+                }
+                
+                // Fermer automatiquement les formulaires qui ont un conteneur dédié
+                const formContainers = {
+                    'news-form': 'news-form-container',
+                    'activity-form': 'activity-form-container', 
+                    'document-form': 'document-form-container'
+                };
+                
+                if (formContainers[formId]) {
+                    const container = document.getElementById(formContainers[formId]);
+                    if (container) {
+                        container.classList.add('hidden');
+                        console.log(`✅ Formulaire ${formId} fermé automatiquement`);
+                    }
+                }
+                
+                // Réinitialiser les données originales après sauvegarde
+                setTimeout(() => {
+                    captureOriginalFormData();
+                }, 500);
+                
+            } catch (error) {
+                console.error('Erreur lors de la sauvegarde:', error);
+                showNotification('Erreur lors de la sauvegarde : ' + error.message, 'error');
+            } finally {
+                // Réactiver le bouton et réinitialiser le verrou
+                isSubmitting = false;
+                
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+            }
+        }
+        
+        function handleInputChange(event) {
+            console.log('Changement détecté sur:', event.target.id || event.target.name);
+            detectChanges();
+            
+            // Mettre à jour l'aperçu immédiatement si ouvert
+            if (document.getElementById('preview-panel').classList.contains('active')) {
+                updatePreviewContent();
+            }
+        }
+
+        // Event Listeners
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            
+            if (authorizedUsers[username] && authorizedUsers[username].password === password) {
+                currentUser = authorizedUsers[username];
+                localStorage.setItem('fr-montaud-user', JSON.stringify(currentUser));
+                currentUserSpan.textContent = `${currentUser.nom} (${currentUser.role})`;
+                showStatus(loginStatus, 'success', `✅ Connexion réussie ! Bienvenue ${currentUser.nom}`);
+                setTimeout(showAdminPanel, 1000);
+            } else {
+                showStatus(loginStatus, 'error', '❌ Identifiant ou mot de passe incorrect');
+                document.getElementById('password').value = '';
+            }
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('fr-montaud-user');
+            hideAdminPanel();
+            document.getElementById('login-form').reset();
+        });
+
+        refreshBtn.addEventListener('click', () => {
+            location.reload();
+        });
+
+        previewBtn.addEventListener('click', () => {
+            togglePreview();
+        });
+
+        // Event listeners pour les formulaires
+        
+        // Formulaire bureau
+        // Boutons pour afficher/masquer les formulaires
+        document.getElementById('add-news')?.addEventListener('click', () => {
+            document.getElementById('news-form-container').classList.remove('hidden');
+            document.getElementById('news-form').reset();
+            document.getElementById('news-id').value = '';
+        });
+
+        document.getElementById('cancel-news')?.addEventListener('click', () => {
+            document.getElementById('news-form-container').classList.add('hidden');
+        });
+
+        document.getElementById('add-activity')?.addEventListener('click', () => {
+            document.getElementById('activity-form-container').classList.remove('hidden');
+            document.getElementById('activity-form').reset();
+            document.getElementById('activity-id').value = '';
+        });
+
+        document.getElementById('cancel-activity')?.addEventListener('click', () => {
+            document.getElementById('activity-form-container').classList.add('hidden');
+        });
+
+        document.getElementById('add-document')?.addEventListener('click', () => {
+            document.getElementById('document-form-container').classList.remove('hidden');
+            document.getElementById('document-form').reset();
+            document.getElementById('document-id').value = '';
+            document.getElementById('document-file-info').classList.add('hidden');
+        });
+
+        document.getElementById('cancel-document')?.addEventListener('click', () => {
+            document.getElementById('document-form-container').classList.add('hidden');
+        });
+
+        // Bouton aperçu activités phares
+        document.getElementById('preview-featured')?.addEventListener('click', () => {
+            if (document.getElementById('preview-panel').classList.contains('active')) {
+                // L'aperçu est déjà ouvert, forcer la mise à jour des activités phares
+                updateFeaturedActivitiesPreview();
+            } else {
+                // Ouvrir l'aperçu puis mettre à jour
+                openPreview();
+                setTimeout(() => updateFeaturedActivitiesPreview(), 500);
+            }
+        });
+
+        // Preview du fichier sélectionné pour les documents
+        document.getElementById('document-file')?.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const info = document.getElementById('document-file-info');
+            const fileName = document.getElementById('selected-file-name');
+            
+            if (file) {
+                fileName.textContent = file.name;
+                info.classList.remove('hidden');
+            } else {
+                info.classList.add('hidden');
+            }
+        });
+
+        // Preview de l'image sélectionnée pour les actualités
+        document.getElementById('news-image')?.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const preview = document.getElementById('news-image-preview');
+            
+            if (file) {
+                console.log('📸 Image sélectionnée:', file.name);
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    console.log('✅ Aperçu image actualité mis à jour');
+                    // Déclencher la mise à jour de l'aperçu en temps réel
+                    updatePreviewContent();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.classList.add('hidden');
+                preview.src = '';
+            }
+        });
+
+        // Variables pour stocker les emplacements originaux des formulaires
+        let originalNewsFormParent = null;
+        let originalActivityFormParent = null;
+        
+        // Fonctions pour restaurer les formulaires à leur position originale
+        function restoreFormToOriginalPosition(formId, originalParent) {
+            const form = document.getElementById(formId);
+            if (form && originalParent) {
+                originalParent.appendChild(form);
+                console.log('Formulaire', formId, 'restauré à sa position originale');
+            }
+        }
+        
+        // Fonction pour cacher et restaurer un formulaire
+        function hideAndRestoreForm(formId, originalParent) {
+            const form = document.getElementById(formId);
+            if (form) {
+                form.classList.add('hidden');
+                restoreFormToOriginalPosition(formId, originalParent);
+            }
+        }
+
+        // Exposer les fonctions globalement
+        window.switchTab = switchTab;
+
+        // Vérification session au chargement
+        window.addEventListener('load', () => {
+            const savedUser = localStorage.getItem('fr-montaud-user');
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    currentUserSpan.textContent = `${currentUser.nom} (${currentUser.role})`;
+                    showAdminPanel();
+                } catch {
+                    localStorage.removeItem('fr-montaud-user');
+                }
+            }
+        });
+
+        // Initialisation au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page chargée, initialisation de la détection de changements');
+            setupChangeDetection();
+            
+            // Charger les données existantes après connexion
+            setTimeout(() => {
+                if (currentUser) {
+                    loadAccueilData();
+                }
+            }, 1000);
+        });
+
+        // Fonction pour afficher des notifications (console seulement pour éviter les popups)
+        function showNotification(message, type = 'info') {
+            const prefix = type === 'error' ? '❌' : type === 'warning' ? '⚠️' : type === 'success' ? '✅' : 'ℹ️';
+            console.log(`${prefix} ${message}`);
+        }
+    </script>
+</body>
+</html>

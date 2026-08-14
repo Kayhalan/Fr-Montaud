@@ -1,0 +1,59 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // RÈGLES TEMPORAIRES POUR DÉVELOPPEMENT
+    // En production, utiliser l'authentification Firebase
+    
+    // Collection Bureau - Lecture publique, écriture libre (temporaire)
+    match /bureau/{document} {
+      allow read, write: if true; // TEMPORAIRE - pour tests
+    }
+    
+    // Collection Événements - Lecture publique, écriture libre (temporaire)
+    match /evenements/{document} {
+      allow read, write: if true; // TEMPORAIRE - pour tests
+    }
+    
+    // Collection Activités - Lecture publique, écriture libre (temporaire) 
+    match /activites/{document} {
+      allow read, write: if true; // TEMPORAIRE - pour tests
+    }
+    
+    // Collection Actualités - Lecture publique, écriture libre (temporaire)
+    match /actualites/{document} {
+      allow read, write: if true; // TEMPORAIRE - pour tests
+    }
+    
+    // Collection Contenus - Lecture publique, écriture libre (temporaire)
+    match /contenus/{document} {
+      allow read, write: if true; // TEMPORAIRE - pour tests
+    }
+    
+    // Collection Contenus Homepage - Lecture publique, écriture libre (temporaire)
+    match /contenus-homepage/{document} {
+      allow read, write: if true; // TEMPORAIRE - pour tests
+    }
+    
+    // Collection Documents - Lecture publique, écriture libre (temporaire)
+    match /documents/{document} {
+      allow read, write: if true; // TEMPORAIRE - pour tests
+    }
+    
+    // Collection Contenu - pour page d'accueil, etc.
+    match /contenu/{document} {
+      allow read, write: if true; // TEMPORAIRE - pour tests
+    }
+    
+    // Collection Test - pour debug
+    match /test/{document} {
+      allow read, write: if true;
+    }
+    
+    // Par défaut, lecture autorisée, écriture interdite
+    match /{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

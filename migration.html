@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migration des données - Foyer Rural</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 10px 10px 0;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .data-preview {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .data-preview h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        .data-item {
+            margin-bottom: 10px;
+            padding: 8px;
+            background: white;
+            border-left: 3px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Migration des données - Foyer Rural de Montaud</h1>
+        <p>Cet outil va migrer automatiquement les données actuelles du bureau vers Firestore.</p>
+
+        <div id="login-section">
+            <h2>🔐 Authentification requise</h2>
+            <p>Connectez-vous avec un compte Google autorisé pour effectuer la migration :</p>
+            <button id="login-btn" class="btn">Se connecter avec Google</button>
+            <div id="login-status" class="status" style="display: none;"></div>
+        </div>
+
+        <div id="migration-section" style="display: none;">
+            <h2>📋 Données actuelles à migrer</h2>
+            <div class="data-preview">
+                <h3>Bureau du Foyer Rural :</h3>
+                <div class="data-item">
+                    <strong>Président :</strong> Jonathan DRAY – 07 67 55 05 12
+                </div>
+                <div class="data-item">
+                    <strong>Vice-Président :</strong> Jérome COMBESCURE – 06 81 89 82 55
+                </div>
+                <div class="data-item">
+                    <strong>Secrétaire :</strong> Marianne COMBESCURE – 07 87 70 77 40
+                </div>
+                <div class="data-item">
+                    <strong>Secrétaire adjointe :</strong> Emma GOURLAN – 07 82 89 74 49
+                </div>
+                <div class="data-item">
+                    <strong>Trésorière :</strong> Roselyne NACACHIAN – 06 32 65 67 76
+                </div>
+                <div class="data-item">
+                    <strong>Trésorier adjoint :</strong> Philippe REVERBEL – 06 83 46 29 79
+                </div>
+            </div>
+
+            <div class="status info">
+                <strong>ℹ️ Information :</strong> Cette opération va créer/mettre à jour le document 'bureau/current' dans Firestore avec ces données.
+            </div>
+
+            <button id="migrate-btn" class="btn">🚀 Lancer la migration</button>
+            <button id="verify-btn" class="btn" disabled>✅ Vérifier les données migrées</button>
+
+            <div id="migration-status" class="status" style="display: none;"></div>
+            
+            <div id="verification-results" style="display: none;">
+                <h3>📊 Vérification des données dans Firestore :</h3>
+                <div id="firestore-data" class="data-preview"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+        import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+
+        // Configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyC5nUayIeA8Dgx8loqZ1pyG5vei8PHWggU",
+            authDomain: "frmontaud-09-25.firebaseapp.com",
+            projectId: "frmontaud-09-25",
+            storageBucket: "frmontaud-09-25.firebasestorage.app",
+            messagingSenderId: "350075655257",
+            appId: "1:350075655257:web:84f8f375cf19b2610b0d48",
+            measurementId: "G-S7BKPP6F02"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // Emails autorisés (même liste que dans admin.html)
+        const authorizedEmails = [
+            'foyerrural.montaud@gmail.com',
+        ];
+
+        // Données actuelles du bureau à migrer
+        const bureauData = {
+            president: {
+                nom: "Jonathan DRAY",
+                telephone: "07 67 55 05 12"
+            },
+            vicePresident: {
+                nom: "Jérome COMBESCURE",
+                telephone: "06 81 89 82 55"
+            },
+            secretaire: {
+                nom: "Marianne COMBESCURE",
+                telephone: "07 87 70 77 40"
+            },
+            secretaireAdjoint: {
+                nom: "Emma GOURLAN",
+                telephone: "07 82 89 74 49"
+            },
+            tresorier: {
+                nom: "Roselyne NACACHIAN",
+                telephone: "06 32 65 67 76"
+            },
+            tresorierAdjoint: {
+                nom: "Philippe REVERBEL",
+                telephone: "06 83 46 29 79"
+            }
+        };
+
+        // Éléments DOM
+        const loginSection = document.getElementById('login-section');
+        const migrationSection = document.getElementById('migration-section');
+        const loginBtn = document.getElementById('login-btn');
+        const migrateBtn = document.getElementById('migrate-btn');
+        const verifyBtn = document.getElementById('verify-btn');
+        const loginStatus = document.getElementById('login-status');
+        const migrationStatus = document.getElementById('migration-status');
+        const verificationResults = document.getElementById('verification-results');
+        const firestoreData = document.getElementById('firestore-data');
+
+        // Fonctions utilitaires
+        function showStatus(element, type, message, permanent = false) {
+            element.className = `status ${type}`;
+            element.innerHTML = message;
+            element.style.display = 'block';
+            
+            if (!permanent) {
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // Authentification
+        loginBtn.addEventListener('click', async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                
+                if (!authorizedEmails.includes(user.email)) {
+                    await signOut(auth);
+                    showStatus(loginStatus, 'error', '❌ Accès non autorisé. Votre email n\'est pas dans la liste des administrateurs.');
+                    return;
+                }
+                
+                showStatus(loginStatus, 'success', '✅ Connexion réussie !');
+            } catch (error) {
+                showStatus(loginStatus, 'error', '❌ Erreur de connexion : ' + error.message);
+            }
+        });
+
+        // Observer l'authentification
+        onAuthStateChanged(auth, (user) => {
+            if (user && authorizedEmails.includes(user.email)) {
+                loginSection.style.display = 'none';
+                migrationSection.style.display = 'block';
+            } else {
+                loginSection.style.display = 'block';
+                migrationSection.style.display = 'none';
+            }
+        });
+
+        // Migration des données
+        migrateBtn.addEventListener('click', async () => {
+            migrateBtn.disabled = true;
+            migrateBtn.textContent = '🔄 Migration en cours...';
+            
+            try {
+                const dataToMigrate = {
+                    ...bureauData,
+                    migrationDate: serverTimestamp(),
+                    migratedBy: auth.currentUser.email,
+                    source: 'migration-script'
+                };
+
+                await setDoc(doc(db, 'bureau', 'current'), dataToMigrate);
+                
+                showStatus(migrationStatus, 'success', 
+                    `✅ <strong>Migration réussie !</strong><br>
+                    Les données du bureau ont été sauvegardées dans Firestore.<br>
+                    Collection: <code>bureau</code>, Document: <code>current</code>`, true);
+                
+                verifyBtn.disabled = false;
+                migrateBtn.textContent = '✅ Migration terminée';
+                
+            } catch (error) {
+                showStatus(migrationStatus, 'error', '❌ Erreur durant la migration : ' + error.message);
+                migrateBtn.disabled = false;
+                migrateBtn.textContent = '🚀 Lancer la migration';
+                console.error('Erreur migration:', error);
+            }
+        });
+
+        // Vérification des données
+        verifyBtn.addEventListener('click', async () => {
+            try {
+                const bureauRef = doc(db, 'bureau', 'current');
+                const bureauSnap = await getDoc(bureauRef);
+                
+                if (bureauSnap.exists()) {
+                    const data = bureauSnap.data();
+                    
+                    let html = '<h4>✅ Données trouvées dans Firestore :</h4>';
+                    html += '<div class="data-item"><strong>Président :</strong> ' + (data.president?.nom || 'N/A') + ' – ' + (data.president?.telephone || 'N/A') + '</div>';
+                    html += '<div class="data-item"><strong>Vice-Président :</strong> ' + (data.vicePresident?.nom || 'N/A') + ' – ' + (data.vicePresident?.telephone || 'N/A') + '</div>';
+                    html += '<div class="data-item"><strong>Secrétaire :</strong> ' + (data.secretaire?.nom || 'N/A') + ' – ' + (data.secretaire?.telephone || 'N/A') + '</div>';
+                    html += '<div class="data-item"><strong>Secrétaire Adjoint :</strong> ' + (data.secretaireAdjoint?.nom || 'N/A') + ' – ' + (data.secretaireAdjoint?.telephone || 'N/A') + '</div>';
+                    html += '<div class="data-item"><strong>Trésorier :</strong> ' + (data.tresorier?.nom || 'N/A') + ' – ' + (data.tresorier?.telephone || 'N/A') + '</div>';
+                    html += '<div class="data-item"><strong>Trésorier Adjoint :</strong> ' + (data.tresorierAdjoint?.nom || 'N/A') + ' – ' + (data.tresorierAdjoint?.telephone || 'N/A') + '</div>';
+                    
+                    if (data.migrationDate) {
+                        html += '<div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #dee2e6;">';
+                        html += '<small><strong>Migré le :</strong> ' + data.migrationDate.toDate().toLocaleString('fr-FR') + '</small><br>';
+                        html += '<small><strong>Par :</strong> ' + (data.migratedBy || 'N/A') + '</small>';
+                        html += '</div>';
+                    }
+                    
+                    firestoreData.innerHTML = html;
+                    verificationResults.style.display = 'block';
+                    
+                } else {
+                    firestoreData.innerHTML = '<div class="status error">❌ Aucune donnée trouvée dans Firestore. La migration n\'a peut-être pas fonctionné.</div>';
+                    verificationResults.style.display = 'block';
+                }
+                
+            } catch (error) {
+                firestoreData.innerHTML = '<div class="status error">❌ Erreur lors de la vérification : ' + error.message + '</div>';
+                verificationResults.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

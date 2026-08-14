@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import des Activités - Foyer Rural de Montaud</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .status.info { background: #e3f2fd; color: #1976d2; }
+        .status.success { background: #e8f5e8; color: #2e7d32; }
+        .status.error { background: #ffebee; color: #c62828; }
+        .button {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        .button:hover { background: #45a049; }
+        .button:disabled { background: #cccccc; cursor: not-allowed; }
+        .progress {
+            margin: 20px 0;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #4CAF50;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .activities-count {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .log {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏛️ Import des Activités vers Firebase</h1>
+        
+        <div class="status info">
+            <strong>Information :</strong> Ce script va importer toutes les activités du fichier activities.js vers la base de données Firebase.
+        </div>
+
+        <div class="activities-count">
+            <strong>Activités détectées dans activities.js :</strong> <span id="activities-count">0</span>
+        </div>
+
+        <div class="progress" id="progress-container" style="display: none;">
+            <div><strong>Progression :</strong> <span id="progress-text">0/0</span></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div>
+            <button class="button" onclick="checkActivities()">🔍 Vérifier les activités</button>
+            <button class="button" onclick="importActivities()" id="import-btn" disabled>📥 Importer toutes les activités</button>
+            <button class="button" onclick="clearAllActivities()" id="clear-btn">🗑️ Vider Firebase d'abord</button>
+        </div>
+
+        <div class="log" id="log"></div>
+    </div>
+
+    <!-- Firebase v10.12.2 -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+        import { 
+            getFirestore, 
+            collection, 
+            addDoc, 
+            getDocs, 
+            deleteDoc,
+            doc,
+            serverTimestamp,
+            writeBatch
+        } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+        
+        // Configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyA9PjUWgadL9Gs9R1RKo5K4Lz2SQVb4wso",
+            authDomain: "frmontaud-09-25.firebaseapp.com", 
+            projectId: "frmontaud-09-25",
+            storageBucket: "frmontaud-09-25.firebasestorage.app",
+            messagingSenderId: "1046155778901",
+            appId: "1:1046155778901:web:4bb0ad23b2c5e26f7c5050"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        // Variables globales
+        window.db = db;
+        window.collection = collection;
+        window.addDoc = addDoc;
+        window.getDocs = getDocs;
+        window.deleteDoc = deleteDoc;
+        window.doc = doc;
+        window.serverTimestamp = serverTimestamp;
+        window.writeBatch = writeBatch;
+    </script>
+
+    <script src="js/activities.js"></script>
+
+    <script>
+        let importedCount = 0;
+        let totalCount = 0;
+
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `<strong>[${timestamp}]</strong> ${message}`;
+            logEntry.className = type;
+            logDiv.appendChild(logEntry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function updateProgress(current, total) {
+            const progressText = document.getElementById('progress-text');
+            const progressFill = document.getElementById('progress-fill');
+            const percentage = total > 0 ? (current / total) * 100 : 0;
+            
+            progressText.textContent = `${current}/${total}`;
+            progressFill.style.width = `${percentage}%`;
+        }
+
+        async function checkActivities() {
+            log('🔍 Vérification des activités dans activities.js...');
+            
+            if (typeof activities === 'undefined') {
+                log('❌ Erreur: Le fichier activities.js n\'a pas été chargé correctement', 'error');
+                return;
+            }
+            
+            const count = activities.length;
+            document.getElementById('activities-count').textContent = count;
+            log(`✅ ${count} activités trouvées dans activities.js`);
+            
+            // Vérifier les activités existantes dans Firebase
+            try {
+                const querySnapshot = await getDocs(collection(db, 'activites'));
+                const existingCount = querySnapshot.size;
+                log(`📊 ${existingCount} activités déjà présentes dans Firebase`);
+                
+                if (existingCount > 0) {
+                    log('⚠️  Des activités existent déjà dans Firebase. Vous pouvez les vider d\'abord puis importer.', 'warning');
+                }
+                
+                document.getElementById('import-btn').disabled = false;
+                
+            } catch (error) {
+                log(`❌ Erreur lors de la vérification Firebase: ${error.message}`, 'error');
+            }
+        }
+
+        async function clearAllActivities() {
+            if (!confirm('⚠️  Êtes-vous sûr de vouloir supprimer TOUTES les activités de Firebase ?')) {
+                return;
+            }
+
+            log('🗑️  Suppression de toutes les activités Firebase...');
+            
+            try {
+                const querySnapshot = await getDocs(collection(db, 'activites'));
+                const batch = writeBatch(db);
+                
+                querySnapshot.forEach((docSnapshot) => {
+                    batch.delete(docSnapshot.ref);
+                });
+                
+                await batch.commit();
+                log(`✅ ${querySnapshot.size} activités supprimées de Firebase`);
+                
+            } catch (error) {
+                log(`❌ Erreur lors de la suppression: ${error.message}`, 'error');
+            }
+        }
+
+        async function importActivities() {
+            if (!confirm('Confirmer l\'import de toutes les activités vers Firebase ?')) {
+                return;
+            }
+
+            log('📥 Début de l\'importation des activités...');
+            document.getElementById('import-btn').disabled = true;
+            document.getElementById('progress-container').style.display = 'block';
+            
+            totalCount = activities.length;
+            importedCount = 0;
+            updateProgress(0, totalCount);
+
+            try {
+                for (let i = 0; i < activities.length; i++) {
+                    const activity = activities[i];
+                    
+                    // Convertir la structure activities.js vers le format Firebase
+                    const activityData = {
+                        title: activity.name,
+                        description: `Public: ${activity.public}
+Horaires: ${activity.day} ${activity.time}
+Lieu: ${activity.location}
+Début: ${activity.start}
+Animateur: ${activity.animator}`,
+                        schedule: `${activity.day} ${activity.time}`,
+                        location: activity.location,
+                        instructor: activity.animator,
+                        price: activity.price,
+                        referent: activity.referent,
+                        phone: activity.phone,
+                        public: activity.public,
+                        day: activity.day,
+                        time: activity.time,
+                        start: activity.start,
+                        detailUrl: activity.detailUrl,
+                        categories: activity.category || [],
+                        createdAt: serverTimestamp(),
+                        importedFrom: 'activities.js',
+                        importedAt: serverTimestamp()
+                    };
+
+                    await addDoc(collection(db, 'activites'), activityData);
+                    importedCount++;
+                    
+                    updateProgress(importedCount, totalCount);
+                    log(`✅ Importé: ${activity.name} (${activity.public})`);
+                    
+                    // Petit délai pour éviter de surcharger Firebase
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+
+                log(`🎉 Import terminé ! ${importedCount}/${totalCount} activités importées avec succès`, 'success');
+                
+            } catch (error) {
+                log(`❌ Erreur durant l'import: ${error.message}`, 'error');
+            } finally {
+                document.getElementById('import-btn').disabled = false;
+            }
+        }
+
+        // Charger automatiquement au démarrage
+        window.addEventListener('load', () => {
+            setTimeout(checkActivities, 1000);
+        });
+    </script>
+</body>
+</html>
