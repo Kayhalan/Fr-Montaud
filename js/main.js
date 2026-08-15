@@ -238,6 +238,19 @@ function getStartMinutes(timeValue) {
   return (hours * 60) + minutes;
 }
 
+function normalizeTimeLabel(timeValue) {
+  const source = String(timeValue || '').trim();
+  if (!source) return 'Horaire a confirmer';
+
+  return source.replace(/(\d{1,2})h(\d{0,2})/gi, (_, h, m) => {
+    const hour = Number.parseInt(h, 10);
+    const safeHour = Number.isFinite(hour) ? hour : h;
+    const rawMinutes = String(m || '').trim();
+    const safeMinutes = rawMinutes.length ? rawMinutes.padStart(2, '0').slice(0, 2) : '00';
+    return `${safeHour}h${safeMinutes}`;
+  });
+}
+
 function getCalendarLocationClass(locationValue) {
   const normalized = normalizeActivityName(locationValue);
 
@@ -287,12 +300,21 @@ function renderCalendarActivityItem(act) {
   const detailUrl = resolveActivityDetailUrl(act);
   const locationClass = getCalendarLocationClass(act.location);
   const textStyles = act.textStyles || {};
+  const normalizedTime = normalizeTimeLabel(act.time);
   const itemInner = `
     <article class="calendar-activity-item">
-      <div class="calendar-time" style="${styleCssFromMap(textStyles, 'activity-horaires')}">${escapeHtml(act.time || 'Horaire a confirmer')}</div>
-      <h3 class="calendar-activity-title" style="${styleCssFromMap(textStyles, 'activity-nom')}">${escapeHtml(act.name)}</h3>
-      <p class="calendar-activity-meta" style="${styleCssFromMap(textStyles, 'activity-public')}">${escapeHtml(act.public || 'Public non renseigne')}</p>
-      <span class="calendar-location-badge ${locationClass}" style="${styleCssFromMap(textStyles, 'activity-lieu')}">${escapeHtml(act.location || 'Lieu non renseigne')}</span>
+      <div class="calendar-zone calendar-zone-time">
+        <p class="calendar-time" style="${styleCssFromMap(textStyles, 'activity-horaires')}">${escapeHtml(normalizedTime)}</p>
+      </div>
+      <div class="calendar-zone calendar-zone-name">
+        <h3 class="calendar-activity-title" style="${styleCssFromMap(textStyles, 'activity-nom')}">${escapeHtml(act.name || 'Nom non renseigne')}</h3>
+      </div>
+      <div class="calendar-zone calendar-zone-public">
+        <p class="calendar-activity-meta" style="${styleCssFromMap(textStyles, 'activity-public')}">${escapeHtml(act.public || 'Public non renseigne')}</p>
+      </div>
+      <div class="calendar-zone calendar-zone-location">
+        <span class="calendar-location-badge ${locationClass}" style="${styleCssFromMap(textStyles, 'activity-lieu')}">${escapeHtml(act.location || 'Lieu non renseigne')}</span>
+      </div>
     </article>
   `;
 
@@ -338,6 +360,7 @@ function renderActivitiesCalendar(category) {
 
   const columnsHtml = visibleDays.map(day => {
     const dayActivities = groupedActivities[day.key];
+    const countText = `${dayActivities.length} ${dayActivities.length > 1 ? 'activites' : 'activite'}`;
     const itemsHtml = dayActivities.length
       ? dayActivities.map(renderCalendarActivityItem).join('')
       : '<p class="calendar-empty-slot">Aucune activite</p>';
@@ -346,7 +369,7 @@ function renderActivitiesCalendar(category) {
       <section class="calendar-day-column">
         <header class="calendar-day-header">
           <h2>${day.label}</h2>
-          <span class="calendar-day-count">${dayActivities.length}</span>
+          <span class="calendar-day-count" aria-label="${countText}">${countText}</span>
         </header>
         <div class="calendar-day-content">
           ${itemsHtml}
